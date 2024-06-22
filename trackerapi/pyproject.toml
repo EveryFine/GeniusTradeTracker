@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tracker"
+name = "trackerapi"
 version = "0.1.0"
 description = ""
 authors = ["everyfine <zuluck2004@icloud.com>"]
