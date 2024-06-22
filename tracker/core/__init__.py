@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-   File Name：     main
+   File Name：     __init__.py
    Description :
    Author :       EveryFine
    Date：          2024/6/22
@@ -12,10 +12,3 @@
 -------------------------------------------------
 """
 __author__ = 'EveryFine'
-
-from fastapi import FastAPI
-
-from app.router import route
-from core.register import register_app
-
-app = register_app()
