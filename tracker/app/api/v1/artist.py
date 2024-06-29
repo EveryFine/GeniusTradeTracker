@@ -17,7 +17,8 @@ from fastapi import APIRouter, Query
 from sqlmodel import select,func
 
 from app.api.deps import SessionDep
-from app.models.artist import ArtistsPublic, Artist
+from app.crud.crud_artist import get_artists, create_artist
+from app.models.artist import ArtistsPublic, Artist, ArtistPublic, ArtistCreate
 
 router = APIRouter()
 
@@ -26,10 +27,11 @@ router = APIRouter()
 def read_artists(session: SessionDep,
                  offset: int = 0,
                  limit: int = Query(default=100, le=100)):
-    count_statement = select(func.count()).select_from(Artist)
-    count = session.exec(count_statement).one()
+    artists = get_artists(session=session, offset=offset,limit=limit)
 
-    statement = select(Artist).offset(offset).limit(limit)
-    artists = session.exec(statement).all()
+    return artists
 
-    return ArtistsPublic(data=artists, count=count)
+@router.post("/", response_model=ArtistPublic)
+def create_hero(session: SessionDep, artist: ArtistCreate):
+    artist_public = create_artist(session=session, artist_create=artist)
+    return artist_public

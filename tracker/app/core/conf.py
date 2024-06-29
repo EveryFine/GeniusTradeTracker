@@ -33,6 +33,8 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
 
+    DB_ECHO: bool = True
+
     @computed_field  # type: ignore[misc]
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
@@ -53,7 +55,7 @@ class Settings(BaseSettings):
 
     # Uvicorn
     UVICORN_HOST: str = '127.0.0.1'
-    UVICORN_PORT: int = 8000
+    UVICORN_PORT: int = 8080
     UVICORN_RELOAD: bool = True
 
     # Middleware

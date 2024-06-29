@@ -13,13 +13,25 @@
 """
 __author__ = 'EveryFine'
 
+from pathlib import Path
+
 import uvicorn
+from sqlmodel import SQLModel
+
 
 from app.common.log import log
 from app.core.conf import settings
+from app.core.db import engine
 from app.core.register import register_app
 
 app = register_app()
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
 
 if __name__ == '__main__':
     try:
@@ -37,6 +49,7 @@ if __name__ == '__main__':
             """
         )
         uvicorn.run(
+            app=f'{Path(__file__).stem}:app',
             host=settings.UVICORN_HOST,
             port=settings.UVICORN_PORT,
             reload=settings.UVICORN_RELOAD,
