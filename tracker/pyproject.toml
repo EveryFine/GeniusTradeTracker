@@ -6,10 +6,13 @@ authors = ["everyfine <zuluck2004@icloud.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.12"
 fastapi = "^0.111.0"
 pydantic = "^2.7.4"
 pydantic-settings = "^2.3.3"
+sqlalchemy = "^2.0.31"
+sqlmodel = "^0.0.19"
+loguru = "^0.7.2"
 
 
 [build-system]

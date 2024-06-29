@@ -15,8 +15,9 @@ __author__ = 'EveryFine'
 
 from fastapi import FastAPI
 
+from app.core.conf import settings
+from app.middleware.access_middle import AccessMiddleware
 from app.router import route
-from core.conf import settings
 
 
 def register_app():
@@ -26,6 +27,8 @@ def register_app():
         version=settings.VERSION,
         description=settings.DESCRIPTION
     )
+
+    register_middleware(app)
 
     register_router(app)
 
@@ -39,3 +42,9 @@ def register_router(app):
     :return:
     """
     app.include_router(route)
+
+
+def register_middleware(app) -> None:
+    # 接口访问日志
+    if settings.MIDDLEWARE_ACCESS:
+        app.add_middleware(AccessMiddleware)

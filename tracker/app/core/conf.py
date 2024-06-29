@@ -31,7 +31,6 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
 
     # FastAPI
-    API_V1_STR: str = '/api/v1'
     TITLE: str = 'TrackerAPI'
     VERSION: str = '0.0.1'
     DESCRIPTION: str = 'Fin Tracker API'
@@ -40,6 +39,13 @@ class Settings(BaseSettings):
     UVICORN_HOST: str = '127.0.0.1'
     UVICORN_PORT: int = 8000
     UVICORN_RELOAD: bool = True
+
+    # Middleware
+    MIDDLEWARE_ACCESS: bool = True
+
+    # Log
+    LOG_STDOUT_FILENAME: str = 'tracker_access.log'
+    LOG_STDERR_FILENAME: str = 'tracker_error.log'
 
 
 @lru_cache
