@@ -15,6 +15,7 @@ __author__ = 'EveryFine'
 
 from fastapi import FastAPI
 
+from app.api.routers import v1
 from app.core.conf import settings
 from app.middleware.access_middle import AccessMiddleware
 from app.router import route
@@ -42,6 +43,7 @@ def register_router(app):
     :return:
     """
     app.include_router(route)
+    app.include_router(v1)
 
 
 def register_middleware(app) -> None:
