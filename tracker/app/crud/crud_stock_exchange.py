@@ -70,4 +70,7 @@ def create_stock_exchange(row, session):
     session.add(db_stock_exchange)
     session.commit()
     session.refresh(db_stock_exchange)
-    return db_stock_exchange
+    ## 如果不加此句，则返回结果前两条为空
+    res = StockExchange.model_validate(db_stock_exchange)
+    return res
+
