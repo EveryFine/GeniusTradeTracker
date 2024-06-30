@@ -16,4 +16,4 @@ def on_startup():
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 ```
-### 3. 使用liquibase初始化基本数据，从CSV文件导入
+### 3. 使用update接口更新数据
