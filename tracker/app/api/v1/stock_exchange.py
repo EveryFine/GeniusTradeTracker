@@ -26,7 +26,8 @@ from app.models.stock_exchange import StockExchange
 
 router = APIRouter()
 
+
 @router.post("/", response_model=List[StockExchange])
-def create_hero(session: SessionDep):
+def create_stock_exchange(session: SessionDep):
     stock_exchanges = create_stock_exchanges(session=session)
     return stock_exchanges
