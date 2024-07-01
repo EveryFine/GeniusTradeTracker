@@ -18,13 +18,22 @@ __author__ = 'EveryFine'
 
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from app.api.deps import SessionDep
-from app.crud.crud_stock_exchange import create_stock_exchanges
-from app.models.stock_exchange import StockExchange
+from app.crud.crud_stock_exchange import create_stock_exchanges, get_stock_exchanges
+from app.models.stock_exchange import StockExchange, StockExchangesPublic
 
 router = APIRouter()
+
+
+@router.get("/", response_model=StockExchangesPublic)
+def read_artists(session: SessionDep,
+                 offset: int = 0,
+                 limit: int = Query(default=100, le=100)):
+    exchanges = get_stock_exchanges(session=session, offset=offset, limit=limit)
+
+    return exchanges
 
 
 @router.post("/", response_model=List[StockExchange])

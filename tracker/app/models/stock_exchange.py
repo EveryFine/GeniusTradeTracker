@@ -26,6 +26,7 @@ class StockExchangeBase(SQLModel):
 
 class StockExchange(StockExchangeBase, table=True):
     """stock_exchange表"""
+    __tablename__ = "stock_exchange"
     id: int | None = Field(default=None, primary_key=True, description='id')
 
 
