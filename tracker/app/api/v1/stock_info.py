@@ -18,7 +18,7 @@ from typing import List
 from fastapi import APIRouter, Query
 
 from app.api.deps import SessionDep
-from app.crud.crud_stock_info import create_stock_infos
+from app.crud.crud_stock_info import create_stock_infos, get_stock_infos
 from app.models.stock_info import StockInfosPublic, StockInfo
 
 router = APIRouter()

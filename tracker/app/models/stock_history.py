@@ -13,14 +13,14 @@
 """
 __author__ = 'EveryFine'
 
-from datetime import datetime
+import datetime
 
 from sqlmodel import SQLModel, Field
 
 
 class StockHistoryBase(SQLModel):
-    symbol: str = Field(max_length=20, description='股票代码')
-    date: datetime.date | None = Field(default=datetime.date.today(), description='日期')
+    symbol: str = Field(max_length=20, description='股票代码', index=True)
+    date: datetime.date | None = Field(default=datetime.date.today(), description='日期', index=True)
     open: float | None = Field(default=None, description='开盘价')
     close: float | None = Field(default=None, description='收盘价')
     high: float | None = Field(default=None, description='最高价')
@@ -39,14 +39,14 @@ class StockHistory(StockHistoryBase, table=True):
     id: int | None = Field(default=None, primary_key=True, description='id')
 
 
-class StockInfoCreate(StockHistoryBase):
+class StockHistoryCreate(StockHistoryBase):
     pass
 
 
-class StockInfoPublic(StockHistoryBase):
+class StockHistoryPublic(StockHistoryBase):
     id: int
 
 
-class StockInfosPublic(SQLModel):
-    data: list[StockInfoPublic]
+class StockHistoriesPublic(SQLModel):
+    data: list[StockHistoryPublic]
     count: int

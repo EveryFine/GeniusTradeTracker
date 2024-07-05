@@ -29,9 +29,15 @@ def get_stock_infos(*, session: Session, offset: int = 0,
     count = session.exec(count_statement).one()
 
     statement = select(StockInfo).offset(offset).limit(limit)
-    stock_exchanges = session.exec(statement).all()
+    stock_infos = session.exec(statement).all()
 
-    return StockInfosPublic(data=stock_exchanges, count=count)
+    return StockInfosPublic(data=stock_infos, count=count)
+
+
+def get_all_stocks(*, session: Session) -> List[StockInfo]:
+    statement = select(StockInfo)
+    stock_infos = session.exec(statement).all()
+    return stock_infos
 
 
 def create_stock_infos(*, session: Session) -> List[StockInfo]:
