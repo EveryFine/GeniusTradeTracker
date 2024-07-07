@@ -15,10 +15,10 @@ __author__ = 'EveryFine'
 
 from typing import List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from app.api.deps import SessionDep
-from app.crud.crud_stock_history import create_stock_histories
+from app.crud.crud_stock_history import create_stock_histories, create_part_stock_histories
 
 router = APIRouter()
 
@@ -26,4 +26,11 @@ router = APIRouter()
 @router.post("/", response_model=int)
 def create_stock_history(session: SessionDep):
     create_count = create_stock_histories(session=session)
+    return create_count
+
+
+@router.post("/part", response_model=int)
+def create_stock_history(session: SessionDep, stock_offset: int = 0,
+                         stock_limit: int = Query(default=100, le=1000)):
+    create_count = create_part_stock_histories(session=session,stock_offset=stock_offset, stock_limit=stock_limit)
     return create_count

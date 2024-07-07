@@ -24,7 +24,7 @@ import akshare as ak
 
 
 def get_stock_infos(*, session: Session, offset: int = 0,
-                    limit: int = Query(default=100, le=100)) -> StockInfosPublic:
+                    limit: int = Query(default=1000, le=1000)) -> StockInfosPublic:
     count_statement = select(func.count()).select_from(StockInfo)
     count = session.exec(count_statement).one()
 
