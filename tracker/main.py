@@ -13,25 +13,51 @@
 """
 __author__ = 'EveryFine'
 
+from datetime import datetime
 from pathlib import Path
 
 import uvicorn
-from sqlmodel import SQLModel
-
+from apscheduler.schedulers.background import BackgroundScheduler
+from sqlmodel import SQLModel, Session
 
 from app.common.log import log
 from app.core.conf import settings
 from app.core.db import engine
 from app.core.register import register_app
+from app.crud.crud_stock_history import create_part_stock_histories
 
 app = register_app()
+scheduler = BackgroundScheduler()
+
+
+def execute_periodic_function():
+    log.info(f'定期任务执行时间：{datetime.now()}')
+
+
+def execute_create_stock_histories_0_1000():
+    log.info(f"{datetime.now()} schedule task [create stock histories 0-1000] start")
+    with Session(engine) as session:
+        stock_offset = 0
+        stock_limit = 1000
+        create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
+        log.info(f"{datetime.now()} schedule task [create stock histories 0-1000] end, create count: {create_count}")
+
+
+def init_scheduler():
+    scheduler.add_job(execute_periodic_function, 'interval', seconds=10)
+    scheduler.add_job(execute_create_stock_histories_0_1000, 'interval', seconds=10)
+    scheduler.start()
+
 
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+    init_scheduler()
+
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
+
 
 if __name__ == '__main__':
     try:

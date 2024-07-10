@@ -16,6 +16,7 @@ sqlmodel = "^0.0.19"
 loguru = "^0.7.2"
 psycopg2-binary = "^2.9.9"
 pandas = "^2.2.2"
+apscheduler = "^3.10.4"
 
 
 
