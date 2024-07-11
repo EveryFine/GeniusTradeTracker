@@ -22,7 +22,7 @@ def create_db_and_tables():
 ```shell
 cd tracker
 docker build -t genius-trade-tracker:v0.3 .
-docker container run -d --name trade-tracker -p 23180:13180 -e POSTGRES_HOST=${{ env.POSTGRES_HOST }} -e POSTGRES_PORT=${{ env.POSTGRES_PORT }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB=${{ env.POSTGRES_DB }} genius-trade-tracker:v0.3
+docker container run -d --name tradetrackermain -p ${{ env.TARGET_SERVICE_PORT }}:13180 --link ${{ env.POSTGRES_CONTAINER_NAME }}:${{ env.POSTGRES_CONTAINER_NAME }} --net=${{ env.POSTGRES_CONTAINER_NETWORK }} -e POSTGRES_HOST=${{ env.POSTGRES_CONTAINER_NAME }} -e POSTGRES_PORT=${{ env.POSTGRES_PORT }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB=${{ env.POSTGRES_DB }} genius-trade-tracker:v0.3
 
 docker container run -d --name trade-tracker -p 23180:13180 \
  --env-file .env \
