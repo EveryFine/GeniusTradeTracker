@@ -86,11 +86,11 @@ def execute_create_stock_histories_4000_5000():
 
 def init_scheduler():
     # scheduler.add_job(execute_periodic_function, 'interval', seconds=10)
-    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=20, minute=56, second=59)
-    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=21, minute=57, second=59)
-    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=22, minute=58, second=59)
-    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=23, minute=59, second=59)
-    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=0, minute=56, second=59)
+    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=9, minute=56, second=59)
+    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=11, minute=57, second=59)
+    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=13, minute=58, second=59)
+    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=15, minute=59, second=59)
+    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=17, minute=56, second=59)
     scheduler.start()
 
 
