@@ -75,8 +75,8 @@ jobs:
           password: ${{ env.TARGET_SSH_PASSWORD }}
           port: ${{ env.TARGET_SSH_PORT }}
           script: |
-            # docker container stop tradetrackermain
-            # docker container rm tradetrackermain
+            docker container stop tradetrackermain
+            docker container rm tradetrackermain
             docker container run -d --name tradetrackermain -p ${{ env.TARGET_SERVICE_PORT }}:13180 --link ${{ env.POSTGRES_CONTAINER_NAME }}:${{ env.POSTGRES_CONTAINER_NAME }} --net=${{ env.POSTGRES_CONTAINER_NETWORK }} -e POSTGRES_HOST=${{ env.POSTGRES_CONTAINER_NAME }} -e POSTGRES_PORT=${{ env.POSTGRES_PORT }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB=${{ env.POSTGRES_DB }} ${{needs.build-and-push-image.outputs.output_image_tags}}
 
 
