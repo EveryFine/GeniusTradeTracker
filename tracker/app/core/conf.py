@@ -24,7 +24,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8', case_sensitive=True)
     # Env Config
-    ENVIRONMENT: Literal['dev', 'pro']
+    # ENVIRONMENT: Literal['dev', 'pro']
 
     # Env Postgresql
     POSTGRES_HOST: str
@@ -54,8 +54,8 @@ class Settings(BaseSettings):
     API_V1_STR: str = '/api/v1'
 
     # Uvicorn
-    UVICORN_HOST: str = '127.0.0.1'
-    UVICORN_PORT: int = 8080
+    UVICORN_HOST: str = '0.0.0.0'
+    UVICORN_PORT: int = 13180
     UVICORN_RELOAD: bool = True
 
     # Middleware

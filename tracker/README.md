@@ -17,3 +17,18 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 ```
 ### 3. 使用update接口更新数据
+
+### 4. 使用Dockerfile编译镜像并启动
+```shell
+cd tracker
+docker build -t genius-trade-tracker:v0.3 .
+docker container run -d --name trade-tracker -p 23180:13180 -e POSTGRES_HOST=${{ env.POSTGRES_HOST }} -e POSTGRES_PORT=${{ env.POSTGRES_PORT }} -e POSTGRES_USER=${{ env.POSTGRES_USER }} -e POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} -e POSTGRES_DB=${{ env.POSTGRES_DB }} genius-trade-tracker:v0.3
+
+docker container run -d --name trade-tracker -p 23180:13180 \
+ --env-file .env \
+ --link finstore_postgres:finstore_postgres \
+ --net="local_default" \
+ -e POSTGRES_HOST='finstore_postgres' \
+ genius-trade-tracker:v0.3
+
+```
