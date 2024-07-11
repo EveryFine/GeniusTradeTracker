@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: finstore_postgres
+    environment:
+      POSTGRES_USER: ${MY_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${MY_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${MY_POSTGRES_DB}
+    volumes:
+      - ~/genius/FinTracker/data:/var/lib/postgresql/data
+    ports:
+      - "12521:5432"

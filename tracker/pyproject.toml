@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "tracker"
+version = "0.1.0"
+description = ""
+authors = ["everyfine <zuluck2004@icloud.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+akshare = "^1.14.21"
+fastapi = "^0.111.0"
+pydantic = "^2.7.4"
+pydantic-settings = "^2.3.3"
+sqlalchemy = "^2.0.31"
+sqlmodel = "^0.0.19"
+loguru = "^0.7.2"
+psycopg2-binary = "^2.9.9"
+pandas = "^2.2.2"
+apscheduler = "^3.10.4"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+#[[tool.poetry.source]]
+#name = "mirrors"
+#url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+#priority = "primary"
