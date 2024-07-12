@@ -40,5 +40,5 @@ docker container run -d --name trade-tracker -p 23180:13180 \
  --link finstore_postgres:finstore_postgres \
  --net="local_default" \
  -e POSTGRES_HOST='finstore_postgres' \
- ghcr.io/everyfine/geniustradetracker/geniustradetracker:main-00dfa83
+ ghcr.io/everyfine/geniustradetracker/geniustradetracker:main-30dd1c5
 ```
