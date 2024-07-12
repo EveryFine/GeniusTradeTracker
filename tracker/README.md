@@ -32,3 +32,13 @@ docker container run -d --name trade-tracker -p 23180:13180 \
  genius-trade-tracker:v0.3
 
 ```
+编译好的镜像
+ghcr.io/everyfine/geniustradetracker/geniustradetracker:main-00dfa83
+```shell
+docker container run -d --name trade-tracker -p 23180:13180 \
+ --env-file .env \
+ --link finstore_postgres:finstore_postgres \
+ --net="local_default" \
+ -e POSTGRES_HOST='finstore_postgres' \
+ ghcr.io/everyfine/geniustradetracker/geniustradetracker:main-00dfa83
+```
