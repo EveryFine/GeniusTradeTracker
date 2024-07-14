@@ -2,7 +2,7 @@
 """
 -------------------------------------------------
    File Name：     stock_history
-   Description :
+   Description : 股票历史行情，不复权
    Author :       EveryFine
    Date：          2024/7/4
 -------------------------------------------------
