@@ -24,6 +24,7 @@ from app.common.log import log
 from app.core.conf import settings
 from app.core.db import engine
 from app.core.register import register_app
+from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
 from app.task.stock_history_hfq_task import execute_create_stock_histories_hfq_0_1000, \
     execute_create_stock_histories_hfq_1000_2000, execute_create_stock_histories_hfq_2000_3000, \
     execute_create_stock_histories_hfq_3000_4000, execute_create_stock_histories_hfq_4000_5000
@@ -45,29 +46,32 @@ scheduler = BackgroundScheduler(jobstores=jobstores)
 
 
 def init_scheduler():
-    # scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=20, minute=20, second=0)
-    # scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=20, minute=21, second=0)
-    # scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=20, minute=22, second=0)
-    # scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=20, minute=23, second=0)
-    # scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=20, minute=24, second=0)
-    #
-    # scheduler.add_job(execute_create_stock_histories_qfq_0_1000, 'cron', hour=21, minute=30, second=0)
-    # scheduler.add_job(execute_create_stock_histories_qfq_1000_2000, 'cron', hour=21, minute=31, second=0)
-    # scheduler.add_job(execute_create_stock_histories_qfq_2000_3000, 'cron', hour=21, minute=32, second=0)
-    # scheduler.add_job(execute_create_stock_histories_qfq_3000_4000, 'cron', hour=21, minute=33, second=0)
-    # scheduler.add_job(execute_create_stock_histories_qfq_4000_5000, 'cron', hour=21, minute=34, second=0)
-    #
-    # scheduler.add_job(execute_create_stock_histories_hfq_0_1000, 'cron', hour=23, minute=20, second=0)
-    # scheduler.add_job(execute_create_stock_histories_hfq_1000_2000, 'cron', hour=23, minute=21, second=0)
-    # scheduler.add_job(execute_create_stock_histories_hfq_2000_3000, 'cron', hour=23, minute=22, second=0)
-    # scheduler.add_job(execute_create_stock_histories_hfq_3000_4000, 'cron', hour=23, minute=23, second=0)
-    # scheduler.add_job(execute_create_stock_histories_hfq_4000_5000, 'cron', hour=23, minute=24, second=0)
-    #
-    # scheduler.add_job(execute_create_stock_news_0_1000, 'cron', hour=22, minute=10, second=0)
-    # scheduler.add_job(execute_create_stock_news_1000_2000, 'cron', hour=22, minute=11, second=0)
-    # scheduler.add_job(execute_create_stock_news_2000_3000, 'cron', hour=22, minute=12, second=0)
-    # scheduler.add_job(execute_create_stock_news_3000_4000, 'cron', hour=22, minute=13, second=0)
-    # scheduler.add_job(execute_create_stock_news_4000_5000, 'cron', hour=22, minute=14, second=0)
+    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=20, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=20, minute=21, second=0)
+    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=20, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=20, minute=23, second=0)
+    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=20, minute=24, second=0)
+
+    scheduler.add_job(execute_create_stock_histories_qfq_0_1000, 'cron', hour=21, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_1000_2000, 'cron', hour=21, minute=31, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_2000_3000, 'cron', hour=21, minute=32, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_3000_4000, 'cron', hour=21, minute=33, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_4000_5000, 'cron', hour=21, minute=34, second=0)
+
+    scheduler.add_job(execute_create_stock_histories_hfq_0_1000, 'cron', hour=23, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_1000_2000, 'cron', hour=23, minute=21, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_2000_3000, 'cron', hour=23, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_3000_4000, 'cron', hour=23, minute=23, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_4000_5000, 'cron', hour=23, minute=24, second=0)
+
+    scheduler.add_job(execute_create_stock_news_0_1000, 'cron', hour=22, minute=10, second=0)
+    scheduler.add_job(execute_create_stock_news_1000_2000, 'cron', hour=22, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_news_2000_3000, 'cron', hour=22, minute=12, second=0)
+    scheduler.add_job(execute_create_stock_news_3000_4000, 'cron', hour=22, minute=13, second=0)
+    scheduler.add_job(execute_create_stock_news_4000_5000, 'cron', hour=22, minute=14, second=0)
+
+    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=19, minute=10, second=0)
+    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=23, minute=40, second=0)
     scheduler.start()
 
 

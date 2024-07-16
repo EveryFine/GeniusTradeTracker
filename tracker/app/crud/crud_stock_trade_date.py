@@ -52,3 +52,10 @@ def get_stock_trade_dates(session, trade_date):
     statement = select(StockTradeDate).where(StockTradeDate.trade_date == trade_date)
     stock_trade_date_items = session.execute(statement).all()
     return stock_trade_date_items
+
+
+def get_last_trade_date(session, date):
+    statement = select(StockTradeDate).where(StockTradeDate.trade_date <= date).order_by(
+        StockTradeDate.trade_date.desc())
+    last_trade_date_item = session.execute(statement).first()
+    return last_trade_date_item[0].trade_date

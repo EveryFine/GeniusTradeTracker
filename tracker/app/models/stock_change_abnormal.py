@@ -13,7 +13,7 @@
 """
 __author__ = 'EveryFine'
 
-from datetime import datetime
+import datetime
 
 from sqlmodel import SQLModel, Field
 
