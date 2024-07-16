@@ -13,7 +13,6 @@
 """
 __author__ = 'EveryFine'
 
-
 from pathlib import Path
 
 import uvicorn
@@ -25,6 +24,7 @@ from app.common.log import log
 from app.core.conf import settings
 from app.core.db import engine
 from app.core.register import register_app
+from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
 from app.task.stock_history_hfq_task import execute_create_stock_histories_hfq_0_1000, \
     execute_create_stock_histories_hfq_1000_2000, execute_create_stock_histories_hfq_2000_3000, \
     execute_create_stock_histories_hfq_3000_4000, execute_create_stock_histories_hfq_4000_5000
@@ -39,16 +39,13 @@ from app.task.stock_news_task import execute_create_stock_news_0_1000, execute_c
 
 app = register_app()
 
-
 jobstores = {
     'default': SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
 }
 scheduler = BackgroundScheduler(jobstores=jobstores)
 
 
-
 def init_scheduler():
-    # scheduler.add_job(execute_periodic_function, 'interval', seconds=10)
     scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=20, minute=20, second=0)
     scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=20, minute=21, second=0)
     scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=20, minute=22, second=0)
@@ -72,6 +69,9 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_news_2000_3000, 'cron', hour=22, minute=12, second=0)
     scheduler.add_job(execute_create_stock_news_3000_4000, 'cron', hour=22, minute=13, second=0)
     scheduler.add_job(execute_create_stock_news_4000_5000, 'cron', hour=22, minute=14, second=0)
+
+    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=19, minute=10, second=0)
+    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=23, minute=40, second=0)
     scheduler.start()
 
 
@@ -79,7 +79,6 @@ def init_scheduler():
 def on_startup():
     create_db_and_tables()
     init_scheduler()
-
 
 
 def create_db_and_tables():
