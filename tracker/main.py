@@ -38,6 +38,7 @@ from app.task.stock_history_task import execute_create_stock_histories_0_1000, e
     execute_create_stock_histories_4000_5000
 from app.task.stock_news_task import execute_create_stock_news_0_1000, execute_create_stock_news_1000_2000, \
     execute_create_stock_news_2000_3000, execute_create_stock_news_3000_4000, execute_create_stock_news_4000_5000
+from app.task.stock_rank_cxd_task import execute_create_stock_rank_cxd
 from app.task.stock_rank_cxg_task import execute_create_stock_rank_cxg
 
 app = register_app()
@@ -91,6 +92,10 @@ def init_scheduler():
     # 技术指标--创新高
     scheduler.add_job(execute_create_stock_rank_cxg, 'cron', hour=16, minute=50, second=0)
     scheduler.add_job(execute_create_stock_rank_cxg, 'cron', hour=21, minute=30, second=0)
+
+    # 技术指标--创新低
+    scheduler.add_job(execute_create_stock_rank_cxd, 'cron', hour=16, minute=55, second=0)
+    scheduler.add_job(execute_create_stock_rank_cxd, 'cron', hour=21, minute=40, second=0)
 
     scheduler.start()
 
