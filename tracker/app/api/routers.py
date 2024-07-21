@@ -16,7 +16,7 @@ __author__ = 'EveryFine'
 from fastapi import APIRouter
 
 from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_history_qfq, stock_history_hfq, \
-    stock_news, stock_trade_date, stock_change_abnormal, stock_comment
+    stock_news, stock_trade_date, stock_change_abnormal, stock_comment, stock_company_event
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -40,3 +40,5 @@ v1.include_router(stock_trade_date.router, prefix='/trade_date', tags=['交易�
 v1.include_router(stock_change_abnormal.router, prefix='/abnormal', tags=['盘口异动'])
 
 v1.include_router(stock_comment.router, prefix='/comment', tags=['千股千评'])
+
+v1.include_router(stock_company_event.router, prefix='/event', tags=['公司动态'])

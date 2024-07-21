@@ -2,7 +2,7 @@
 """
 -------------------------------------------------
    File Name：     crud_stock_change_abnormal
-   Description :
+   Description :   盘口异动
    Author :       EveryFine
    Date：          2024/7/16
 -------------------------------------------------

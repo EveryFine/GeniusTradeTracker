@@ -2,7 +2,7 @@
 """
 -------------------------------------------------
    File Name：     stock_comment
-   Description : 千股千评数据
+   Description :  千股千评
    Author :       EveryFine
    Date：          2024/7/18
 -------------------------------------------------
