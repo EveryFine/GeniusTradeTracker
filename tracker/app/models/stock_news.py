@@ -2,7 +2,7 @@
 """
 -------------------------------------------------
    File Name：     stock_news
-   Description :
+   Description :  个股新闻
    Author :       EveryFine
    Date：          2024/7/15
 -------------------------------------------------

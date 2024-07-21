@@ -2,7 +2,7 @@
 """
 -------------------------------------------------
    File Name：     crud_stock_comment
-   Description :
+   Description :   千股千评
    Author :       EveryFine
    Date：          2024/7/18
 -------------------------------------------------

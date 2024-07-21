@@ -2,7 +2,7 @@
 """
 -------------------------------------------------
    File Name：     stock_trade_date
-   Description :
+   Description :   交易日
    Author :       EveryFine
    Date：          2024/7/16
 -------------------------------------------------
