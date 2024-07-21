@@ -102,7 +102,7 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_rank_lxsz, 'cron', hour=17, minute=50, second=0)
     scheduler.add_job(execute_create_stock_rank_lxsz, 'cron', hour=21, minute=50, second=0)
 
-    # scheduler.start()
+    scheduler.start()
 
 
 @app.on_event("startup")
