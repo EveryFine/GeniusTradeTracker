@@ -44,6 +44,7 @@ from app.task.stock_rank_cxg_task import execute_create_stock_rank_cxg
 from app.task.stock_rank_cxsl_task import execute_create_stock_rank_cxsl
 from app.task.stock_rank_lxsz_task import execute_create_stock_rank_lxsz
 from app.task.stock_rank_lxxd_task import execute_create_stock_rank_lxxd
+from app.task.stock_rank_xstp_task import execute_create_stock_rank_xstp
 
 app = register_app()
 
@@ -116,6 +117,11 @@ def init_scheduler():
     # 技术指标--持续缩量
     scheduler.add_job(execute_create_stock_rank_cxsl, 'cron', hour=15, minute=50, second=0)
     scheduler.add_job(execute_create_stock_rank_cxsl, 'cron', hour=22, minute=50, second=0)
+
+    # 技术指标--向上突破
+    scheduler.add_job(execute_create_stock_rank_xstp, 'cron', hour=15, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_rank_xstp, 'cron', hour=23, minute=30, second=0)
+
 
     scheduler.start()
 
