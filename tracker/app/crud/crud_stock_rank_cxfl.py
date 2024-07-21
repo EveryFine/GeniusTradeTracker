@@ -74,7 +74,7 @@ def getBaseDate(base_date_desc):
         month = match.group(1)
         day = match.group(2)
         year = datetime.datetime.now().year
-        return datetime.date(year, month, day)
+        return datetime.date(year, int(month), int(day))
     else:
         return None
 

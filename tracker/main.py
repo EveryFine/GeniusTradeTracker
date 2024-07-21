@@ -110,7 +110,7 @@ def init_scheduler():
 
     # 技术指标--持续放量
     scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=15, minute=50, second=0)
-    scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=21, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=22, minute=40, second=0)
 
     scheduler.start()
 
