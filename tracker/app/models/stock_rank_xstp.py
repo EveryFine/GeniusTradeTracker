@@ -24,8 +24,6 @@ class StockRankXstpBase(SQLModel):
     symbol: str = Field(max_length=20, description='股票代码', index=True)
     name: str | None = Field(max_length=40, description='股票简称')
     latest_price: float | None = Field(default=None, description='最新价')
-    turnover: float | None = Field(default=None, description='成交额')
-    volume: int | None = Field(default=None, description='成交量')
     change_rate: float | None = Field(default=None, description='涨跌幅')
     turnover_rate: float | None = Field(default=None, description='换手率')
 

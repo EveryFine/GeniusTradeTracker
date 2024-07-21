@@ -57,8 +57,6 @@ def create_stock_rank_xstp_item(session, trade_date, range_type, row):
     symbol = row['股票代码']
     name = row['股票简称']
     latest_price = row['最新价']
-    turnover = row['成交额']
-    volume = row['成交量']
 
     change_rate = row['涨跌幅']
     turnover_rate = row['换手率']
@@ -68,7 +66,7 @@ def create_stock_rank_xstp_item(session, trade_date, range_type, row):
 
     items_saved = get_stock_rank_xstp_items(session, symbol, range_type, trade_date)
     if items_saved is None or len(items_saved) == 0:
-        stock_rank_xstp_create = StockRankXstp(trade_date=trade_date, range_type=range_type, symbol=symbol, name=name, latest_price=latest_price, turnover=turnover, volume=volume, change_rate=change_rate, turnover_rate=turnover_rate, created_at=created_at, updated_at=updated_at)
+        stock_rank_xstp_create = StockRankXstp(trade_date=trade_date, range_type=range_type, symbol=symbol, name=name, latest_price=latest_price, change_rate=change_rate, turnover_rate=turnover_rate, created_at=created_at, updated_at=updated_at)
         db_stock_rank_xstp = StockRankXstp.model_validate(stock_rank_xstp_create)
         session.add(db_stock_rank_xstp)
         return 1
