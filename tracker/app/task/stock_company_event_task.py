@@ -13,17 +13,19 @@
 """
 __author__ = 'EveryFine'
 
-from datetime import datetime
+from datetime import datetime, date
 
 from sqlmodel import Session
 
 from app.common.log import log
 from app.core.db import engine
-from app.crud.crud_stock_company_event import create_all_stock_company_events
+from app.crud.crud_stock_company_event import create_all_stock_company_events, create_part_stock_company_events
 
 
 def execute_create_stock_company_event():
     log.info(f"{datetime.now()} schedule task [create stock company events] start")
     with Session(engine) as session:
-        create_count = create_all_stock_company_events(session=session)
+        start_date = date(2016, 8, 24)
+        end_date = date.today()
+        create_count = create_part_stock_company_events(session=session, start_date=start_date, end_date=end_date)
         log.info(f"{datetime.now()} schedule task [create stock company events] end, create count: {create_count}")

@@ -78,7 +78,7 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_comment, 'cron', hour=15, minute=10, second=0)
     scheduler.add_job(execute_create_stock_comment, 'cron', hour=23, minute=20, second=0)
 
-    scheduler.add_job(execute_create_stock_company_event, 'cron', hour=12, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_company_event, 'cron', hour=13, minute=30, second=0)
     scheduler.start()
 
 

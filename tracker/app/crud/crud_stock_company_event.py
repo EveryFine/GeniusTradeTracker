@@ -65,7 +65,7 @@ def create_stock_company_event_item(session, row):
     date_index = row['序号']
     name = row['简称']
     event_type = row['事件类型']
-    event = row['具体事项']
+    event = row['具体事项'].replace('\x00', '')
     created_at = datetime.now()
     updated_at = datetime.now()
 
