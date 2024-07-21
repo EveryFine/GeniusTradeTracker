@@ -39,6 +39,7 @@ from app.task.stock_history_task import execute_create_stock_histories_0_1000, e
 from app.task.stock_news_task import execute_create_stock_news_0_1000, execute_create_stock_news_1000_2000, \
     execute_create_stock_news_2000_3000, execute_create_stock_news_3000_4000, execute_create_stock_news_4000_5000
 from app.task.stock_rank_cxd_task import execute_create_stock_rank_cxd
+from app.task.stock_rank_cxfl_task import execute_create_stock_rank_cxfl
 from app.task.stock_rank_cxg_task import execute_create_stock_rank_cxg
 from app.task.stock_rank_lxsz_task import execute_create_stock_rank_lxsz
 from app.task.stock_rank_lxxd_task import execute_create_stock_rank_lxxd
@@ -106,6 +107,10 @@ def init_scheduler():
     # 技术指标--连续下跌
     scheduler.add_job(execute_create_stock_rank_lxxd, 'cron', hour=18, minute=50, second=0)
     scheduler.add_job(execute_create_stock_rank_lxxd, 'cron', hour=21, minute=50, second=0)
+
+    # 技术指标--持续放量
+    scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=15, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=21, minute=30, second=0)
 
     scheduler.start()
 
