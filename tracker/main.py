@@ -94,6 +94,7 @@ def init_scheduler():
 
     # 公司动态
     scheduler.add_job(execute_create_stock_company_event, 'cron', hour=13, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_company_event, 'cron', hour=20, minute=0, second=0)
 
     # 技术指标--创新高
     scheduler.add_job(execute_create_stock_rank_cxg, 'cron', hour=16, minute=50, second=0)
@@ -126,6 +127,10 @@ def init_scheduler():
     # 技术指标--向下突破
     scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=50, second=0)
     scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=23, minute=45, second=0)
+
+    # 技术指标--量价齐升
+    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=22, minute=15, second=0)
 
     scheduler.start()
 
