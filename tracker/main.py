@@ -133,15 +133,15 @@ def init_scheduler():
 
     # 技术指标--量价齐升
     scheduler.add_job(execute_create_stock_rank_ljqs, 'cron', hour=18, minute=20, second=0)
-    scheduler.add_job(execute_create_stock_rank_ljqs, 'cron', hour=22, minute=55, second=0)
+    scheduler.add_job(execute_create_stock_rank_ljqs, 'cron', hour=23, minute=10, second=0)
 
     # 技术指标--量价齐跌
     scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=18, minute=25, second=0)
-    scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=22, minute=56, second=0)
+    scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=23, minute=11, second=0)
 
     # 技术指标--险资举牌
     scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=18, minute=30, second=0)
-    scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=22, minute=57, second=0)
+    scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=23, minute=12, second=0)
 
     scheduler.start()
 
