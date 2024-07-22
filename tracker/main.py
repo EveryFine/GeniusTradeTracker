@@ -94,6 +94,7 @@ def init_scheduler():
 
     # 公司动态
     scheduler.add_job(execute_create_stock_company_event, 'cron', hour=13, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_company_event, 'cron', hour=20, minute=0, second=0)
 
     # 技术指标--创新高
     scheduler.add_job(execute_create_stock_rank_cxg, 'cron', hour=16, minute=50, second=0)
