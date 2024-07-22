@@ -128,6 +128,10 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=50, second=0)
     scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=23, minute=45, second=0)
 
+    # 技术指标--量价齐升
+    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=22, minute=15, second=0)
+
     scheduler.start()
 
 
