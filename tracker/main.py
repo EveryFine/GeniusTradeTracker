@@ -42,10 +42,13 @@ from app.task.stock_rank_cxd_task import execute_create_stock_rank_cxd
 from app.task.stock_rank_cxfl_task import execute_create_stock_rank_cxfl
 from app.task.stock_rank_cxg_task import execute_create_stock_rank_cxg
 from app.task.stock_rank_cxsl_task import execute_create_stock_rank_cxsl
+from app.task.stock_rank_ljqd_task import execute_create_stock_rank_ljqd
+from app.task.stock_rank_ljqs_task import execute_create_stock_rank_ljqs
 from app.task.stock_rank_lxsz_task import execute_create_stock_rank_lxsz
 from app.task.stock_rank_lxxd_task import execute_create_stock_rank_lxxd
 from app.task.stock_rank_xstp_task import execute_create_stock_rank_xstp
 from app.task.stock_rank_xxtp_task import execute_create_stock_rank_xxtp
+from app.task.stock_rank_xzjp_task import execute_create_stock_rank_xzjp
 
 app = register_app()
 
@@ -129,12 +132,16 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=23, minute=45, second=0)
 
     # 技术指标--量价齐升
-    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=20, second=0)
-    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=22, minute=15, second=0)
+    scheduler.add_job(execute_create_stock_rank_ljqs, 'cron', hour=18, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_rank_ljqs, 'cron', hour=22, minute=55, second=0)
 
     # 技术指标--量价齐跌
-    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=25, second=0)
-    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=22, minute=16, second=0)
+    scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=18, minute=25, second=0)
+    scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=22, minute=56, second=0)
+
+    # 技术指标--险资举牌
+    scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=18, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=22, minute=57, second=0)
 
     scheduler.start()
 

@@ -18,7 +18,7 @@ from fastapi import APIRouter
 from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_history_qfq, stock_history_hfq, \
     stock_news, stock_trade_date, stock_change_abnormal, stock_comment, stock_company_event, stock_rank_cxg, \
     stock_rank_cxd, stock_rank_lxsz, stock_rank_lxxd, stock_rank_cxfl, stock_rank_cxsl, stock_rank_xstp, \
-    stock_rank_xxtp, stock_rank_ljqs, stock_rank_ljqd
+    stock_rank_xxtp, stock_rank_ljqs, stock_rank_ljqd, stock_rank_xzjp
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -64,3 +64,5 @@ v1.include_router(stock_rank_xxtp.router, prefix='/xxtp', tags=['技术指标--�
 v1.include_router(stock_rank_ljqs.router, prefix='/ljqs', tags=['技术指标--量价齐升'])
 
 v1.include_router(stock_rank_ljqd.router, prefix='/ljqd', tags=['技术指标--量价齐跌'])
+
+v1.include_router(stock_rank_xzjp.router, prefix='/xzjp', tags=['技术指标--险资举牌'])
