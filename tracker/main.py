@@ -60,25 +60,25 @@ scheduler = BackgroundScheduler(jobstores=jobstores)
 
 def init_scheduler():
     #历史行情 - 不复权
-    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=1, minute=20, second=0)
-    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=2, minute=21, second=0)
-    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=3, minute=22, second=0)
-    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=4, minute=23, second=0)
-    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=5, minute=24, second=0)
+    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=16, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=16, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=17, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=17, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=18, minute=0, second=0)
 
     # 历史行情 - 前复权
-    scheduler.add_job(execute_create_stock_histories_qfq_0_1000, 'cron', hour=6, minute=30, second=0)
-    scheduler.add_job(execute_create_stock_histories_qfq_1000_2000, 'cron', hour=7, minute=31, second=0)
-    scheduler.add_job(execute_create_stock_histories_qfq_2000_3000, 'cron', hour=8, minute=32, second=0)
-    scheduler.add_job(execute_create_stock_histories_qfq_3000_4000, 'cron', hour=9, minute=33, second=0)
-    scheduler.add_job(execute_create_stock_histories_qfq_4000_5000, 'cron', hour=10, minute=34, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_0_1000, 'cron', hour=18, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_1000_2000, 'cron', hour=19, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_2000_3000, 'cron', hour=19, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_3000_4000, 'cron', hour=20, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_qfq_4000_5000, 'cron', hour=20, minute=30, second=0)
 
     # 历史行情 - 后复权
-    scheduler.add_job(execute_create_stock_histories_hfq_0_1000, 'cron', hour=11, minute=20, second=0)
-    scheduler.add_job(execute_create_stock_histories_hfq_1000_2000, 'cron', hour=12, minute=21, second=0)
-    scheduler.add_job(execute_create_stock_histories_hfq_2000_3000, 'cron', hour=13, minute=22, second=0)
-    scheduler.add_job(execute_create_stock_histories_hfq_3000_4000, 'cron', hour=14, minute=23, second=0)
-    scheduler.add_job(execute_create_stock_histories_hfq_4000_5000, 'cron', hour=15, minute=24, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_0_1000, 'cron', hour=21, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_1000_2000, 'cron', hour=21, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_2000_3000, 'cron', hour=22, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_3000_4000, 'cron', hour=22, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_hfq_4000_5000, 'cron', hour=23, minute=0, second=0)
 
     # 公司新闻
     scheduler.add_job(execute_create_stock_news_0_1000, 'cron', hour=16, minute=10, second=0)
@@ -88,23 +88,22 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_news_4000_5000, 'cron', hour=20, minute=14, second=0)
 
     # 盘口异动
-    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=20, minute=10, second=0)
+    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=20, minute=50, second=0)
     scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=23, minute=40, second=0)
 
     # 千股千评
-    scheduler.add_job(execute_create_stock_comment, 'cron', hour=19, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_comment, 'cron', hour=19, minute=50, second=0)
     scheduler.add_job(execute_create_stock_comment, 'cron', hour=23, minute=20, second=0)
 
     # 公司动态
-    scheduler.add_job(execute_create_stock_company_event, 'cron', hour=20, minute=0, second=0)
-    scheduler.add_job(execute_create_stock_company_event, 'cron', hour=21, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_company_event, 'cron', hour=22, minute=10, second=0)
 
     # 技术指标--创新高
-    scheduler.add_job(execute_create_stock_rank_cxg, 'cron', hour=16, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_rank_cxg, 'cron', hour=17, minute=50, second=0)
     scheduler.add_job(execute_create_stock_rank_cxg, 'cron', hour=21, minute=30, second=0)
 
     # 技术指标--创新低
-    scheduler.add_job(execute_create_stock_rank_cxd, 'cron', hour=16, minute=55, second=0)
+    scheduler.add_job(execute_create_stock_rank_cxd, 'cron', hour=17, minute=55, second=0)
     scheduler.add_job(execute_create_stock_rank_cxd, 'cron', hour=21, minute=40, second=0)
 
     # 技术指标--连续上涨
@@ -116,11 +115,11 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_rank_lxxd, 'cron', hour=21, minute=50, second=0)
 
     # 技术指标--持续放量
-    scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=15, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=17, minute=10, second=0)
     scheduler.add_job(execute_create_stock_rank_cxfl, 'cron', hour=22, minute=40, second=0)
 
     # 技术指标--持续缩量
-    scheduler.add_job(execute_create_stock_rank_cxsl, 'cron', hour=15, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_rank_cxsl, 'cron', hour=17, minute=20, second=0)
     scheduler.add_job(execute_create_stock_rank_cxsl, 'cron', hour=22, minute=50, second=0)
 
     # 技术指标--向上突破
@@ -128,7 +127,7 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_rank_xstp, 'cron', hour=23, minute=46, second=0)
 
     # 技术指标--向下突破
-    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=18, minute=25, second=0)
     scheduler.add_job(execute_create_stock_rank_xxtp, 'cron', hour=23, minute=45, second=0)
 
     # 技术指标--量价齐升
@@ -136,11 +135,11 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_rank_ljqs, 'cron', hour=23, minute=10, second=0)
 
     # 技术指标--量价齐跌
-    scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=18, minute=25, second=0)
+    scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=18, minute=15, second=0)
     scheduler.add_job(execute_create_stock_rank_ljqd, 'cron', hour=23, minute=11, second=0)
 
     # 技术指标--险资举牌
-    scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=18, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=19, minute=45, second=0)
     scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=23, minute=12, second=0)
 
     scheduler.start()
