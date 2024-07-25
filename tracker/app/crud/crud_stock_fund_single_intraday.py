@@ -58,7 +58,7 @@ def fund_str_to_float(fund_str: str) -> float:
 
 
 def create_stock_fund_single_intraday_item(session, trade_date, row):
-    symbol = str(row['股票代码'])
+    symbol = f"{row['股票代码']:06d}"
     name = row['股票简称']
     latest_price = row['最新价']
     change_rate = per_str_to_float(row['涨跌幅'])
