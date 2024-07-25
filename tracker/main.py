@@ -27,6 +27,7 @@ from app.core.register import register_app
 from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
 from app.task.stock_comment_task import execute_create_stock_comment
 from app.task.stock_company_event_task import execute_create_stock_company_event
+from app.task.stock_fund_single_intraday import execute_create_stock_fund_single_intraday
 from app.task.stock_history_hfq_task import execute_create_stock_histories_hfq_0_1000, \
     execute_create_stock_histories_hfq_1000_2000, execute_create_stock_histories_hfq_2000_3000, \
     execute_create_stock_histories_hfq_3000_4000, execute_create_stock_histories_hfq_4000_5000
@@ -141,6 +142,9 @@ def init_scheduler():
     # 技术指标--险资举牌
     scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=19, minute=45, second=0)
     scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=23, minute=12, second=0)
+
+    # 资金流--个股--即时
+    scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=23, minute=12, second=0)
 
     scheduler.start()
 
