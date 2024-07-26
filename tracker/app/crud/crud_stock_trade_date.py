@@ -54,8 +54,13 @@ def get_stock_trade_dates(session, trade_date):
     return stock_trade_date_items
 
 
-def get_last_trade_date(session, date):
-    statement = select(StockTradeDate).where(StockTradeDate.trade_date <= date).order_by(
-        StockTradeDate.trade_date.desc())
+def get_last_trade_date(session, final_datetime):
+    if final_datetime.time() < datetime.time(9, 30):
+        statement = select(StockTradeDate).where(StockTradeDate.trade_date < final_datetime.date()).order_by(
+            StockTradeDate.trade_date.desc())
+    else:
+        statement = select(StockTradeDate).where(StockTradeDate.trade_date <= final_datetime.date()).order_by(
+            StockTradeDate.trade_date.desc())
+    
     last_trade_date_item = session.execute(statement).first()
     return last_trade_date_item[0].trade_date

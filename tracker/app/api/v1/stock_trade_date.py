@@ -30,6 +30,6 @@ def create_all_stock_trade_dates(session: SessionDep):
 
 
 @router.get("/", response_model=datetime.date)
-def read_last_trade_date(session: SessionDep, date: datetime.date):
-    last_trade_date = get_last_trade_date(session=session, date=date)
+def read_last_trade_date(session: SessionDep, datetime: datetime.datetime):
+    last_trade_date = get_last_trade_date(session=session, final_datetime=datetime)
     return last_trade_date

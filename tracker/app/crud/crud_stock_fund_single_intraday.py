@@ -26,7 +26,7 @@ from app.models.stock_fund_single_intraday import StockFundSingleIntraday
 
 def create_stock_fund_single_intraday(*, session: Session) -> int:
     total_count = 0
-    trade_date = get_last_trade_date(session=session, date=datetime.date.today())
+    trade_date = get_last_trade_date(session=session, final_datetime=datetime.datetime.now())
     stock_fund_single_intraday_ths_df = ak.stock_fund_flow_individual(symbol="即时")
     for index, row in stock_fund_single_intraday_ths_df.iterrows():
         res = create_stock_fund_single_intraday_item(session, trade_date, row)
@@ -62,6 +62,7 @@ def create_stock_fund_single_intraday_item(session, trade_date, row):
     name = row['股票简称']
     latest_price = row['最新价']
     change_rate = per_str_to_float(row['涨跌幅'])
+    change_rate_rank = row['序号']
     turnover_rate = per_str_to_float(row['换手率'])
     fund_in = fund_str_to_float(row['流入资金'])
     fund_out = fund_str_to_float(row['流出资金'])
@@ -74,6 +75,7 @@ def create_stock_fund_single_intraday_item(session, trade_date, row):
     if items_saved is None or len(items_saved) == 0:
         stock_fund_single_intraday_create = StockFundSingleIntraday(trade_date=trade_date, symbol=symbol, name=name,
                                                                     latest_price=latest_price, change_rate=change_rate,
+                                                                    change_rate_rank=change_rate_rank,
                                                                     turnover_rate=turnover_rate,
                                                                     fund_in=fund_in, fund_out=fund_out,
                                                                     net_amount=net_amount,
