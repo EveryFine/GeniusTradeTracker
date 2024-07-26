@@ -25,7 +25,7 @@ from app.models.stock_rank_lxsz import StockRankLxsz
 
 def create_stock_rank_lxsz(*, session: Session) -> int:
     lxsz_count = 0
-    trade_date = get_last_trade_date(session=session, date=datetime.date.today())
+    trade_date = get_last_trade_date(session=session, final_datetime=datetime.datetime.now())
     stock_rank_lxsz_ths_df = ak.stock_rank_lxsz_ths()
     for index, row in stock_rank_lxsz_ths_df.iterrows():
         res = create_stock_rank_lxsz_item(session, trade_date, row)

@@ -22,6 +22,7 @@ class StockFundSingleIntradayBase(SQLModel):
     name: str | None = Field(max_length=40, description='股票名称')
     latest_price: float | None = Field(default=None, description='最新价')
     change_rate: float | None = Field(default=None, description='涨跌幅')
+    change_rate_rank: float | None = Field(default=None, description='当天涨跌幅排名')
     turnover_rate: float | None = Field(default=None, description='换手率')
     fund_in: float | None = Field(default=None, description='流入资金')
     fund_out: float | None = Field(default=None, description='流出资金')

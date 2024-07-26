@@ -44,7 +44,7 @@ def create_rank_cxg_by_types(session, range_types):
 
 def create_stock_rank_cxg_type(session, range_type):
     cxg_type_count = 0
-    trade_date = get_last_trade_date(session=session, date=datetime.date.today())
+    trade_date = get_last_trade_date(session=session, final_datetime=datetime.datetime.now())
     stock_rank_cxg_ths_df = ak.stock_rank_cxg_ths(symbol=range_type)
     for index, row in stock_rank_cxg_ths_df.iterrows():
         res = create_stock_rank_cxg_item(session, trade_date, range_type, row)

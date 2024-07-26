@@ -53,7 +53,7 @@ def create_stock_change_abnormal_by_event(session, event):
 
 
 def create_stock_change_abnormal_item(session, row):
-    last_trade_date = get_last_trade_date(session=session, date=datetime.date.today())
+    last_trade_date = get_last_trade_date(session=session, final_datetime=datetime.datetime.now())
     symbol = row['代码']
     event_time = row['时间']
     name = row['名称']
