@@ -72,5 +72,4 @@ v1.include_router(stock_fund_single_intraday.router, prefix='/fund_single_intrad
 
 v1.include_router(stock_fund_single_rank.router, prefix='/fund_single_rank', tags=['资金流--个股--排行'])
 
-
-v1.include_router(stock_fund_concept_intraday.router, prefix='/fund_concept_intraday', tags=['资金流--概念--排行'])
+v1.include_router(stock_fund_concept_intraday.router, prefix='/fund_concept_intraday', tags=['资金流--概念--即时'])
