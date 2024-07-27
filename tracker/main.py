@@ -27,6 +27,7 @@ from app.core.register import register_app
 from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
 from app.task.stock_comment_task import execute_create_stock_comment
 from app.task.stock_company_event_task import execute_create_stock_company_event
+from app.task.stock_fund_big_deal_task import execute_create_stock_fund_big_deal
 from app.task.stock_fund_concept_intraday_task import execute_create_stock_fund_concept_intraday
 from app.task.stock_fund_concept_rank_task import execute_create_stock_fund_concept_rank
 from app.task.stock_fund_industry_intraday_task import execute_create_stock_fund_industry_intraday
@@ -150,21 +151,31 @@ def init_scheduler():
 
     # 资金流--个股--即时
     scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=23, minute=12, second=0)
+    scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=18, minute=12, second=0)
 
     # 资金流--个股--排行
     scheduler.add_job(execute_create_stock_fund_single_rank, 'cron', hour=23, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_fund_single_rank, 'cron', hour=19, minute=20, second=0)
 
     # 资金流--概念--即时
     scheduler.add_job(execute_create_stock_fund_concept_intraday, 'cron', hour=20, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_fund_concept_intraday, 'cron', hour=22, minute=23, second=0)
 
     # 资金流--概念--排行
     scheduler.add_job(execute_create_stock_fund_concept_rank, 'cron', hour=20, minute=26, second=0)
+    scheduler.add_job(execute_create_stock_fund_concept_rank, 'cron', hour=22, minute=34, second=0)
 
     # 资金流--行业--即时
     scheduler.add_job(execute_create_stock_fund_industry_intraday, 'cron', hour=21, minute=18, second=0)
+    scheduler.add_job(execute_create_stock_fund_industry_intraday, 'cron', hour=19, minute=26, second=0)
 
     # 资金流--行业--排行
     scheduler.add_job(execute_create_stock_fund_industry_rank, 'cron', hour=21, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_fund_industry_rank, 'cron', hour=19, minute=35, second=0)
+
+    # 资金流--大单追踪
+    scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=20, minute=16, second=0)
+    scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=19, minute=22, second=0)
 
     scheduler.start()
 
