@@ -19,7 +19,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_news, stock_trade_date, stock_change_abnormal, stock_comment, stock_company_event, stock_rank_cxg, \
     stock_rank_cxd, stock_rank_lxsz, stock_rank_lxxd, stock_rank_cxfl, stock_rank_cxsl, stock_rank_xstp, \
     stock_rank_xxtp, stock_rank_ljqs, stock_rank_ljqd, stock_rank_xzjp, stock_fund_single_intraday, \
-    stock_fund_single_rank, stock_fund_concept_intraday
+    stock_fund_single_rank, stock_fund_concept_intraday, stock_fund_concept_rank
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -73,3 +73,5 @@ v1.include_router(stock_fund_single_intraday.router, prefix='/fund_single_intrad
 v1.include_router(stock_fund_single_rank.router, prefix='/fund_single_rank', tags=['资金流--个股--排行'])
 
 v1.include_router(stock_fund_concept_intraday.router, prefix='/fund_concept_intraday', tags=['资金流--概念--即时'])
+
+v1.include_router(stock_fund_concept_rank.router, prefix='/fund_concept_rank', tags=['资金流--概念--排行'])
