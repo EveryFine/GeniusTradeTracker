@@ -14,7 +14,6 @@
 __author__ = 'EveryFine'
 
 import datetime
-from decimal import Decimal
 
 import akshare as ak
 from sqlmodel import Session, select
