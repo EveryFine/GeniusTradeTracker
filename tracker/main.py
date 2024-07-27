@@ -148,6 +148,9 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=23, minute=12, second=0)
     scheduler.add_job(execute_create_stock_fund_single_rank, 'cron', hour=23, minute=20, second=0)
 
+    # 资金流--概念--即时
+    scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=20, minute=20, second=0)
+
     scheduler.start()
 
 
