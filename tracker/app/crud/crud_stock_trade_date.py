@@ -64,3 +64,11 @@ def get_last_trade_date(session, final_datetime):
     
     last_trade_date_item = session.execute(statement).first()
     return last_trade_date_item[0].trade_date
+
+
+def get_last_trade_date_by_date(session, final_date):
+
+    statement = select(StockTradeDate).where(StockTradeDate.trade_date <= final_date).order_by(
+        StockTradeDate.trade_date.desc())
+    last_trade_date_item = session.execute(statement).first()
+    return last_trade_date_item[0].trade_date
