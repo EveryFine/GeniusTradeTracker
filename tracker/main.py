@@ -28,10 +28,17 @@ from app.task.stock_change_abnormal_task import execute_create_stock_change_abno
 from app.task.stock_comment_task import execute_create_stock_comment
 from app.task.stock_company_event_task import execute_create_stock_company_event
 from app.task.stock_fund_big_deal_task import execute_create_stock_fund_big_deal
+from app.task.stock_fund_concept_detail_intraday_task import execute_create_stock_fund_concept_detail_intraday
+from app.task.stock_fund_concept_detail_rank_task import execute_create_stock_fund_concept_detail_rank
 from app.task.stock_fund_concept_intraday_task import execute_create_stock_fund_concept_intraday
 from app.task.stock_fund_concept_rank_task import execute_create_stock_fund_concept_rank
+from app.task.stock_fund_industry_detail_intraday_task import execute_create_stock_fund_industry_detail_intraday
+from app.task.stock_fund_industry_detail_rank_task import execute_create_stock_fund_industry_detail_rank
 from app.task.stock_fund_industry_intraday_task import execute_create_stock_fund_industry_intraday
 from app.task.stock_fund_industry_rank_task import execute_create_stock_fund_industry_rank
+from app.task.stock_fund_market_detail_task import execute_create_stock_fund_market_detail
+from app.task.stock_fund_single_detail_intraday_task import execute_create_stock_fund_single_detail_intraday
+from app.task.stock_fund_single_detail_rank_task import execute_create_stock_fund_single_detail_rank
 from app.task.stock_fund_single_intraday import execute_create_stock_fund_single_intraday
 from app.task.stock_fund_single_rank_task import execute_create_stock_fund_single_rank
 from app.task.stock_history_hfq_task import execute_create_stock_histories_hfq_0_1000, \
@@ -176,6 +183,34 @@ def init_scheduler():
     # 资金流--大单追踪
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=20, minute=16, second=0)
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=19, minute=22, second=0)
+
+    # 资金流--个股--详细--即时
+    scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=19, minute=17, second=0)
+    scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=22, minute=53, second=0)
+
+    # 资金流--个股--详细--排名
+    scheduler.add_job(execute_create_stock_fund_single_detail_rank, 'cron', hour=19, minute=27, second=0)
+    scheduler.add_job(execute_create_stock_fund_single_detail_rank, 'cron', hour=22, minute=46, second=0)
+
+    # 资金流--大盘
+    scheduler.add_job(execute_create_stock_fund_market_detail, 'cron', hour=19, minute=52, second=0)
+    scheduler.add_job(execute_create_stock_fund_market_detail, 'cron', hour=22, minute=52, second=0)
+
+    # 资金流--行业--详细--即时
+    scheduler.add_job(execute_create_stock_fund_industry_detail_intraday, 'cron', hour=19, minute=38, second=0)
+    scheduler.add_job(execute_create_stock_fund_industry_detail_intraday, 'cron', hour=23, minute=16, second=0)
+
+    # 资金流--行业--详细--排行
+    scheduler.add_job(execute_create_stock_fund_industry_detail_rank, 'cron', hour=20, minute=42, second=0)
+    scheduler.add_job(execute_create_stock_fund_industry_detail_rank, 'cron', hour=22, minute=43, second=0)
+
+    # 资金流--概念--详细--即时
+    scheduler.add_job(execute_create_stock_fund_concept_detail_intraday, 'cron', hour=19, minute=42, second=0)
+    scheduler.add_job(execute_create_stock_fund_concept_detail_intraday, 'cron', hour=23, minute=18, second=0)
+
+    # 资金流--概念--详细--排行
+    scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=18, minute=42, second=0)
+    scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=22, minute=23, second=0)
 
     scheduler.start()
 

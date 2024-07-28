@@ -20,7 +20,9 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_rank_cxd, stock_rank_lxsz, stock_rank_lxxd, stock_rank_cxfl, stock_rank_cxsl, stock_rank_xstp, \
     stock_rank_xxtp, stock_rank_ljqs, stock_rank_ljqd, stock_rank_xzjp, stock_fund_single_intraday, \
     stock_fund_single_rank, stock_fund_concept_intraday, stock_fund_concept_rank, stock_fund_industry_intraday, \
-    stock_fund_industry_rank, stock_fund_big_deal
+    stock_fund_industry_rank, stock_fund_big_deal, stock_fund_single_detail_intraday, stock_fund_single_detail_rank, \
+    stock_fund_market_detail, stock_fund_industry_detail_intraday, stock_fund_industry_detail_rank, \
+    stock_fund_concept_detail_intraday, stock_fund_concept_detail_rank
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -82,3 +84,23 @@ v1.include_router(stock_fund_industry_intraday.router, prefix='/fund_industry_in
 v1.include_router(stock_fund_industry_rank.router, prefix='/fund_industry_rank', tags=['资金流--行业--排行'])
 
 v1.include_router(stock_fund_big_deal.router, prefix='/fund_big_deal', tags=['资金流--大单追踪'])
+
+v1.include_router(stock_fund_single_detail_intraday.router, prefix='/fund_single_detail_intraday',
+                  tags=['资金流--个股--详细--即时'])
+
+v1.include_router(stock_fund_single_detail_rank.router, prefix='/fund_single_detail_rank',
+                  tags=['资金流--个股--详细--排行'])
+
+v1.include_router(stock_fund_market_detail.router, prefix='/fund_market_detail', tags=['资金流--大盘'])
+
+v1.include_router(stock_fund_industry_detail_intraday.router, prefix='/fund_industry_detail_intraday',
+                  tags=['资金流--行业--详细--即时'])
+
+v1.include_router(stock_fund_industry_detail_rank.router, prefix='/fund_industry_detail_rank',
+                  tags=['资金流--行业--详细--排行'])
+
+v1.include_router(stock_fund_concept_detail_intraday.router, prefix='/fund_concept_detail_intraday',
+                  tags=['资金流--概念--详细--即时'])
+
+v1.include_router(stock_fund_concept_detail_rank.router, prefix='/fund_concept_detail_rank',
+                  tags=['资金流--概念--详细--排行'])
