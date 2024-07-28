@@ -52,6 +52,7 @@ from app.task.stock_history_task import execute_create_stock_histories_0_1000, e
     execute_create_stock_histories_4000_5000
 from app.task.stock_news_task import execute_create_stock_news_0_1000, execute_create_stock_news_1000_2000, \
     execute_create_stock_news_2000_3000, execute_create_stock_news_3000_4000, execute_create_stock_news_4000_5000
+from app.task.stock_pool_dt_task import execute_create_stock_pool_dt
 from app.task.stock_pool_strong_task import execute_create_stock_pool_strong
 from app.task.stock_pool_sub_new_task import execute_create_stock_pool_sub_new
 from app.task.stock_pool_zb_task import execute_create_stock_pool_zb
@@ -227,6 +228,9 @@ def init_scheduler():
 
     # 股池--炸板
     scheduler.add_job(execute_create_stock_pool_zb, 'cron', hour=20, minute=23, second=0)
+
+    # 股池--跌停
+    scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
 
     scheduler.start()
 
