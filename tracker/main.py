@@ -30,6 +30,7 @@ from app.task.stock_company_event_task import execute_create_stock_company_event
 from app.task.stock_fund_big_deal_task import execute_create_stock_fund_big_deal
 from app.task.stock_fund_concept_intraday_task import execute_create_stock_fund_concept_intraday
 from app.task.stock_fund_concept_rank_task import execute_create_stock_fund_concept_rank
+from app.task.stock_fund_industry_detail_intraday_task import execute_create_stock_fund_industry_detail_intraday
 from app.task.stock_fund_industry_intraday_task import execute_create_stock_fund_industry_intraday
 from app.task.stock_fund_industry_rank_task import execute_create_stock_fund_industry_rank
 from app.task.stock_fund_market_detail_task import execute_create_stock_fund_market_detail
@@ -192,6 +193,9 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_fund_market_detail, 'cron', hour=19, minute=52, second=0)
     scheduler.add_job(execute_create_stock_fund_market_detail, 'cron', hour=22, minute=52, second=0)
 
+    # 资金流--行业--详细--即时
+    scheduler.add_job(execute_create_stock_fund_industry_detail_intraday, 'cron', hour=19, minute=38, second=0)
+    scheduler.add_job(execute_create_stock_fund_industry_detail_intraday, 'cron', hour=23, minute=16, second=0)
 
     scheduler.start()
 
