@@ -22,7 +22,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_fund_single_rank, stock_fund_concept_intraday, stock_fund_concept_rank, stock_fund_industry_intraday, \
     stock_fund_industry_rank, stock_fund_big_deal, stock_fund_single_detail_intraday, stock_fund_single_detail_rank, \
     stock_fund_market_detail, stock_fund_industry_detail_intraday, stock_fund_industry_detail_rank, \
-    stock_fund_concept_detail_intraday
+    stock_fund_concept_detail_intraday, stock_fund_concept_detail_rank
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -101,3 +101,6 @@ v1.include_router(stock_fund_industry_detail_rank.router, prefix='/fund_industry
 
 v1.include_router(stock_fund_concept_detail_intraday.router, prefix='/fund_concept_detail_intraday',
                   tags=['资金流--概念--详细--即时'])
+
+v1.include_router(stock_fund_concept_detail_rank.router, prefix='/fund_concept_detail_rank',
+                  tags=['资金流--概念--详细--排行'])
