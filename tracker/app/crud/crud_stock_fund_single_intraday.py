@@ -50,7 +50,7 @@ def fund_str_to_float(fund_str: str) -> float:
     :return: 转换后的浮点数
     """
     if '亿' in fund_str:
-        return float(Decimal(fund_str.replace('亿', '')) * Decimal(10.0))
+        return float(Decimal(fund_str.replace('亿', '')) * Decimal(10000.0))
     elif '万' in fund_str:
         return float(Decimal(fund_str.replace('万', '')))
     else:
