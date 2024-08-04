@@ -19,7 +19,7 @@ import akshare as ak
 from sqlmodel import Session, select
 
 from app.common.log import log
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_fund_industry_intraday import StockFundIndustryIntraday
 
 
@@ -80,3 +80,13 @@ def get_stock_fund_industry_intraday_items(session, name, trade_date):
                  where(StockFundIndustryIntraday.trade_date == trade_date))
     items = session.execute(statement).all()
     return items
+
+def check_stock_fund_industry_intraday_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockFundIndustryIntraday).where(
+        StockFundIndustryIntraday.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

@@ -21,6 +21,7 @@ import akshare as ak
 
 from app.common.log import log
 from app.crud.crud_stock_info import get_all_stocks, get_stock_infos
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_news import StockNews, StockNewsCreate
 
 
@@ -75,3 +76,16 @@ def get_stock_news_items(session, symbol, pub_time):
     statement = select(StockNews).where(StockNews.symbol == symbol).where(StockNews.pub_time == pub_time)
     stock_news_items = session.execute(statement).all()
     return stock_news_items
+
+
+def check_stock_news_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockNews).where(
+        StockNews.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True
+
+

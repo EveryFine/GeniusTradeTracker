@@ -23,7 +23,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_fund_industry_rank, stock_fund_big_deal, stock_fund_single_detail_intraday, stock_fund_single_detail_rank, \
     stock_fund_market_detail, stock_fund_industry_detail_intraday, stock_fund_industry_detail_rank, \
     stock_fund_concept_detail_intraday, stock_fund_concept_detail_rank, stock_pool_zt, stock_pool_strong, \
-    stock_pool_sub_new, stock_pool_zb, stock_pool_dt
+    stock_pool_sub_new, stock_pool_zb, stock_pool_dt, stock_check
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -120,3 +120,6 @@ v1.include_router(stock_pool_zb.router, prefix='/pool_zb',
 
 v1.include_router(stock_pool_dt.router, prefix='/pool_dt',
                   tags=['股池--跌停'])
+
+v1.include_router(stock_check.router, prefix='/check',
+                  tags=['当天检查'])

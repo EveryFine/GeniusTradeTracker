@@ -19,7 +19,7 @@ import akshare as ak
 from sqlmodel import Session, select
 
 from app.common.log import log
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 
 from app.models.stock_rank_cxd import StockRankCxd
 
@@ -83,3 +83,17 @@ def get_stock_rank_cxd_items(session, symbol, range_type, trade_date):
                  where(StockRankCxd.range_type == range_type))
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_rank_cxd_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    range_types = (
+        "创月新低", "半年新低", "一年新低", "历史新低")
+    for range_type in range_types:
+        statement = select(StockRankCxd).where(
+            StockRankCxd.trade_date == last_trade_date).where(StockRankCxd.range_type == range_type)
+        items = session.execute(statement).all()
+        if items is None or len(items) == 0:
+            return False
+
+    return True

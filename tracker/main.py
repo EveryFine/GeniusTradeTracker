@@ -27,6 +27,8 @@ from app.core.register import register_app
 from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
 from app.task.stock_comment_task import execute_create_stock_comment
 from app.task.stock_company_event_task import execute_create_stock_company_event
+from app.task.stock_current_day_check_task import execute_stock_current_day_check, \
+    execute_stock_history_current_day_check
 from app.task.stock_fund_big_deal_task import execute_create_stock_fund_big_deal
 from app.task.stock_fund_concept_detail_intraday_task import execute_create_stock_fund_concept_detail_intraday
 from app.task.stock_fund_concept_detail_rank_task import execute_create_stock_fund_concept_detail_rank
@@ -231,6 +233,10 @@ def init_scheduler():
 
     # 股池--跌停
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
+
+    # 当天数据检查
+    scheduler.add_job(execute_stock_current_day_check, 'cron', hour=22, minute=20, second=0)
+    scheduler.add_job(execute_stock_history_current_day_check, 'cron', hour=22, minute=30, second=0)
 
     scheduler.start()
 

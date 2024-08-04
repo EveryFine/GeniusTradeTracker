@@ -24,14 +24,14 @@ from app.models.stock_company_event import StockCompanyEvent
 
 def create_all_stock_company_events(*, session: Session) -> int:
     # 遍历2013年5月1日开始的日期，直到今天，2013.5.1之前无法查询到数据
-    start_date = date(2013, 1, 1)
+    start_date = date(2024, 8, 1)
     # 获取今天的日期
     end_date = date.today()
     res = create_part_stock_company_events(session=session, start_date=start_date, end_date=end_date)
     return res
 
 
-def create_part_stock_company_events(*, session: Session, start_date: date = date(2013, 1, 1),
+def create_part_stock_company_events(*, session: Session, start_date: date = date(2024, 8, 1),
                                      end_date=date.today()) -> int:
     events_count = 0
     # 当前遍历的日期
@@ -86,3 +86,13 @@ def get_company_event_items(session, symbol, event_date, date_index):
         StockCompanyEvent.event_date == event_date).where(StockCompanyEvent.date_index == date_index)
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_company_event_date(session, check_date):
+    statement = select(StockCompanyEvent).where(
+        StockCompanyEvent.event_date == check_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

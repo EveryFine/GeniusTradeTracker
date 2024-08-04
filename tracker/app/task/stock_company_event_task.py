@@ -25,7 +25,7 @@ from app.crud.crud_stock_company_event import create_all_stock_company_events, c
 def execute_create_stock_company_event():
     log.info(f"{datetime.now()} schedule task [create stock company events] start")
     with Session(engine) as session:
-        start_date = date(2024, 6, 24)
+        start_date = date(2024, 8, 1)
         end_date = date.today()
         create_count = create_part_stock_company_events(session=session, start_date=start_date, end_date=end_date)
         log.info(f"{datetime.now()} schedule task [create stock company events] end, create count: {create_count}")

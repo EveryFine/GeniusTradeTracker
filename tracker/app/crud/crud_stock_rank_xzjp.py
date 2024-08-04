@@ -70,3 +70,4 @@ def get_stock_rank_xzjp_items(session, symbol, pub_date, pub_owner):
                  where(StockRankXzjp.pub_date == pub_date).where(StockRankXzjp.pub_owner == pub_owner))
     items = session.execute(statement).all()
     return items
+

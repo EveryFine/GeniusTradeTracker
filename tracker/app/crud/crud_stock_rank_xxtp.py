@@ -19,7 +19,7 @@ import akshare as ak
 from sqlmodel import Session, select
 
 from app.common.log import log
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 
 from app.models.stock_rank_xxtp import StockRankXxtp
 
@@ -66,7 +66,10 @@ def create_stock_rank_xxtp_item(session, trade_date, range_type, row):
 
     items_saved = get_stock_rank_xxtp_items(session, symbol, range_type, trade_date)
     if items_saved is None or len(items_saved) == 0:
-        stock_rank_xxtp_create = StockRankXxtp(trade_date=trade_date, range_type=range_type, symbol=symbol, name=name, latest_price=latest_price, change_rate=change_rate, turnover_rate=turnover_rate, created_at=created_at, updated_at=updated_at)
+        stock_rank_xxtp_create = StockRankXxtp(trade_date=trade_date, range_type=range_type, symbol=symbol, name=name,
+                                               latest_price=latest_price, change_rate=change_rate,
+                                               turnover_rate=turnover_rate, created_at=created_at,
+                                               updated_at=updated_at)
         db_stock_rank_xxtp = StockRankXxtp.model_validate(stock_rank_xxtp_create)
         session.add(db_stock_rank_xxtp)
         return 1
@@ -80,3 +83,14 @@ def get_stock_rank_xxtp_items(session, symbol, range_type, trade_date):
                  where(StockRankXxtp.range_type == range_type))
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_rank_xxtp_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockRankXxtp).where(
+        StockRankXxtp.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True
