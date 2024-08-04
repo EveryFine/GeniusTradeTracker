@@ -19,7 +19,7 @@ import akshare as ak
 from sqlmodel import Session, select
 
 from app.common.log import log
-from app.crud.crud_stock_trade_date import get_last_trade_date_by_date
+from app.crud.crud_stock_trade_date import get_last_trade_date_by_date, get_last_trade_date
 from app.models.stock_pool_sub_new import StockPoolSubNew
 
 
@@ -60,7 +60,6 @@ def create_part_stock_pool_sub_new(*, session: Session, start_date: date = date.
     session.commit()
     log.info(f'creat stock pool sub_new(股池--次新股) finish, created count: {sub_new_count}')
     return sub_new_count
-
 
 
 def create_stock_pool_sub_new_item(session, row, trade_date):
@@ -118,3 +117,14 @@ def get_pool_sub_new_items(session, symbol, trade_date):
         StockPoolSubNew.trade_date == trade_date)
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_pool_sub_new_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockPoolSubNew).where(
+        StockPoolSubNew.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

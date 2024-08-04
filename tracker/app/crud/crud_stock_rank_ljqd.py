@@ -19,7 +19,7 @@ import akshare as ak
 from sqlmodel import Session, select
 
 from app.common.log import log
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_rank_ljqd import StockRankLjqd
 
 
@@ -66,3 +66,16 @@ def get_stock_rank_ljqd_items(session, symbol, trade_date):
                  where(StockRankLjqd.trade_date == trade_date))
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_rank_ljqd_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockRankLjqd).where(
+        StockRankLjqd.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True
+
+

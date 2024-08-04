@@ -119,3 +119,14 @@ def get_pool_zt_items(session, symbol, trade_date):
         StockPoolZt.trade_date == trade_date)
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_pool_zt_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockPoolZt).where(
+        StockPoolZt.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

@@ -19,7 +19,7 @@ import akshare as ak
 from sqlmodel import Session, select
 
 from app.common.log import log
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_change_abnormal import StockChangeAbnormal, StockChangeAbnormalCreate
 
 
@@ -81,3 +81,20 @@ def get_stock_change_abnormal_items(session, symbol, last_trade_date, event_time
         StockChangeAbnormal.event == event)
     stock_change_abnormal_items = session.execute(statement).all()
     return stock_change_abnormal_items
+
+
+def check_stock_change_abnormal_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+
+    abnormal_events = (
+        '火箭发射', '快速反弹', '大笔买入', '封涨停板', '打开跌停板', '有大买盘', '竞价上涨', '高开5日线', '向上缺口',
+        '60日新高', '60日大幅上涨', '加速下跌', '高台跳水', '大笔卖出', '封跌停板', '打开涨停板', '有大卖盘',
+        '竞价下跌',
+        '低开5日线', '向下缺口', '60日新低', '60日大幅下跌')
+    for event in abnormal_events:
+        statement = select(StockChangeAbnormal).where(StockChangeAbnormal.event == event).where(
+            StockChangeAbnormal.date == last_trade_date)
+        stock_change_abnormal_items = session.execute(statement).all()
+        if stock_change_abnormal_items is None or len(stock_change_abnormal_items) == 0:
+            return False
+    return True

@@ -20,7 +20,7 @@ from sqlmodel import Session, select
 
 from app.common.log import log
 from app.crud.crud_stock_pool_zt import get_time_from_str
-from app.crud.crud_stock_trade_date import get_last_trade_date_by_date
+from app.crud.crud_stock_trade_date import get_last_trade_date_by_date, get_last_trade_date
 from app.models.stock_pool_dt import StockPoolDt
 
 
@@ -120,3 +120,14 @@ def get_pool_dt_items(session, symbol, trade_date):
         StockPoolDt.trade_date == trade_date)
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_pool_dt_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockPoolDt).where(
+        StockPoolDt.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

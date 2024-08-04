@@ -20,7 +20,7 @@ from sqlmodel import Session, select
 
 from app.common.log import log
 from app.crud.crud_stock_fund_single_detail_intraday import get_value_with_hyphen
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_fund_industry_detail_intraday import StockFundIndustryDetailIntraday
 
 
@@ -96,3 +96,14 @@ def get_stock_fund_industry_detail_intraday_items(session, name, trade_date):
                  where(StockFundIndustryDetailIntraday.trade_date == trade_date))
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_fund_industry_detail_intraday_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockFundIndustryDetailIntraday).where(
+        StockFundIndustryDetailIntraday.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

@@ -19,6 +19,7 @@ import akshare as ak
 from sqlmodel import Session, select
 
 from app.common.log import log
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_comment import StockComment
 
 
@@ -73,3 +74,15 @@ def get_stock_comment_items(session, symbol, trade_date):
         StockComment.trade_date == trade_date)
     stock_comment_items = session.execute(statement).all()
     return stock_comment_items
+
+
+def check_stock_comment_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+
+    statement = select(StockComment).where(
+        StockComment.trade_date == last_trade_date)
+    stock_comment_items = session.execute(statement).all()
+    if stock_comment_items is None or len(stock_comment_items) == 0:
+        return False
+    else:
+        return True

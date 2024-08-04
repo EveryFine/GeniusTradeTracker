@@ -21,7 +21,7 @@ from sqlmodel import Session, select
 
 from app.common.log import log
 from app.crud.crud_stock_fund_single_intraday import per_str_to_float
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_fund_big_deal import StockFundBigDeal
 
 
@@ -79,3 +79,14 @@ def get_stock_fund_big_deal_items(session, symbol, trade_time, volume, price):
                  where(StockFundBigDeal.price == price))
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_fund_big_deal_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockFundBigDeal).where(
+        StockFundBigDeal.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

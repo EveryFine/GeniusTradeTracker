@@ -20,7 +20,7 @@ from sqlmodel import Session, select
 
 from app.common.log import log
 from app.crud.crud_stock_fund_concept_detail_intraday import get_value_with_hyphen
-from app.crud.crud_stock_trade_date import get_last_trade_date
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_fund_concept_detail_rank import StockFundConceptDetailRank
 
 
@@ -102,25 +102,25 @@ def create_stock_fund_concept_detail_rank_item(session, trade_date, row, range_t
     items_saved = get_stock_fund_concept_detail_rank_items(session, name, trade_date, range_type)
     if items_saved is None or len(items_saved) == 0:
         stock_fund_concept_detail_intraday_create = StockFundConceptDetailRank(trade_date=trade_date,
-                                                                                range_type=range_type,
+                                                                               range_type=range_type,
 
-                                                                                name=name,
+                                                                               name=name,
 
-                                                                                change_rate=change_rate,
-                                                                                main_in_rank=main_in_rank,
-                                                                                main_in_net=main_in_net,
-                                                                                main_in_per=main_in_per,
-                                                                                main_in_most_stock=main_in_most_stock,
-                                                                                huge_in_net=huge_in_net,
-                                                                                huge_in_per=huge_in_per,
-                                                                                big_in_net=big_in_net,
-                                                                                big_in_per=big_in_per,
-                                                                                middle_in_net=middle_in_net,
-                                                                                middle_in_per=middle_in_per,
-                                                                                small_in_net=small_in_net,
-                                                                                small_in_per=small_in_per,
-                                                                                created_at=created_at,
-                                                                                updated_at=updated_at)
+                                                                               change_rate=change_rate,
+                                                                               main_in_rank=main_in_rank,
+                                                                               main_in_net=main_in_net,
+                                                                               main_in_per=main_in_per,
+                                                                               main_in_most_stock=main_in_most_stock,
+                                                                               huge_in_net=huge_in_net,
+                                                                               huge_in_per=huge_in_per,
+                                                                               big_in_net=big_in_net,
+                                                                               big_in_per=big_in_per,
+                                                                               middle_in_net=middle_in_net,
+                                                                               middle_in_per=middle_in_per,
+                                                                               small_in_net=small_in_net,
+                                                                               small_in_per=small_in_per,
+                                                                               created_at=created_at,
+                                                                               updated_at=updated_at)
         db_stock_fund_concept_detail_intraday = StockFundConceptDetailRank.model_validate(
             stock_fund_concept_detail_intraday_create)
         session.add(db_stock_fund_concept_detail_intraday)
@@ -135,3 +135,14 @@ def get_stock_fund_concept_detail_rank_items(session, name, trade_date, range_ty
         StockFundConceptDetailRank.range_type == range_type))
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_fund_concept_detail_rank_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockFundConceptDetailRank).where(
+        StockFundConceptDetailRank.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True

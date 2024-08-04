@@ -22,6 +22,7 @@ from sqlmodel import Session, select
 import akshare as ak
 
 from app.crud.crud_stock_info import get_all_stocks, get_stock_infos
+from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_history import StockHistory, StockHistoryCreate
 
 
@@ -92,3 +93,14 @@ def create_stock_hist(session, row):
     # session.refresh(db_stock_hist)
     res = StockHistory.model_validate(db_stock_hist)
     return res
+
+
+def check_stock_history_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockHistory).where(
+        StockHistory.date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) < 4000:
+        return False
+    else:
+        return True

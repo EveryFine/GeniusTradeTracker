@@ -53,7 +53,8 @@ def create_part_stock_pool_strong(*, session: Session, start_date: date = date.t
                 strong_count += res
                 if strong_count > 0 and strong_count % 100 == 0:
                     session.commit()
-            log.info(f'creat stock pool strong(股池--强势) current_date: {current_date} ,trade_date:{formatted_date}, created count: {date_count}')
+            log.info(
+                f'creat stock pool strong(股池--强势) current_date: {current_date} ,trade_date:{formatted_date}, created count: {date_count}')
         finally:
             current_date += timedelta(days=1)
     session.commit()
@@ -119,3 +120,14 @@ def get_pool_strong_items(session, symbol, trade_date):
         StockPoolStrong.trade_date == trade_date)
     items = session.execute(statement).all()
     return items
+
+
+def check_stock_pool_strong_date(session, check_date):
+    last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    statement = select(StockPoolStrong).where(
+        StockPoolStrong.trade_date == last_trade_date)
+    items = session.execute(statement).all()
+    if items is None or len(items) == 0:
+        return False
+    else:
+        return True
