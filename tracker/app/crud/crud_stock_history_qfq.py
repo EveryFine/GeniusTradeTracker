@@ -18,6 +18,8 @@ from datetime import datetime, timedelta
 from fastapi import Query
 from sqlmodel import Session, select
 import akshare as ak
+
+from app.common.log import log
 from app.crud.crud_stock_info import get_all_stocks, get_stock_infos
 from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_history_qfq import StockHistoryQfq, StockHistoryQfqCreate
@@ -45,9 +47,13 @@ def create_histories_by_list(session, stock_infos):
 
 def create_part_stock_histories(*, session: Session, stock_offset: int = 0,
                                 stock_limit: int = Query(default=1000, le=1000)) -> int:
-    stock_infos_public = get_stock_infos(session=session, offset=stock_offset, limit=stock_limit)
-    stock_infos = stock_infos_public.data
-    history_count = create_histories_by_list(session, stock_infos)
+    try:
+        stock_infos_public = get_stock_infos(session=session, offset=stock_offset, limit=stock_limit)
+        stock_infos = stock_infos_public.data
+        history_count = create_histories_by_list(session, stock_infos)
+    except Exception as e:
+        log.error(
+            f"{datetime.now()} create_part_stock_histories_qfq(offset:{stock_offset}, limit:{stock_limit}) exception: {e}")
     return history_count
 
 
