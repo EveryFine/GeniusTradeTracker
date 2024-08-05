@@ -49,13 +49,11 @@ def create_histories_by_list(session, stock_infos):
 
 def create_part_stock_histories(*, session: Session, stock_offset: int = 0,
                                 stock_limit: int = Query(default=1000, le=1000)) -> int:
-    history_count = 0
-    try:
-        stock_infos_public = get_stock_infos(session=session, offset=stock_offset, limit=stock_limit)
-        stock_infos = stock_infos_public.data
-        history_count = create_histories_by_list(session, stock_infos)
-    except Exception as e:
-        log.error(f"create_part_stock_histories(offset:{stock_offset}, limit:{stock_limit}) exception: {e}")
+
+    stock_infos_public = get_stock_infos(session=session, offset=stock_offset, limit=stock_limit)
+    stock_infos = stock_infos_public.data
+    history_count = create_histories_by_list(session, stock_infos)
+
     return history_count
 
 
