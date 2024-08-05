@@ -54,7 +54,7 @@ def create_part_stock_histories(*, session: Session, stock_offset: int = 0,
         stock_infos = stock_infos_public.data
         history_count = create_histories_by_list(session, stock_infos)
     except Exception as e:
-        log.error(f"{datetime.now()} create_part_stock_histories(offset:{stock_offset}, limit:{stock_limit}) exception: {e}")
+        log.error(f"create_part_stock_histories(offset:{stock_offset}, limit:{stock_limit}) exception: {e}")
     return history_count
 
 
