@@ -13,6 +13,7 @@
 """
 __author__ = 'EveryFine'
 
+import socket
 from pathlib import Path
 
 import uvicorn
@@ -244,7 +245,15 @@ def init_scheduler():
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
-    init_scheduler()
+    # add lock for scheduler start, to avoid overlap running in multi threads
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind(('127.0.0.1', 47200))
+    except socket.error:
+        log.error('scheduler already started, DO NOTHING!!!')
+    else:
+        init_scheduler()
+        log.info('scheduler started!!!')
 
 
 def create_db_and_tables():
