@@ -81,7 +81,7 @@ def get_stock_news_items(session, symbol, pub_time):
 def check_stock_news_date(session, check_date):
     last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
     statement = select(StockNews).where(
-        StockNews.trade_date == last_trade_date)
+        StockNews.pub_time.date() == last_trade_date)
     items = session.execute(statement).all()
     if items is None or len(items) == 0:
         return False
