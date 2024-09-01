@@ -23,7 +23,7 @@ from app.common.log import log
 from app.crud.crud_stock_info import get_all_stocks, get_stock_infos
 from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_news import StockNews, StockNewsCreate
-
+from sqlalchemy import func
 
 def create_stock_news(*, session: Session) -> int:
     stock_infos = get_all_stocks(session=session)
@@ -80,12 +80,13 @@ def get_stock_news_items(session, symbol, pub_time):
 
 def check_stock_news_date(session, check_date):
     last_trade_date = get_last_trade_date_by_date(session=session, final_date=check_date)
+    
+    # 使用 func.extract 提取日期的日部分
     statement = select(StockNews).where(
-        StockNews.pub_time.date() == last_trade_date)
+        func.extract('day', StockNews.pub_time) == last_trade_date.day
+    )
+    
     items = session.execute(statement).all()
-    if items is None or len(items) == 0:
-        return False
-    else:
-        return True
+    return len(items) > 0  # 简化返回逻辑
 
 
