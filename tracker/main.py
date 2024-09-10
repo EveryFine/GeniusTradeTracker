@@ -221,7 +221,7 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=21, minute=23, second=0)
 
     # 股池--涨停
-    scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=20, minute=36, second=0)
+    scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=20, minute=37, second=0)
 
     # 股池--强势
     scheduler.add_job(execute_create_stock_pool_strong, 'cron', hour=20, minute=48, second=0)
