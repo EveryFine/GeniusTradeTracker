@@ -111,7 +111,7 @@ def init_scheduler():
 
     # 盘口异动
     scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=18, minute=15, second=0)
-    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=18, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=21, minute=30, second=0)
 
     # 千股千评
     scheduler.add_job(execute_create_stock_comment, 'cron', hour=18, minute=45, second=0)
@@ -221,18 +221,23 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=21, minute=23, second=0)
 
     # 股池--涨停
+    scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=19, minute=37, second=0)
     scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=20, minute=37, second=0)
 
     # 股池--强势
+    scheduler.add_job(execute_create_stock_pool_strong, 'cron', hour=19, minute=48, second=0)
     scheduler.add_job(execute_create_stock_pool_strong, 'cron', hour=20, minute=48, second=0)
 
     # 股池--次新
+    scheduler.add_job(execute_create_stock_pool_sub_new, 'cron', hour=19, minute=55, second=0)
     scheduler.add_job(execute_create_stock_pool_sub_new, 'cron', hour=20, minute=55, second=0)
 
     # 股池--炸板
+    scheduler.add_job(execute_create_stock_pool_zb, 'cron', hour=19, minute=23, second=0)
     scheduler.add_job(execute_create_stock_pool_zb, 'cron', hour=20, minute=23, second=0)
 
     # 股池--跌停
+    scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=19, minute=12, second=0)
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
 
     # 当天数据检查
