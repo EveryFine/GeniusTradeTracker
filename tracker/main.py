@@ -114,7 +114,7 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=21, minute=30, second=0)
 
     # 千股千评
-    scheduler.add_job(execute_create_stock_comment, 'cron', hour=18, minute=45, second=0)
+    scheduler.add_job(execute_create_stock_comment, 'cron', hour=18, minute=46, second=0)
     scheduler.add_job(execute_create_stock_comment, 'cron', hour=20, minute=21, second=0)
 
     # 公司动态
