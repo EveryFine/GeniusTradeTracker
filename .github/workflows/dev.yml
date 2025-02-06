@@ -2,6 +2,9 @@ name: Genius Trade Tracker Dev Deploy to ali
 on:
   push:
     branches: [ "dev" ]
+  schedule:
+    - cron: "0 4 * * *"
+      timezone: Asia/Shanghai
   workflow_dispatch:
 
 env:
