@@ -63,3 +63,7 @@ def execute_create_stock_histories_4000_5000():
         stock_limit = 1000
         create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
         log.info(f"{datetime.now()} schedule task [create stock histories 4000-5000] end, create count: {create_count}")
+
+
+if __name__ == '__main__':
+    execute_create_stock_histories_0_1000()
