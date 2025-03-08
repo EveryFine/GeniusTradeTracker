@@ -9,6 +9,6 @@ services:
       POSTGRES_PASSWORD: ${MY_POSTGRES_PASSWORD}
       POSTGRES_DB: ${MY_POSTGRES_DB}
     volumes:
-      - /Users/zhengshuang/Documents/Datacenter/FinStore/Postgres:/var/lib/postgresql/data
+      - ~/Documents/Datacenter/FinStore/Postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"

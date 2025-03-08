@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: public.ecr.aws/docker/library/postgres:14
+    container_name: postgres_ali_local
+    environment:
+      POSTGRES_USER: ${MY_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${MY_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${MY_POSTGRES_DB}
+    volumes:
+      - ~/Documents/ProgramingGuide/Python/量化交易/Database/DbBackup/PostgresAli/LocalDB:/var/lib/postgresql/data
+    ports:
+      - "15432:5432"
