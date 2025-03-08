@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:latest
+    image: public.ecr.aws/docker/library/postgres:14
     container_name: postgres_ali_local
     environment:
       POSTGRES_USER: ${MY_POSTGRES_USER}
