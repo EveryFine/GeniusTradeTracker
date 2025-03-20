@@ -27,3 +27,7 @@ def execute_create_stock_pool_strong():
     with Session(engine) as session:
         create_count = create_stock_pool_strong(session=session)
         log.info(f"{datetime.now()} schedule task [create stock pool strong(股池--强势)] end, create count: {create_count}")
+
+
+if __name__ == '__main__':
+    execute_create_stock_pool_strong()

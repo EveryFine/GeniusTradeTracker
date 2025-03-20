@@ -31,11 +31,11 @@ class StockPoolStrongBase(SQLModel):
     market_value: float | None = Field(default=None, description='总市值')
     turnover_rate: float | None = Field(default=None, description='换手率')
     up_speed: float | None = Field(default=None, description='涨速')
-    is_new_high: bool | None = Field(default=False, description='是否新高')
+    is_new_high: str | None = Field(default=False, description='是否新高')
     volume_ratio: float | None = Field(default=None, description='量比')
     zt_status: str | None = Field(max_length=20, description='涨停统计')
 
-    reason: int | None = Field(default=None,
+    reason: str | None = Field(default=None,
                                description='入选理由：1: 60日新高, 2: 近期多次涨停, 3: 60日新高且近期多次涨停')
     industry: str | None = Field(max_length=50, description='所属行业')
 

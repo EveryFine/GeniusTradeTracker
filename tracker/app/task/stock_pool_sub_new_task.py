@@ -27,3 +27,7 @@ def execute_create_stock_pool_sub_new():
     with Session(engine) as session:
         create_count = create_stock_pool_sub_new(session=session)
         log.info(f"{datetime.now()} schedule task [create stock pool sub new(股池--次新)] end, create count: {create_count}")
+
+
+if __name__ == '__main__':
+    execute_create_stock_pool_sub_new()

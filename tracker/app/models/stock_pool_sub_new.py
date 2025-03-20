@@ -34,7 +34,7 @@ class StockPoolSubNewBase(SQLModel):
     kb_days: int | None = Field(default=None, description='开板几日')
     kb_date: datetime.date | None = Field(default=datetime.date.today(), description='开板日期')
     offering_date: datetime.date | None = Field(default=datetime.date.today(), description='上市日期')
-    is_new_high: bool | None = Field(default=False, description='是否新高')
+    is_new_high: str | None = Field(default=False, description='是否新高')
     zt_status: str | None = Field(max_length=20, description='涨停统计')
     industry: str | None = Field(max_length=50, description='所属行业')
 
@@ -59,3 +59,4 @@ class StockPoolSubNewPublic(StockPoolSubNewBase):
 class StockPoolSubNewAllPublic(SQLModel):
     data: list[StockPoolSubNewPublic]
     count: int
+
