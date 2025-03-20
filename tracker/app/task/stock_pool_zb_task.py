@@ -28,3 +28,6 @@ def execute_create_stock_pool_zb():
     with Session(engine) as session:
         create_count = create_stock_pool_zb(session=session)
         log.info(f"{datetime.now()} schedule task [create stock pool zb(股池--炸板)] end, create count: {create_count}")
+
+if __name__ == '__main__':
+    execute_create_stock_pool_zb()
