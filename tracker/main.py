@@ -213,60 +213,72 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_rank_xzjp, 'cron', hour=21, minute=12, second=0)
 
     # 资金流--个股--即时
+    scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=16, minute=13, second=0)
     scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=19, minute=13, second=0)
     scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=20, minute=22, second=0)
 
     scheduler.add_job(execute_create_stock_fund_single_intraday, 'cron', hour=22, minute=22, second=0)
 
     # 资金流--个股--排行
+    scheduler.add_job(execute_create_stock_fund_single_rank, 'cron', hour=16, minute=24, second=0)
     scheduler.add_job(execute_create_stock_fund_single_rank, 'cron', hour=21, minute=16, second=0)
     scheduler.add_job(execute_create_stock_fund_single_rank, 'cron', hour=19, minute=24, second=0)
 
     scheduler.add_job(execute_create_stock_fund_single_rank, 'cron', hour=22, minute=24, second=0)
 
     # 资金流--概念--即时
-    scheduler.add_job(execute_create_stock_fund_concept_intraday, 'cron', hour=19, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_fund_concept_intraday, 'cron', hour=16, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_fund_concept_intraday, 'cron', hour=18, minute=11, second=0)
     scheduler.add_job(execute_create_stock_fund_concept_intraday, 'cron', hour=21, minute=23, second=0)
 
     scheduler.add_job(execute_create_stock_fund_concept_intraday, 'cron', hour=22, minute=23, second=0)
 
     # 资金流--概念--排行
+    scheduler.add_job(execute_create_stock_fund_concept_rank, 'cron', hour=16, minute=13, second=0)
     scheduler.add_job(execute_create_stock_fund_concept_rank, 'cron', hour=19, minute=13, second=0)
     scheduler.add_job(execute_create_stock_fund_concept_rank, 'cron', hour=21, minute=34, second=0)
 
     scheduler.add_job(execute_create_stock_fund_concept_rank, 'cron', hour=22, minute=34, second=0)
 
     # 资金流--行业--即时
+    scheduler.add_job(execute_create_stock_fund_industry_intraday, 'cron', hour=16, minute=26, second=0)
     scheduler.add_job(execute_create_stock_fund_industry_intraday, 'cron', hour=21, minute=18, second=0)
     scheduler.add_job(execute_create_stock_fund_industry_intraday, 'cron', hour=19, minute=26, second=0)
 
     scheduler.add_job(execute_create_stock_fund_industry_intraday, 'cron', hour=22, minute=46, second=0)
 
     # 资金流--行业--排行
+    scheduler.add_job(execute_create_stock_fund_industry_rank, 'cron', hour=16, minute=35, second=0)
     scheduler.add_job(execute_create_stock_fund_industry_rank, 'cron', hour=21, minute=22, second=0)
     scheduler.add_job(execute_create_stock_fund_industry_rank, 'cron', hour=18, minute=35, second=0)
 
     scheduler.add_job(execute_create_stock_fund_industry_rank, 'cron', hour=22, minute=22, second=0)
 
     # 资金流--大单追踪
+    scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=16, minute=22, second=0)
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=20, minute=16, second=0)
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=18, minute=22, second=0)
 
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=22, minute=22, second=0)
 
     # 资金流--个股--详细--即时
+    scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=16, minute=17, second=0)
+    scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=17, minute=17, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=19, minute=17, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=21, minute=36, second=0)
 
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=22, minute=36, second=0)
 
     # 资金流--个股--详细--排名
+    scheduler.add_job(execute_create_stock_fund_single_detail_rank, 'cron', hour=16, minute=27, second=0)
+    scheduler.add_job(execute_create_stock_fund_single_detail_rank, 'cron', hour=17, minute=27, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_rank, 'cron', hour=19, minute=27, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_rank, 'cron', hour=20, minute=46, second=0)
 
     scheduler.add_job(execute_create_stock_fund_single_detail_rank, 'cron', hour=21, minute=46, second=0)
 
     # 资金流--大盘
+    scheduler.add_job(execute_create_stock_fund_market_detail, 'cron', hour=16, minute=52, second=0)
     scheduler.add_job(execute_create_stock_fund_market_detail, 'cron', hour=18, minute=52, second=0)
     scheduler.add_job(execute_create_stock_fund_market_detail, 'cron', hour=20, minute=52, second=0)
 
@@ -279,48 +291,56 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_fund_industry_detail_intraday, 'cron', hour=22, minute=16, second=0)
 
     # 资金流--行业--详细--排行
+    scheduler.add_job(execute_create_stock_fund_industry_detail_rank, 'cron', hour=16, minute=43, second=0)
     scheduler.add_job(execute_create_stock_fund_industry_detail_rank, 'cron', hour=20, minute=42, second=0)
     scheduler.add_job(execute_create_stock_fund_industry_detail_rank, 'cron', hour=18, minute=43, second=0)
 
     scheduler.add_job(execute_create_stock_fund_industry_detail_rank, 'cron', hour=21, minute=43, second=0)
 
     # 资金流--概念--详细--即时
+    scheduler.add_job(execute_create_stock_fund_concept_detail_intraday, 'cron', hour=16, minute=42, second=0)
     scheduler.add_job(execute_create_stock_fund_concept_detail_intraday, 'cron', hour=18, minute=42, second=0)
     scheduler.add_job(execute_create_stock_fund_concept_detail_intraday, 'cron', hour=21, minute=18, second=0)
 
     scheduler.add_job(execute_create_stock_fund_concept_detail_intraday, 'cron', hour=22, minute=18, second=0)
 
     # 资金流--概念--详细--排行
+    scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=16, minute=24, second=0)
     scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=18, minute=24, second=0)
     scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=21, minute=23, second=0)
 
     scheduler.add_job(execute_create_stock_fund_concept_detail_rank, 'cron', hour=22, minute=23, second=0)
 
     # 股池--涨停
+    scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=16, minute=35, second=0)
     scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=18, minute=35, second=0)
     scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=20, minute=37, second=0)
 
     scheduler.add_job(execute_create_stock_pool_zt, 'cron', hour=21, minute=37, second=0)
 
     # 股池--强势
+    scheduler.add_job(execute_create_stock_pool_strong, 'cron', hour=16, minute=48, second=0)
     scheduler.add_job(execute_create_stock_pool_strong, 'cron', hour=18, minute=48, second=0)
     scheduler.add_job(execute_create_stock_pool_strong, 'cron', hour=20, minute=48, second=0)
 
     scheduler.add_job(execute_create_stock_pool_strong, 'cron', hour=21, minute=48, second=0)
 
     # 股池--次新
+    scheduler.add_job(execute_create_stock_pool_sub_new, 'cron', hour=16, minute=55, second=0)
     scheduler.add_job(execute_create_stock_pool_sub_new, 'cron', hour=18, minute=55, second=0)
     scheduler.add_job(execute_create_stock_pool_sub_new, 'cron', hour=20, minute=55, second=0)
 
     scheduler.add_job(execute_create_stock_pool_sub_new, 'cron', hour=21, minute=55, second=0)
 
     # 股池--炸板
+    scheduler.add_job(execute_create_stock_pool_zb, 'cron', hour=16, minute=23, second=0)
     scheduler.add_job(execute_create_stock_pool_zb, 'cron', hour=18, minute=23, second=0)
     scheduler.add_job(execute_create_stock_pool_zb, 'cron', hour=20, minute=23, second=0)
 
     scheduler.add_job(execute_create_stock_pool_zb, 'cron', hour=22, minute=23, second=0)
 
     # 股池--跌停
+    scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=17, minute=12, second=0)
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=18, minute=12, second=0)
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
 
