@@ -27,3 +27,6 @@ def execute_create_stock_fund_industry_detail_intraday():
     with Session(engine) as session:
         create_count = create_stock_fund_industry_detail_intraday(session=session)
         log.info(f"{datetime.now()} schedule task [stock fund industry detail intraday] end, create count: {create_count}")
+
+if __name__ == '__main__':
+    execute_create_stock_fund_industry_detail_intraday()
