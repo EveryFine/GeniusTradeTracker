@@ -9,6 +9,6 @@ services:
       POSTGRES_PASSWORD: ${MY_POSTGRES_PASSWORD}
       POSTGRES_DB: ${MY_POSTGRES_DB}
     volumes:
-      - ~/Documents/ProgramingGuide/Python/量化交易/Database/DbBackup/PostgresXiangCao/LocalDB:/var/lib/postgresql/data
+      - ~/Documents/ProgramingGuide/Python/量化交易/Database/DbBackup/PostgresTencent/LocalDB:/var/lib/postgresql/data
     ports:
       - "25432:5432"
