@@ -1,12 +1,15 @@
-name: Genius Trade Tracker Dev Deploy to ali
+name: Genius Trade Tracker AliCloud Deploy
 on:
-  schedule:
-    - cron: "0 7 * * *"
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/geniustradetracker
+  # REGISTRY: ghcr.io
+  REGISTRY: ccr.ccs.tencentyun.com
+  REGISTRY_USERNAME: ${{ secrets.TENCENT_REGISTRY_USERNAME }}
+  REGISTRY_PASSWORD: ${{ secrets.TENCENT_REGISTRY_PASSWORD }}
+  IMAGE_NAME: ${{ github.repository_owner }}/geniustradetracker
   TARGET_SSH_HOST: ${{ secrets.TARGET_SSH_HOST }}
   TARGET_SSH_USER: ${{ secrets.TARGET_SSH_USER }}
   TARGET_SSH_PASSWORD: ${{ secrets.TARGET_SSH_PASSWORD }}
@@ -45,8 +48,10 @@ jobs:
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ env.REGISTRY_USERNAME}}
+          password: ${{ env.REGISTRY_PASSWORD }}
+          # username: ${{ github.actor }}
+          # password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
