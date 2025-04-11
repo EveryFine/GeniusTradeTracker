@@ -1,7 +1,7 @@
 name: Genius Trade Tracker AliCloud Deploy
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 env:
