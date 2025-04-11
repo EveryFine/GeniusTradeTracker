@@ -347,8 +347,8 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=22, minute=12, second=0)
 
     # 当天数据检查
-    scheduler.add_job(execute_stock_current_day_check, 'cron', hour=23, minute=20, second=0)
-    scheduler.add_job(execute_stock_history_current_day_check, 'cron', hour=23, minute=30, second=0)
+    # scheduler.add_job(execute_stock_current_day_check, 'cron', hour=23, minute=20, second=0)
+    # scheduler.add_job(execute_stock_history_current_day_check, 'cron', hour=23, minute=30, second=0)
 
     scheduler.start()
 
