@@ -25,5 +25,9 @@ from app.crud.crud_stock_rank_cxg import create_stock_rank_cxg
 def execute_create_stock_rank_cxg():
     log.info(f"{datetime.now()} schedule task [create stock rank cxg] start")
     with Session(engine) as session:
-        create_count = create_stock_rank_cxg(session=session)
-        log.info(f"{datetime.now()} schedule task [create stock rank cxg] end, create count: {create_count}")
+        try:
+            create_count = create_stock_rank_cxg(session=session)
+            log.info(f"{datetime.now()} schedule task [create stock rank cxg] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock rank cxg] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)

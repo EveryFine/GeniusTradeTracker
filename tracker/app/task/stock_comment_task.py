@@ -14,6 +14,7 @@
 __author__ = 'EveryFine'
 
 from datetime import datetime
+import traceback
 
 from sqlmodel import Session
 
@@ -25,5 +26,9 @@ from app.crud.crud_stock_comment import create_stock_comments
 def execute_create_stock_comment():
     log.info(f"{datetime.now()} schedule task [create stock comments] start")
     with Session(engine) as session:
-        create_count = create_stock_comments(session=session)
-        log.info(f"{datetime.now()} schedule task [create stock comments] end, create count: {create_count}")
+        try:
+            create_count = create_stock_comments(session=session)
+            log.info(f"{datetime.now()} schedule task [create stock comments] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock comments] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)

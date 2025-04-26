@@ -13,7 +13,7 @@
 """
 __author__ = 'EveryFine'
 
-
+import traceback
 from datetime import datetime
 
 from sqlmodel import Session
@@ -26,5 +26,9 @@ from app.crud.crud_stock_rank_xstp import create_stock_rank_xstp
 def execute_create_stock_rank_xstp():
     log.info(f"{datetime.now()} schedule task [create stock rank xstp] start")
     with Session(engine) as session:
-        create_count = create_stock_rank_xstp(session=session)
-        log.info(f"{datetime.now()} schedule task [create stock rank xstp] end, create count: {create_count}")
+        try:
+            create_count = create_stock_rank_xstp(session=session)
+            log.info(f"{datetime.now()} schedule task [create stock rank xstp] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock rank xstp] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)

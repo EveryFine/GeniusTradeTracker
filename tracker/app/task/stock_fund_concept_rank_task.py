@@ -14,6 +14,7 @@
 __author__ = 'EveryFine'
 
 from datetime import datetime
+import traceback
 
 from sqlmodel import Session
 
@@ -25,5 +26,9 @@ from app.crud.crud_stock_fund_concept_rank import create_stock_fund_concept_rank
 def execute_create_stock_fund_concept_rank():
     log.info(f"{datetime.now()} schedule task [create stock fund concept rank] start")
     with Session(engine) as session:
-        create_count = create_stock_fund_concept_ranks(session=session)
-        log.info(f"{datetime.now()} schedule task [stock fund concept rank] end, create count: {create_count}")
+        try:
+            create_count = create_stock_fund_concept_ranks(session=session)
+            log.info(f"{datetime.now()} schedule task [stock fund concept rank] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [stock fund concept rank] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)

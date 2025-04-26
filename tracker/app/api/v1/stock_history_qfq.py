@@ -13,7 +13,8 @@
 """
 __author__ = 'EveryFine'
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, HTTPException
+import traceback
 
 from app.api.deps import SessionDep
 from app.crud.crud_stock_history_qfq import create_stock_histories, create_part_stock_histories
@@ -23,12 +24,20 @@ router = APIRouter()
 
 @router.post("/", response_model=int)
 def create_stock_history(session: SessionDep):
-    create_count = create_stock_histories(session=session)
-    return create_count
+    try:
+        create_count = create_stock_histories(session=session)
+        return create_count
+    except Exception as e:
+        error_msg = f"Error creating stock history: {str(e)}\n{traceback.format_exc()}"
+        raise HTTPException(status_code=500, detail=error_msg)
 
 
 @router.post("/part", response_model=int)
 def create_stock_history(session: SessionDep, stock_offset: int = 0,
                          stock_limit: int = Query(default=100, le=1000)):
-    create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
-    return create_count
+    try:
+        create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
+        return create_count
+    except Exception as e:
+        error_msg = f"Error creating part stock history: {str(e)}\n{traceback.format_exc()}"
+        raise HTTPException(status_code=500, detail=error_msg)

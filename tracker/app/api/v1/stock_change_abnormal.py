@@ -13,7 +13,8 @@
 """
 __author__ = 'EveryFine'
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+import traceback
 
 from app.api.deps import SessionDep
 from app.crud.crud_stock_change_abnormal import create_stock_change_abnormal
@@ -23,5 +24,9 @@ router = APIRouter()
 
 @router.post("/", response_model=int)
 def create_stock_change_abnormal_events(session: SessionDep):
-    create_count = create_stock_change_abnormal(session=session)
-    return create_count
+    try:
+        create_count = create_stock_change_abnormal(session=session)
+        return create_count
+    except Exception as e:
+        error_msg = f"Error creating stock change abnormal: {str(e)}\n{traceback.format_exc()}"
+        raise HTTPException(status_code=500, detail=error_msg)

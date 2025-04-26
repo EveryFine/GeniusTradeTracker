@@ -14,6 +14,7 @@
 __author__ = 'EveryFine'
 
 from datetime import datetime
+import traceback
 
 from sqlmodel import Session
 
@@ -26,9 +27,13 @@ from app.crud.crud_stock_fund_single_detail_rank import create_stock_fund_single
 def execute_create_stock_fund_single_detail_rank():
     log.info(f"{datetime.now()} schedule task [create stock fund single detail rank] start")
     with Session(engine) as session:
-        create_count = create_stock_fund_single_detail_rank(session=session)
-        # create_count = create_stock_fund_single_detail_rank_by_types(session, ['10日'])
-        log.info(f"{datetime.now()} schedule task [stock fund single detail rank] end, create count: {create_count}")
+        try:
+            create_count = create_stock_fund_single_detail_rank(session=session)
+            # create_count = create_stock_fund_single_detail_rank_by_types(session, ['10日'])
+            log.info(f"{datetime.now()} schedule task [stock fund single detail rank] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [stock fund single detail rank] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
 
 if __name__ == '__main__':
     execute_create_stock_fund_single_detail_rank()
