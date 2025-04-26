@@ -18,48 +18,69 @@ from datetime import datetime
 from app.crud.crud_stock_history_qfq import create_part_stock_histories
 from sqlmodel import Session
 from app.core.db import engine
+import traceback
 
 
 def execute_create_stock_histories_qfq_0_1000():
     log.info(f"{datetime.now()} schedule task [create stock histories qfq 0-1000] start")
     with Session(engine) as session:
-        stock_offset = 0
-        stock_limit = 1000
-        create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
-        log.info(f"{datetime.now()} schedule task [create stock histories qfq 0-1000] end, create count: {create_count}")
+        try:
+            stock_offset = 0
+            stock_limit = 1000
+            create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
+            log.info(f"{datetime.now()} schedule task [create stock histories qfq 0-1000] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock histories qfq 0-1000] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
 
 
 def execute_create_stock_histories_qfq_1000_2000():
     log.info(f"{datetime.now()} schedule task [create stock histories qfq 1000-2000] start")
     with Session(engine) as session:
-        stock_offset = 1000
-        stock_limit = 1000
-        create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
-        log.info(f"{datetime.now()} schedule task [create stock histories qfq 1000-2000] end, create count: {create_count}")
+        try:
+            stock_offset = 1000
+            stock_limit = 1000
+            create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
+            log.info(f"{datetime.now()} schedule task [create stock histories qfq 1000-2000] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock histories qfq 1000-2000] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
 
 
 def execute_create_stock_histories_qfq_2000_3000():
     log.info(f"{datetime.now()} schedule task [create stock histories qfq 2000-3000] start")
     with Session(engine) as session:
-        stock_offset = 2000
-        stock_limit = 1000
-        create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
-        log.info(f"{datetime.now()} schedule task [create stock histories qfq 2000-3000] end, create count: {create_count}")
+        try:
+            stock_offset = 2000
+            stock_limit = 1000
+            create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
+            log.info(f"{datetime.now()} schedule task [create stock histories qfq 2000-3000] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock histories qfq 2000-3000] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
 
 
 def execute_create_stock_histories_qfq_3000_4000():
     log.info(f"{datetime.now()} schedule task [create stock histories qfq 3000-4000] start")
     with Session(engine) as session:
-        stock_offset = 3000
-        stock_limit = 1000
-        create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
-        log.info(f"{datetime.now()} schedule task [create stock histories qfq 3000-4000] end, create count: {create_count}")
+        try:
+            stock_offset = 3000
+            stock_limit = 1000
+            create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
+            log.info(f"{datetime.now()} schedule task [create stock histories qfq 3000-4000] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock histories qfq 3000-4000] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
 
 
 def execute_create_stock_histories_qfq_4000_5000():
     log.info(f"{datetime.now()} schedule task [create stock histories qfq 4000-5000] start")
     with Session(engine) as session:
-        stock_offset = 4000
-        stock_limit = 1000
-        create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
-        log.info(f"{datetime.now()} schedule task [create stock histories qfq 4000-5000] end, create count: {create_count}")
+        try:
+            stock_offset = 4000
+            stock_limit = 1000
+            create_count = create_part_stock_histories(session=session, stock_offset=stock_offset, stock_limit=stock_limit)
+            log.info(f"{datetime.now()} schedule task [create stock histories qfq 4000-5000] end, create count: {create_count}")
+        except Exception as e:
+            error_msg = f"{datetime.now()} schedule task [create stock histories qfq 4000-5000] error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
