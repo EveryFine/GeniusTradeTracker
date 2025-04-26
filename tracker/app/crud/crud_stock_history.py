@@ -15,6 +15,7 @@ __author__ = 'EveryFine'
 
 import datetime
 from typing import List
+import time
 
 from fastapi import Query
 from sqlmodel import Session, select
@@ -40,10 +41,14 @@ def create_histories_by_list(session, stock_infos):
         end_date = 20500101
         stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol=stock_info.symbol, start_date=start_date, end_date=end_date,
                                                 period="daily", adjust="")
+        ## 增加延迟
+        time.sleep(1)
+
         for index, row in stock_zh_a_hist_df.iterrows():
             stock_hist = create_stock_hist(session=session, row=row)
             history_count += 1
         session.commit()
+        
     return history_count
 
 
