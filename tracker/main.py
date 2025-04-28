@@ -82,11 +82,11 @@ scheduler = BackgroundScheduler(jobstores=jobstores)
 
 def init_scheduler():
     # 历史行情 - 不复权
-    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=18, minute=0, second=0)
-    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=18, minute=30, second=0)
-    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=19, minute=0, second=0)
-    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=19, minute=30, second=0)
-    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=20, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=17, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=17, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=17, minute=40, second=0)
+    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=18, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=18, minute=20, second=0)
 
     # scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=21, minute=30, second=0)
     # scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=21, minute=15, second=0)
