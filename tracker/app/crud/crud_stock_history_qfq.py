@@ -40,7 +40,7 @@ def create_histories_by_list(session, stock_infos):
         stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol=stock_info.symbol, start_date=start_date, end_date=end_date,
                                                 period="daily", adjust="qfq")
         ## 增加延迟
-        time.sleep(1)
+        time.sleep(0.01)
         for index, row in stock_zh_a_hist_df.iterrows():
             stock_hist = create_stock_hist(session=session, row=row)
             history_count += 1
