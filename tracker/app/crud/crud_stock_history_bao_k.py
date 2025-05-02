@@ -127,7 +127,7 @@ def create_stock_hist_bao_k(session, row, symbol, name):
                                                      created_at=created_at,
                                                      updated_at=updated_at
                                                      )
-    log.info(stock_hist_bao_k_create)
+    # log.info(stock_hist_bao_k_create)
     db_stock_hist = StockHistoryBaoK.model_validate(stock_hist_bao_k_create)
     session.add(db_stock_hist)
     # session.commit()
