@@ -44,6 +44,12 @@ from app.task.stock_fund_single_detail_intraday_task import execute_create_stock
 from app.task.stock_fund_single_detail_rank_task import execute_create_stock_fund_single_detail_rank
 from app.task.stock_fund_single_intraday import execute_create_stock_fund_single_intraday
 from app.task.stock_fund_single_rank_task import execute_create_stock_fund_single_rank
+from app.task.stock_history_bao_k_hfq_task import execute_create_stock_history_bao_k_hfq_0_1000, \
+    execute_create_stock_history_bao_k_hfq_1000_2000, execute_create_stock_history_bao_k_hfq_2000_3000, \
+    execute_create_stock_history_bao_k_hfq_3000_4000, execute_create_stock_history_bao_k_hfq_4000_5000
+from app.task.stock_history_bao_k_qfq_task import execute_create_stock_history_bao_k_qfq_0_1000, \
+    execute_create_stock_history_bao_k_qfq_1000_2000, execute_create_stock_history_bao_k_qfq_2000_3000, \
+    execute_create_stock_history_bao_k_qfq_3000_4000, execute_create_stock_history_bao_k_qfq_4000_5000
 from app.task.stock_history_bao_k_task import execute_create_stock_history_bao_k_0_1000, \
     execute_create_stock_history_bao_k_1000_2000, execute_create_stock_history_bao_k_2000_3000, \
     execute_create_stock_history_bao_k_3000_4000, execute_create_stock_history_bao_k_4000_5000
@@ -125,11 +131,25 @@ def init_scheduler():
     # scheduler.add_job(execute_create_stock_histories_hfq_4000_5000, 'cron', hour=21, minute=44, second=0)
 
     # 历史行情 - BaoStock 不复权
-    scheduler.add_job(execute_create_stock_history_bao_k_0_1000, 'cron', hour=18, minute=40, second=0)
-    scheduler.add_job(execute_create_stock_history_bao_k_1000_2000, 'cron', hour=18, minute=50, second=0)
-    scheduler.add_job(execute_create_stock_history_bao_k_2000_3000, 'cron', hour=19, minute=0, second=0)
-    scheduler.add_job(execute_create_stock_history_bao_k_3000_4000, 'cron', hour=19, minute=10, second=0)
-    scheduler.add_job(execute_create_stock_history_bao_k_4000_5000, 'cron', hour=19, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_0_1000, 'cron', hour=21, minute=40, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_1000_2000, 'cron', hour=22, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_2000_3000, 'cron', hour=23, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_3000_4000, 'cron', hour=0, minute=10, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_4000_5000, 'cron', hour=1, minute=20, second=0)
+
+    # 历史行情 - BaoStock 前复权
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_0_1000, 'cron', hour=2, minute=40, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_1000_2000, 'cron', hour=3, minute=50, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_2000_3000, 'cron', hour=4, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_3000_4000, 'cron', hour=5, minute=10, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_4000_5000, 'cron', hour=6, minute=20, second=0)
+
+    # 历史行情 - BaoStock 后复权
+    scheduler.add_job(execute_create_stock_history_bao_k_hfq_0_1000, 'cron', hour=7, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_hfq_1000_2000, 'cron', hour=8, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_hfq_2000_3000, 'cron', hour=9, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_hfq_3000_4000, 'cron', hour=10, minute=20, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_hfq_4000_5000, 'cron', hour=11, minute=20, second=0)
 
     # 公司新闻
     scheduler.add_job(execute_create_stock_news_0_1000, 'cron', hour=17, minute=0, second=0)
