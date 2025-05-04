@@ -33,6 +33,7 @@ def create_stock_history_bao_k(*, session: Session) -> int:
 
 def create_histories_by_list(session, stock_infos):
     history_count = 0
+    lg = bs.login()
     for stock_info in stock_infos:
         symbol = stock_info.symbol
         exchange = stock_info.exchange
@@ -41,7 +42,7 @@ def create_histories_by_list(session, stock_infos):
         end_date = '2050-01-01'
         ## baostock获取数据
         code = exchange + '.' + symbol
-        lg = bs.login()
+
         rs = bs.query_history_k_data_plus(code,
                                           "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,peTTM,psTTM,pcfNcfTTM,pbMRQ,isST",
                                           start_date=start_date, end_date=end_date,
@@ -52,8 +53,8 @@ def create_histories_by_list(session, stock_infos):
             stock_hist = create_stock_hist_bao_k(session=session, row=row, symbol=symbol, name=name)
             history_count += 1
         session.commit()
-        bs.logout()
 
+    bs.logout()
     return history_count
 
 
