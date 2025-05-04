@@ -14,6 +14,7 @@
 __author__ = 'EveryFine'
 
 import datetime
+import time
 
 import baostock as bs
 from fastapi import Query
@@ -34,6 +35,7 @@ def create_stock_history_bao_k_hfq(*, session: Session) -> int:
 def create_histories_by_list(session, stock_infos):
     history_count = 0
     for stock_info in stock_infos:
+        start_time_stock = time.time()  # 开始计时
         symbol = stock_info.symbol
         exchange = stock_info.exchange
         name = stock_info.short_name
@@ -53,7 +55,8 @@ def create_histories_by_list(session, stock_infos):
             history_count += 1
         session.commit()
         bs.logout()
-
+        log.info(
+            f"history bao k hfq processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
     return history_count
 
 

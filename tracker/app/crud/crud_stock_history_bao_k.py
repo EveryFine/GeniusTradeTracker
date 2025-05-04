@@ -61,7 +61,7 @@ def create_histories_by_list(session, stock_infos):
             history_count += 1
         session.commit()
         # log.info(f"Inserted {history_count} records for {code} in {time.time() - start_time:.2f} seconds")
-        log.info(f"Processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
+        log.info(f"history bao k processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
     bs.logout()
     return history_count
 
