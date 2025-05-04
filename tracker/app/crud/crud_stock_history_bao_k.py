@@ -76,20 +76,25 @@ def create_part_stock_bao_k(*, session: Session, stock_offset: int = 0,
 
 
 def get_start_date(session, symbol) -> str:
-    stock_hists = get_stock_histories(session, symbol)
-    if stock_hists is None or len(stock_hists) == 0:
+    stock_hist = get_latest_stock_history(session, symbol)
+    if stock_hist is None:
         return '1970-01-01'
-    stock_hist = stock_hists[0][0]
     last_date = stock_hist.date
     query_start_date = last_date + datetime.timedelta(days=1)
     start_date_str = query_start_date.strftime("%Y-%m-%d")
     return start_date_str
 
 
-def get_stock_histories(session, symbol):
-    statement = select(StockHistoryBaoK).where(StockHistoryBaoK.symbol == symbol).order_by(StockHistoryBaoK.date.desc())
-    stock_hists = session.execute(statement).all()
-    return stock_hists
+def get_latest_stock_history(session, symbol):
+    # 只获取最新的一条记录
+    statement = (
+        select(StockHistoryBaoK)
+        .where(StockHistoryBaoK.symbol == symbol)
+        .order_by(StockHistoryBaoK.date.desc())
+        .limit(1)  # 限制只返回一条记录
+    )
+    result = session.execute(statement).first()
+    return result[0] if result else None
 
 
 def create_stock_hist_bao_k(session, row, symbol, name):
