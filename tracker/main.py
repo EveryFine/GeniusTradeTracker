@@ -131,7 +131,7 @@ def init_scheduler():
     # scheduler.add_job(execute_create_stock_histories_hfq_4000_5000, 'cron', hour=21, minute=44, second=0)
 
     # 历史行情 - BaoStock 不复权
-    scheduler.add_job(execute_create_stock_history_bao_k_0_1000, 'cron', hour=9, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_0_1000, 'cron', hour=9, minute=45, second=0)
     scheduler.add_job(execute_create_stock_history_bao_k_1000_2000, 'cron', hour=12, minute=30, second=0)
     scheduler.add_job(execute_create_stock_history_bao_k_2000_3000, 'cron', hour=15, minute=30, second=0)
     scheduler.add_job(execute_create_stock_history_bao_k_3000_4000, 'cron', hour=18, minute=30, second=0)

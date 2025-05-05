@@ -15,6 +15,7 @@ __author__ = 'EveryFine'
 
 import datetime
 import time
+import traceback
 
 import baostock as bs
 from fastapi import Query
@@ -34,6 +35,7 @@ def create_stock_history_bao_k_qfq(*, session: Session) -> int:
 
 def create_histories_by_list(session, stock_infos):
     history_count = 0
+    lg = bs.login()
     for stock_info in stock_infos:
         start_time_stock = time.time()  # 开始计时
         symbol = stock_info.symbol
@@ -43,20 +45,25 @@ def create_histories_by_list(session, stock_infos):
         end_date = '2050-01-01'
         ## baostock获取数据
         code = exchange + '.' + symbol
-        lg = bs.login()
-        rs = bs.query_history_k_data_plus(code,
-                                          "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,peTTM,psTTM,pcfNcfTTM,pbMRQ,isST",
-                                          start_date=start_date, end_date=end_date,
-                                          frequency="d", adjustflag="2")
-        stock_bao_k_data = rs.get_data()
+        try:
 
-        for index, row in stock_bao_k_data.iterrows():
-            stock_hist = create_stock_hist_bao_k_qfq(session=session, row=row, symbol=symbol, name=name)
-            history_count += 1
-        session.commit()
-        bs.logout()
-        log.info(
-            f"history bao k qfq processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
+            rs = bs.query_history_k_data_plus(code,
+                                              "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,peTTM,psTTM,pcfNcfTTM,pbMRQ,isST",
+                                              start_date=start_date, end_date=end_date,
+                                              frequency="d", adjustflag="2")
+            stock_bao_k_data = rs.get_data()
+
+            for index, row in stock_bao_k_data.iterrows():
+                stock_hist = create_stock_hist_bao_k_qfq(session=session, row=row, symbol=symbol, name=name)
+                history_count += 1
+            session.commit()
+
+            log.info(
+                f"history bao k qfq processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
+        except Exception as e:
+            error_msg = f"{datetime.now()} history bao k processing data for {code} from {start_date} to {end_date} error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
+    bs.logout()
     return history_count
 
 
