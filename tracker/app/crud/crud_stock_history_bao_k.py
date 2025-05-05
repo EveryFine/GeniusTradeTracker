@@ -35,8 +35,9 @@ def create_stock_history_bao_k(*, session: Session) -> int:
 
 def create_histories_by_list(session, stock_infos):
     history_count = 0
-    lg = bs.login()
+
     for stock_info in stock_infos:
+        lg = bs.login()
         start_time_stock = time.time()  # 开始计时
         symbol = stock_info.symbol
         exchange = stock_info.exchange
@@ -64,10 +65,12 @@ def create_histories_by_list(session, stock_infos):
             session.commit()
             # log.info(f"Inserted {history_count} records for {code} in {time.time() - start_time:.2f} seconds")
             log.info(f"history bao k processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
+            bs.logout()
         except Exception as e:
             error_msg = f"{datetime.now()} history bao k processing data for {code} from {start_date} to {end_date} error: {str(e)}\n{traceback.format_exc()}"
             log.error(error_msg)
-    bs.logout()
+            bs.logout()
+
     return history_count
 
 
