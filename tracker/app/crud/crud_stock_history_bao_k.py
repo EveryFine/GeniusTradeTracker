@@ -15,6 +15,7 @@ __author__ = 'EveryFine'
 
 import datetime
 import time
+import traceback
 
 import baostock as bs
 from fastapi import Query
@@ -48,20 +49,24 @@ def create_histories_by_list(session, stock_infos):
         code = exchange + '.' + symbol
         # log.info(f"Get start date for {code} in {time.time() - start_time:.2f} seconds")
         # log.info(f"Fetching data for {code} from {start_date} to {end_date}")
-        start_time = time.time()  # 开始计时
-        rs = bs.query_history_k_data_plus(code,
-                                          "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,peTTM,psTTM,pcfNcfTTM,pbMRQ,isST",
-                                          start_date=start_date, end_date=end_date,
-                                          frequency="d", adjustflag="3")
-        stock_bao_k_data = rs.get_data()
-        # log.info(f"Data fetched for {code}, rows: {len(stock_bao_k_data)} in {time.time() - start_time:.2f} seconds")
-        start_time = time.time()  # 重置计时
-        for index, row in stock_bao_k_data.iterrows():
-            stock_hist = create_stock_hist_bao_k(session=session, row=row, symbol=symbol, name=name)
-            history_count += 1
-        session.commit()
-        # log.info(f"Inserted {history_count} records for {code} in {time.time() - start_time:.2f} seconds")
-        log.info(f"history bao k processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
+        # start_time = time.time()  # 开始计时
+        try:
+            rs = bs.query_history_k_data_plus(code,
+                                              "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,peTTM,psTTM,pcfNcfTTM,pbMRQ,isST",
+                                              start_date=start_date, end_date=end_date,
+                                              frequency="d", adjustflag="3")
+            stock_bao_k_data = rs.get_data()
+            # log.info(f"Data fetched for {code}, rows: {len(stock_bao_k_data)} in {time.time() - start_time:.2f} seconds")
+            # start_time = time.time()  # 重置计时
+            for index, row in stock_bao_k_data.iterrows():
+                stock_hist = create_stock_hist_bao_k(session=session, row=row, symbol=symbol, name=name)
+                history_count += 1
+            session.commit()
+            # log.info(f"Inserted {history_count} records for {code} in {time.time() - start_time:.2f} seconds")
+            log.info(f"history bao k processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
+        except Exception as e:
+            error_msg = f"{datetime.now()} history bao k processing data for {code} from {start_date} to {end_date} error: {str(e)}\n{traceback.format_exc()}"
+            log.error(error_msg)
     bs.logout()
     return history_count
 
