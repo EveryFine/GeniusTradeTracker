@@ -9,6 +9,7 @@ services:
       POSTGRES_PASSWORD: ${MY_POSTGRES_PASSWORD}
       POSTGRES_DB: ${MY_POSTGRES_DB}
     volumes:
-      - ~/genius/FinTracker/data:/var/lib/postgresql/data
+#      - ~/genius/FinTracker/data:/var/lib/postgresql/data
+      - /mnt/cfs/genius/FinTracker/data:/var/lib/postgresql/data
     ports:
       - "12521:5432"

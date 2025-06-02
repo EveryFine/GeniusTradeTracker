@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16
-    container_name: postgres_xiangcao_local
+    container_name: postgres_tencent_local
     environment:
       POSTGRES_USER: ${MY_POSTGRES_USER}
       POSTGRES_PASSWORD: ${MY_POSTGRES_PASSWORD}
