@@ -24,7 +24,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_fund_market_detail, stock_fund_industry_detail_intraday, stock_fund_industry_detail_rank, \
     stock_fund_concept_detail_intraday, stock_fund_concept_detail_rank, stock_pool_zt, stock_pool_strong, \
     stock_pool_sub_new, stock_pool_zb, stock_pool_dt, stock_check, stock_history_bao_k, stock_history_bao_k_qfq, \
-    stock_history_bao_k_hfq
+    stock_history_bao_k_hfq, stock_cyq_em
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -48,6 +48,8 @@ v1.include_router(stock_history_bao_k_qfq.router, prefix='/hbaok_qfq', tags=['�
 v1.include_router(stock_history_bao_k_hfq.router, prefix='/hbaok_hfq', tags=['股票历史行情-BaoStock-后复权'])
 
 v1.include_router(stock_news.router, prefix='/news', tags=['个股新闻'])
+
+v1.include_router(stock_cyq_em.router, prefix='/cyq', tags=['筹码分布'])
 
 v1.include_router(stock_trade_date.router, prefix='/trade_date', tags=['交易日'])
 
