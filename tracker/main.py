@@ -30,6 +30,8 @@ from app.task.stock_comment_task import execute_create_stock_comment
 from app.task.stock_company_event_task import execute_create_stock_company_event
 from app.task.stock_current_day_check_task import execute_stock_current_day_check, \
     execute_stock_history_current_day_check
+from app.task.stock_cyq_em_task import execute_create_stock_cyq_em_0_1000, execute_create_stock_cyq_em_1000_2000, \
+    execute_create_stock_cyq_em_2000_3000, execute_create_stock_cyq_em_3000_4000, execute_create_stock_cyq_em_4000_5000
 from app.task.stock_fund_big_deal_task import execute_create_stock_fund_big_deal
 from app.task.stock_fund_concept_detail_intraday_task import execute_create_stock_fund_concept_detail_intraday
 from app.task.stock_fund_concept_detail_rank_task import execute_create_stock_fund_concept_detail_rank
@@ -163,6 +165,13 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_news_2000_3000, 'cron', hour=21, minute=30, second=0)
     scheduler.add_job(execute_create_stock_news_3000_4000, 'cron', hour=21, minute=45, second=0)
     scheduler.add_job(execute_create_stock_news_4000_5000, 'cron', hour=22, minute=0, second=0)
+
+    # 筹码分布
+    scheduler.add_job(execute_create_stock_cyq_em_0_1000, 'cron', hour=18, minute=2, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_1000_2000, 'cron', hour=18, minute=12, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_2000_3000, 'cron', hour=18, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_3000_4000, 'cron', hour=18, minute=32, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_4000_5000, 'cron', hour=18, minute=42, second=0)
 
     # 盘口异动
     scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=18, minute=15, second=0)
