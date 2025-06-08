@@ -100,11 +100,11 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=18, minute=0, second=0)
     scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=18, minute=20, second=0)
     #
-    # # scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=21, minute=30, second=0)
-    # # scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=21, minute=15, second=0)
-    # # scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=21, minute=30, second=0)
-    # # scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=21, minute=45, second=0)
-    # # scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=21, minute=0, second=0)
+    scheduler.add_job(execute_create_stock_histories_0_1000, 'cron', hour=23, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_1000_2000, 'cron', hour=23, minute=15, second=0)
+    scheduler.add_job(execute_create_stock_histories_2000_3000, 'cron', hour=23, minute=30, second=0)
+    scheduler.add_job(execute_create_stock_histories_3000_4000, 'cron', hour=23, minute=45, second=0)
+    scheduler.add_job(execute_create_stock_histories_4000_5000, 'cron', hour=23, minute=0, second=0)
     #
     # # 历史行情 - 前复权
     # scheduler.add_job(execute_create_stock_histories_qfq_0_1000, 'cron', hour=18, minute=15, second=0)
@@ -172,6 +172,12 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_cyq_em_2000_3000, 'cron', hour=18, minute=22, second=0)
     scheduler.add_job(execute_create_stock_cyq_em_3000_4000, 'cron', hour=18, minute=32, second=0)
     scheduler.add_job(execute_create_stock_cyq_em_4000_5000, 'cron', hour=18, minute=42, second=0)
+
+    scheduler.add_job(execute_create_stock_cyq_em_0_1000, 'cron', hour=22, minute=2, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_1000_2000, 'cron', hour=22, minute=12, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_2000_3000, 'cron', hour=22, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_3000_4000, 'cron', hour=22, minute=32, second=0)
+    scheduler.add_job(execute_create_stock_cyq_em_4000_5000, 'cron', hour=22, minute=42, second=0)
 
     # 盘口异动
     scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=18, minute=15, second=0)
