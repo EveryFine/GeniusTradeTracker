@@ -67,7 +67,7 @@ def create_histories_by_list(session, stock_infos):
             log.info(f"history bao k processing data for {code} from {start_date} to {end_date}, total in {time.time() - start_time_stock:.2f} seconds")
             bs.logout()
         except Exception as e:
-            error_msg = f"{datetime.now()} history bao k processing data for {code} from {start_date} to {end_date} error: {str(e)}\n{traceback.format_exc()}"
+            error_msg = f"{datetime.datetime.now()} history bao k processing data for {code} from {start_date} to {end_date} error: {str(e)}\n{traceback.format_exc()}"
             log.error(error_msg)
             bs.logout()
 
