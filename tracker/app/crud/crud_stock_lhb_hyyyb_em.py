@@ -26,7 +26,7 @@ def create_stock_lhb_hyyyb_em(*, session: Session) -> int:
     start_date = get_start_date(session=session)
     # end_date = '20500101'
     # end_date = '20150725'
-    end_date = '20160725'
+    end_date = '20180725'
     count = 0
     stock_lhb_hyyyb_em_df = ak.stock_lhb_hyyyb_em(start_date=start_date, end_date=end_date)
     for index, row in stock_lhb_hyyyb_em_df.iterrows():
