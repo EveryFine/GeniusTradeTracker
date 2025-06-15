@@ -23,10 +23,10 @@ from app.models.stock_lhb_hyyyb_em import StockLhbHyyybEm, StockLhbHyyybEmCreate
 
 
 def create_stock_lhb_hyyyb_em(*, session: Session) -> int:
-    start_date = get_start_date(session=session)
+    start_date, end_date = get_start_date(session=session)
     # end_date = '20500101'
     # end_date = '20150725'
-    end_date = '20200725'
+    # end_date = '20200725'
     count = 0
     stock_lhb_hyyyb_em_df = ak.stock_lhb_hyyyb_em(start_date=start_date, end_date=end_date)
     for index, row in stock_lhb_hyyyb_em_df.iterrows():
@@ -47,7 +47,10 @@ def get_start_date(session) -> str:
 
     query_start_date = trade_date_latest + datetime.timedelta(days=1)
     start_date_str = query_start_date.strftime("%Y%m%d")
-    return start_date_str
+
+    query_end_date = trade_date_latest + datetime.timedelta(days=60)
+    end_date_str = query_end_date.strftime("%Y%m%d")
+    return start_date_str, end_date_str
 
 
 def get_trade_date_latest(session):
