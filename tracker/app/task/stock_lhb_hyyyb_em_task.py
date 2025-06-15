@@ -27,9 +27,9 @@ def execute_create_stock_lhb_hyyyb_em():
     log.info(f"{datetime.now()} schedule task [create stock lhb hyyyb em(龙虎榜--每日活跃营业部--东财)）] start")
     with Session(engine) as session:
         try:
-            create_count = create_stock_lhb_hyyyb_em(session=session)
+            res = create_stock_lhb_hyyyb_em(session=session)
             log.info(
-                f"{datetime.now()} schedule task [create stock lhb hyyyb em(龙虎榜--每日活跃营业部--东财)）] end, create count: {create_count}")
+                f"{datetime.now()} schedule task [create stock lhb hyyyb em(龙虎榜--每日活跃营业部--东财)）] end, res: {res}")
         except Exception as e:
             error_msg = f"{datetime.now()} schedule task [create stock lhb hyyyb em(龙虎榜--每日活跃营业部--东财)）] error: {str(e)}\n{traceback.format_exc()}"
             log.error(error_msg)

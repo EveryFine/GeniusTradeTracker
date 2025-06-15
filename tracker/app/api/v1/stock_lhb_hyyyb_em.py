@@ -25,8 +25,8 @@ router = APIRouter()
 @router.post("/", response_model=int)
 def create_all_stock_lhb_hyyyb_em(session: SessionDep):
     try:
-        create_count = create_stock_lhb_hyyyb_em(session=session)
-        return create_count
+        res = create_stock_lhb_hyyyb_em(session=session)
+        return res
     except Exception as e:
         error_msg = f"Error creating stock lhb hyyyb em: {str(e)}\n{traceback.format_exc()}"
         raise HTTPException(status_code=500, detail=error_msg)
