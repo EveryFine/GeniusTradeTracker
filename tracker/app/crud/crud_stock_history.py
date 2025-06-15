@@ -38,7 +38,7 @@ def create_histories_by_list(session, stock_infos):
     history_count = 0
     for stock_info in stock_infos:
         start_date = get_start_date(session=session, symbol=stock_info.symbol)
-        end_date = 20500101
+        end_date = '20500101'
         stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol=stock_info.symbol, start_date=start_date, end_date=end_date,
                                                 period="daily", adjust="")
         ## 增加延迟

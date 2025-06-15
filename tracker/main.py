@@ -64,6 +64,7 @@ from app.task.stock_history_qfq_task import execute_create_stock_histories_qfq_0
 from app.task.stock_history_task import execute_create_stock_histories_0_1000, execute_create_stock_histories_1000_2000, \
     execute_create_stock_histories_2000_3000, execute_create_stock_histories_3000_4000, \
     execute_create_stock_histories_4000_5000
+from app.task.stock_lhb_detail_em_task import execute_create_stock_lhb_detail_em
 from app.task.stock_news_task import execute_create_stock_news_0_1000, execute_create_stock_news_1000_2000, \
     execute_create_stock_news_2000_3000, execute_create_stock_news_3000_4000, execute_create_stock_news_4000_5000
 
@@ -391,6 +392,9 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
 
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=22, minute=12, second=0)
+
+    # 龙虎榜--详情--东财
+    scheduler.add_job(execute_create_stock_lhb_detail_em, 'cron', hour=18, minute=23, second=0)
     #
     # # # 当天数据检查
     # # scheduler.add_job(execute_stock_current_day_check, 'cron', hour=23, minute=20, second=0)
