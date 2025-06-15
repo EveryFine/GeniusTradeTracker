@@ -14,6 +14,7 @@
 __author__ = 'EveryFine'
 
 import datetime
+from typing import Dict, Any
 
 import akshare as ak
 from sqlalchemy import func
@@ -22,7 +23,7 @@ from sqlmodel import Session, select
 from app.models.stock_lhb_hyyyb_em import StockLhbHyyybEm, StockLhbHyyybEmCreate
 
 
-def create_stock_lhb_hyyyb_em(*, session: Session) -> int:
+def create_stock_lhb_hyyyb_em(*, session: Session) -> dict[str, int | Any]:
     start_date, end_date = get_start_date(session=session)
     # end_date = '20500101'
     # end_date = '20150725'
@@ -36,7 +37,7 @@ def create_stock_lhb_hyyyb_em(*, session: Session) -> int:
             session.commit()
     session.commit()
 
-    return count
+    return {'start_date': start_date, 'end_date': end_date, 'count': count}
 
 
 def get_start_date(session) -> str:
