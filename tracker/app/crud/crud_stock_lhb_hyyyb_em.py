@@ -14,7 +14,7 @@
 __author__ = 'EveryFine'
 
 import datetime
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 
 import akshare as ak
 from sqlalchemy import func
@@ -40,10 +40,10 @@ def create_stock_lhb_hyyyb_em(*, session: Session) -> dict[str, int | Any]:
     return {'start_date': start_date, 'end_date': end_date, 'count': count}
 
 
-def get_start_date(session) -> str:
+def get_start_date(session) -> tuple[str, str] | tuple[Any, Any]:
     trade_date_latest = get_trade_date_latest(session)
     if trade_date_latest is None:
-        return '20040525'
+        return '20040525', '20040625'
         # return '20250601'
 
     query_start_date = trade_date_latest + datetime.timedelta(days=1)
