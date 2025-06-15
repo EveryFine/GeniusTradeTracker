@@ -24,7 +24,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_fund_market_detail, stock_fund_industry_detail_intraday, stock_fund_industry_detail_rank, \
     stock_fund_concept_detail_intraday, stock_fund_concept_detail_rank, stock_pool_zt, stock_pool_strong, \
     stock_pool_sub_new, stock_pool_zb, stock_pool_dt, stock_check, stock_history_bao_k, stock_history_bao_k_qfq, \
-    stock_history_bao_k_hfq, stock_cyq_em, stock_lhb_detail_em
+    stock_history_bao_k_hfq, stock_cyq_em, stock_lhb_detail_em, stock_lhb_hyyyb_em
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -132,6 +132,9 @@ v1.include_router(stock_pool_dt.router, prefix='/pool_dt',
 
 v1.include_router(stock_lhb_detail_em.router, prefix='/lhb_detail_em',
                   tags=['龙虎榜--详细--东财'])
+
+v1.include_router(stock_lhb_hyyyb_em.router, prefix='/lhb_hyyyb_em',
+                  tags=['龙虎榜--每日活跃营业部--东财'])
 
 v1.include_router(stock_check.router, prefix='/check',
                   tags=['当天检查'])

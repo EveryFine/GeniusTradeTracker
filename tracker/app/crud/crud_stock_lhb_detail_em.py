@@ -14,18 +14,11 @@
 __author__ = 'EveryFine'
 
 import datetime
-from typing import List
-import time
-
-from fastapi import Query
-from sqlmodel import Session, select
-from sqlalchemy import func
 
 import akshare as ak
+from sqlalchemy import func
+from sqlmodel import Session, select
 
-from app.common.log import log
-from app.crud.crud_stock_info import get_all_stocks, get_stock_infos
-from app.crud.crud_stock_trade_date import get_last_trade_date, get_last_trade_date_by_date
 from app.models.stock_lhb_detail_em import StockLhbDetailEm, StockLhbDetailEmCreate
 
 
