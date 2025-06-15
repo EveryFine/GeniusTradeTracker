@@ -30,7 +30,7 @@ class StockLhbHyyybEmBase(SQLModel):
     buy_amount_total: float | None = Field(default=None, description='买入总金额')
     sell_amount_total: float | None = Field(default=None, description='卖出总金额')
     net_amount_total: float | None = Field(default=None, description='总买卖净额')
-    buy_stocks: str | None = Field(max_length=400, description='买入股票')
+    buy_stocks: str | None = Field(max_length=1000, description='买入股票')
 
     created_at: datetime.datetime | None = Field(default=datetime.datetime.now(), description='创建时间', index=True)
     updated_at: datetime.datetime | None = Field(default=datetime.datetime.now(), description='更新时间', index=True)
