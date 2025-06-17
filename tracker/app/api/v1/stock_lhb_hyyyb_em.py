@@ -16,13 +16,21 @@ __author__ = 'EveryFine'
 from fastapi import APIRouter, HTTPException
 import traceback
 
+from pydantic import BaseModel
+
 from app.api.deps import SessionDep
 from app.crud.crud_stock_lhb_hyyyb_em import create_stock_lhb_hyyyb_em
 
 router = APIRouter()
 
 
-@router.post("/", response_model=int)
+class CreateResult(BaseModel):
+    start_date: str
+    end_date: str
+    count: int
+
+
+@router.post("/", response_model=CreateResult)
 def create_all_stock_lhb_hyyyb_em(session: SessionDep):
     try:
         res = create_stock_lhb_hyyyb_em(session=session)
