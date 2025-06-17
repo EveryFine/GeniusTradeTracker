@@ -422,7 +422,7 @@ def on_startup():
     except socket.error:
         log.error('scheduler already started, DO NOTHING!!!')
     else:
-        init_scheduler()
+        # init_scheduler()
         log.info('scheduler started!!!')
 
 

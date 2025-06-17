@@ -1,7 +1,7 @@
 name: Tracker Tencent Cloud Deploy
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 env:
