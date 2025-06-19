@@ -44,6 +44,7 @@ from app.task.stock_fund_industry_rank_task import execute_create_stock_fund_ind
 from app.task.stock_fund_market_detail_task import execute_create_stock_fund_market_detail
 from app.task.stock_fund_single_detail_intraday_task import execute_create_stock_fund_single_detail_intraday
 from app.task.stock_fund_single_detail_rank_task import execute_create_stock_fund_single_detail_rank
+from app.task.stock_fund_single_detail_realtime_task import execute_create_stock_fund_single_detail_realtime
 from app.task.stock_fund_single_intraday import execute_create_stock_fund_single_intraday
 from app.task.stock_fund_single_rank_task import execute_create_stock_fund_single_rank
 from app.task.stock_history_bao_k_hfq_task import execute_create_stock_history_bao_k_hfq_0_1000, \
@@ -309,7 +310,30 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=18, minute=22, second=0)
 
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=22, minute=22, second=0)
-
+    # 资金流--个股--详细--盘中实时
+    # 9:30～9:59每分钟执行一次
+    scheduler.add_job(
+        execute_create_stock_fund_single_detail_realtime,
+        'cron',
+        hour=9,
+        minute='30-59',
+        second=0
+    )
+    # 10:00～11:30, 13:00~15:00每10分钟执行一次
+    scheduler.add_job(
+        execute_create_stock_fund_single_detail_realtime,
+        'cron',
+        hour='10,13,14',
+        minute='0,10,20,30,40,50',
+        second=0
+    )
+    scheduler.add_job(
+        execute_create_stock_fund_single_detail_realtime,
+        'cron',
+        hour=11,
+        minute='0,10,20,30',
+        second=0
+    )
     # 资金流--个股--详细--即时
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=16, minute=17, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=17, minute=17, second=0)
@@ -403,6 +427,7 @@ def init_scheduler():
 
     # 龙虎榜--营业部详情数据--东财
     scheduler.add_job(execute_create_stock_lhb_yyb_detail_em, 'cron', hour=19, minute=7, second=20)
+
 
     #
     # # # 当天数据检查
