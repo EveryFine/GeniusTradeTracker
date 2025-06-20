@@ -71,7 +71,6 @@ def create_stock_fund_single_detail_realtime_item(session, trade_date, row):
     updated_at = datetime.datetime.now()
 
     stock_fund_single_detail_realtime_create = StockFundSingleDetailRealtime(trade_date=trade_date,
-                                                                             time=datetime.datetime.now().time(),
                                                                              symbol=symbol,
                                                                              name=name,
                                                                              latest_price=latest_price,
