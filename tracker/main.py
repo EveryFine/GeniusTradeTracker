@@ -316,24 +316,24 @@ def init_scheduler():
         execute_create_stock_fund_single_detail_realtime,
         'cron',
         hour=9,
-        minute='30-59',
-        second=0
+        minute='30-49',
+        second=20
     )
     # 10:00～11:30, 13:00~15:00每10分钟执行一次
-    scheduler.add_job(
-        execute_create_stock_fund_single_detail_realtime,
-        'cron',
-        hour='10,13,14',
-        minute='0,10,20,30,40,50',
-        second=0
-    )
-    scheduler.add_job(
-        execute_create_stock_fund_single_detail_realtime,
-        'cron',
-        hour=11,
-        minute='0,10,20,30',
-        second=0
-    )
+    # scheduler.add_job(
+    #     execute_create_stock_fund_single_detail_realtime,
+    #     'cron',
+    #     hour='10,13,14',
+    #     minute='0,10,20,30,40,50',
+    #     second=0
+    # )
+    # scheduler.add_job(
+    #     execute_create_stock_fund_single_detail_realtime,
+    #     'cron',
+    #     hour=11,
+    #     minute='0,10,20,30',
+    #     second=0
+    # )
     # 资金流--个股--详细--即时
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=16, minute=17, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=17, minute=17, second=0)
