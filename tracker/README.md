@@ -42,3 +42,4 @@ docker container run -d --name trade-tracker -p 23180:13180 \
  -e POSTGRES_HOST='finstore_postgres' \
  ghcr.io/everyfine/geniustradetracker/geniustradetracker:main-30dd1c5
 ```
+
