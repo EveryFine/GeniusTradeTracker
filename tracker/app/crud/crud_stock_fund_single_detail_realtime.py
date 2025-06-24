@@ -40,8 +40,8 @@ def create_stock_fund_single_detail_realtime(*, session: Session) -> int:
         (filtered_df['今日主力净流入-净占比'] > 0)
         ]
 
-    top30 = filtered_df.sort_values(by='今日主力净流入-净占比', ascending=False).head(30)
-    for index, row in top30.iterrows():
+    top = filtered_df.sort_values(by='今日主力净流入-净占比', ascending=False).head(500)
+    for index, row in top.iterrows():
         res = create_stock_fund_single_detail_realtime_item(session, trade_date, row)
         total_count += res
         if total_count > 0 and total_count % 100 == 0:

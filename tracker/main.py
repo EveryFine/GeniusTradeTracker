@@ -316,8 +316,8 @@ def init_scheduler():
         execute_create_stock_fund_single_detail_realtime,
         'cron',
         hour=9,
-        minute='30-49',
-        second=20
+        minute='30,31,32',
+        second=3
     )
     # 10:00～11:30, 13:00~15:00每10分钟执行一次
     # scheduler.add_job(
