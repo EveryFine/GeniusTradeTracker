@@ -28,7 +28,12 @@ def execute_create_stock_fund_concept_detail_intraday():
     with Session(engine) as session:
         try:
             create_count = create_stock_fund_concept_detail_intraday(session=session)
-            log.info(f"{datetime.now()} schedule task [stock fund concept detail intraday] end, create count: {create_count}")
+            log.info(
+                f"{datetime.now()} schedule task [stock fund concept detail intraday] end, create count: {create_count}")
         except Exception as e:
             error_msg = f"{datetime.now()} schedule task [stock fund concept detail intraday] error: {str(e)}\n{traceback.format_exc()}"
             log.error(error_msg)
+
+
+if __name__ == '__main__':
+    execute_create_stock_fund_concept_detail_intraday()
