@@ -36,11 +36,11 @@ def create_stock_fund_single_detail_realtime(*, session: Session) -> int:
     filtered_df = stock_fund_single_detail_realtime_ths_df.dropna(subset=['今日主力净流入-净占比'])
 
     filtered_df = filtered_df[
-        (filtered_df['今日主力净流入-净额'] > 5000000) &
+        (filtered_df['今日主力净流入-净额'] > 1000000) &
         (filtered_df['今日主力净流入-净占比'] > 0)
         ]
 
-    top = filtered_df.sort_values(by='今日主力净流入-净占比', ascending=False).head(500)
+    top = filtered_df.sort_values(by='今日主力净流入-净占比', ascending=False).head(1000)
     for index, row in top.iterrows():
         res = create_stock_fund_single_detail_realtime_item(session, trade_date, row)
         total_count += res
