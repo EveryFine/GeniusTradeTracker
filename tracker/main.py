@@ -87,6 +87,7 @@ from app.task.stock_rank_lxxd_task import execute_create_stock_rank_lxxd
 from app.task.stock_rank_xstp_task import execute_create_stock_rank_xstp
 from app.task.stock_rank_xxtp_task import execute_create_stock_rank_xxtp
 from app.task.stock_rank_xzjp_task import execute_create_stock_rank_xzjp
+from app.task.stock_zh_a_spot_em_realtime_task import execute_create_stock_zh_a_spot_em_realtime
 
 app = register_app()
 
@@ -317,7 +318,8 @@ def init_scheduler():
         'cron',
         hour=9,
         minute='30,31,32,35',
-        second=30
+        second=30,
+        day_of_week='sun,mon,tue,wed,thu,fri'
     )
     # 收盘执行
     scheduler.add_job(
@@ -325,7 +327,8 @@ def init_scheduler():
         'cron',
         hour=14,
         minute='30,40,50,55',
-        second=10
+        second=10,
+        day_of_week='sun,mon,tue,wed,thu,fri'
     )
     # 10:00～11:30, 13:00~15:00每10分钟执行一次
     # scheduler.add_job(
@@ -342,6 +345,34 @@ def init_scheduler():
     #     minute='0,10,20,30',
     #     second=0
     # )
+    # 实时行情数据--东财--沪深京A股
+    # 开盘执行
+    # day of week: sun,mon,tue,wed,thu,fri,sat
+    # 所以一周的英文简写依次为：
+    # 周一：mon
+    # 周二：tue
+    # 周三：wed
+    # 周四：thu
+    # 周五：fri
+    # 周六：sat
+    # 周日：sun
+    scheduler.add_job(
+        execute_create_stock_zh_a_spot_em_realtime,
+        'cron',
+        hour=9,
+        minute='30,31,32,35',
+        second=30,
+        day_of_week='sun,mon,tue,wed,thu,fri'
+    )
+    # 收盘执行
+    scheduler.add_job(
+        execute_create_stock_zh_a_spot_em_realtime,
+        'cron',
+        hour=14,
+        minute='30,40,50,55',
+        second=10,
+        day_of_week='sun,mon,tue,wed,thu,fri'
+    )
     # 资金流--个股--详细--即时
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=16, minute=17, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=17, minute=17, second=0)

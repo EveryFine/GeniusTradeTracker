@@ -20,7 +20,8 @@ from sqlmodel import SQLModel, Field
 
 class StockFundSingleDetailRealtimeBase(SQLModel):
     trade_date: datetime.date | None = Field(default=datetime.date.today(), description='日期', index=True)
-    collect_time: datetime.time | None = Field(default_factory=lambda: datetime.datetime.now().time(), description='时间', index=True)
+    collect_time: datetime.time | None = Field(default_factory=lambda: datetime.datetime.now().time(),
+                                               description='时间', index=True)
     symbol: str = Field(max_length=20, description='股票代码', index=True)
     name: str | None = Field(max_length=40, description='股票名称')
     latest_price: float | None = Field(default=None, description='最新价')

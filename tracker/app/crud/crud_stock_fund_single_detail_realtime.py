@@ -27,6 +27,7 @@ from app.models.stock_fund_single_detail_realtime import StockFundSingleDetailRe
 def create_stock_fund_single_detail_realtime(*, session: Session) -> int:
     total_count = 0
     trade_date = datetime.date.today()
+    collect_time = datetime.datetime.now().time()
     stock_fund_single_detail_realtime_ths_df = ak.stock_individual_fund_flow_rank(indicator="今日")
     # 强制转换为数值，无法转换的变为NaN
     stock_fund_single_detail_realtime_ths_df['今日主力净流入-净占比'] = pd.to_numeric(
@@ -42,7 +43,7 @@ def create_stock_fund_single_detail_realtime(*, session: Session) -> int:
 
     top = filtered_df.sort_values(by='今日主力净流入-净占比', ascending=False).head(1000)
     for index, row in top.iterrows():
-        res = create_stock_fund_single_detail_realtime_item(session, trade_date, row)
+        res = create_stock_fund_single_detail_realtime_item(session, trade_date, collect_time, row)
         total_count += res
         if total_count > 0 and total_count % 100 == 0:
             session.commit()
@@ -51,7 +52,7 @@ def create_stock_fund_single_detail_realtime(*, session: Session) -> int:
     return total_count
 
 
-def create_stock_fund_single_detail_realtime_item(session, trade_date, row):
+def create_stock_fund_single_detail_realtime_item(session, trade_date, collect_time, row):
     symbol = row['代码']
     name = row['名称']
     latest_price = get_value_with_hyphen(row['最新价'])
@@ -77,6 +78,7 @@ def create_stock_fund_single_detail_realtime_item(session, trade_date, row):
     updated_at = datetime.datetime.now()
 
     stock_fund_single_detail_realtime_create = StockFundSingleDetailRealtime(trade_date=trade_date,
+                                                                             collect_time=collect_time,
                                                                              symbol=symbol,
                                                                              name=name,
                                                                              latest_price=latest_price,

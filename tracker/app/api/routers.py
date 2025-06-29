@@ -25,7 +25,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_fund_concept_detail_intraday, stock_fund_concept_detail_rank, stock_pool_zt, stock_pool_strong, \
     stock_pool_sub_new, stock_pool_zb, stock_pool_dt, stock_check, stock_history_bao_k, stock_history_bao_k_qfq, \
     stock_history_bao_k_hfq, stock_cyq_em, stock_lhb_detail_em, stock_lhb_hyyyb_em, stock_lhb_yyb_detail_em, \
-    stock_fund_single_detail_realtime
+    stock_fund_single_detail_realtime, stock_zh_a_spot_em_realtime
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -98,6 +98,9 @@ v1.include_router(stock_fund_big_deal.router, prefix='/fund_big_deal', tags=['�
 
 v1.include_router(stock_fund_single_detail_realtime.router, prefix='/fund_single_detail_realtime',
                   tags=['资金流--个股--详细--实时'])
+
+v1.include_router(stock_zh_a_spot_em_realtime.router, prefix='/zh_a_spot_em_realtime',
+                  tags=['实时行情数据--沪深京A股'])
 
 v1.include_router(stock_fund_single_detail_intraday.router, prefix='/fund_single_detail_intraday',
                   tags=['资金流--个股--详细--即时'])
