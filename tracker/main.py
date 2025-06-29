@@ -311,13 +311,21 @@ def init_scheduler():
 
     scheduler.add_job(execute_create_stock_fund_big_deal, 'cron', hour=22, minute=22, second=0)
     # 资金流--个股--详细--盘中实时
-    # 9:30～9:59每分钟执行一次
+    # 开盘执行
     scheduler.add_job(
         execute_create_stock_fund_single_detail_realtime,
         'cron',
         hour=9,
-        minute='30,31,32,33',
+        minute='30,31,32,35',
         second=30
+    )
+    # 收盘执行
+    scheduler.add_job(
+        execute_create_stock_fund_single_detail_realtime,
+        'cron',
+        hour=14,
+        minute='30,40,50,55',
+        second=10
     )
     # 10:00～11:30, 13:00~15:00每10分钟执行一次
     # scheduler.add_job(
