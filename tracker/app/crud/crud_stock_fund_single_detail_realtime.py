@@ -35,14 +35,14 @@ def create_stock_fund_single_detail_realtime(*, session: Session) -> int:
     )
     # 去除NaN
     filtered_df = stock_fund_single_detail_realtime_ths_df.dropna(subset=['今日主力净流入-净占比'])
-
-    filtered_df = filtered_df[
-        (filtered_df['今日主力净流入-净额'] > 1000000) &
-        (filtered_df['今日主力净流入-净占比'] > 0)
-        ]
-
-    top = filtered_df.sort_values(by='今日主力净流入-净占比', ascending=False).head(1000)
-    for index, row in top.iterrows():
+    # save all of the valid data, no longer filter with 净额 and 净占比
+    # filtered_df = filtered_df[
+    #     (filtered_df['今日主力净流入-净额'] > 1000000) &
+    #     (filtered_df['今日主力净流入-净占比'] > 0)
+    #     ]
+    # save all the data
+    # top = filtered_df.sort_values(by='今日主力净流入-净占比', ascending=False).head(1000)
+    for index, row in filtered_df.iterrows():
         res = create_stock_fund_single_detail_realtime_item(session, trade_date, collect_time, row)
         total_count += res
         if total_count > 0 and total_count % 100 == 0:
