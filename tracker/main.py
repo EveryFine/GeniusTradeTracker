@@ -318,7 +318,7 @@ def init_scheduler():
         'cron',
         hour=9,
         minute=30,
-        second=30,
+        second=40,
         day_of_week='mon,tue,wed,thu,fri'
     )
     # 收盘执行
