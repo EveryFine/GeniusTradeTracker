@@ -32,3 +32,7 @@ def execute_create_stock_comment():
         except Exception as e:
             error_msg = f"{datetime.now()} schedule task [create stock comments] error: {str(e)}\n{traceback.format_exc()}"
             log.error(error_msg)
+
+
+if __name__ == '__main__':
+    execute_create_stock_comment()
