@@ -25,6 +25,8 @@ from app.common.log import log
 from app.core.conf import settings
 from app.core.db import engine
 from app.core.register import register_app
+from app.task.stock_board_concept_em_task import execute_create_stock_board_concept_em
+from app.task.stock_board_industry_em_task import execute_create_stock_board_industry_em
 from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
 from app.task.stock_comment_task import execute_create_stock_comment
 from app.task.stock_company_event_task import execute_create_stock_company_event
@@ -458,6 +460,16 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
 
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=22, minute=12, second=0)
+
+    # 东方财富-概念板块
+    scheduler.add_job(execute_create_stock_board_concept_em, 'cron', hour=17, minute=38, second=0)
+    scheduler.add_job(execute_create_stock_board_concept_em, 'cron', hour=19, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_board_concept_em, 'cron', hour=21, minute=48, second=0)
+
+    # 东方财富-行业板块
+    scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=17, minute=46, second=0)
+    scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=19, minute=28, second=0)
+    scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=21, minute=55, second=0)
 
     # 龙虎榜--详情--东财
     scheduler.add_job(execute_create_stock_lhb_detail_em, 'cron', hour=18, minute=23, second=0)
