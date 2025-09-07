@@ -91,6 +91,7 @@ from app.task.stock_rank_xstp_task import execute_create_stock_rank_xstp
 from app.task.stock_rank_xxtp_task import execute_create_stock_rank_xxtp
 from app.task.stock_rank_xzjp_task import execute_create_stock_rank_xzjp
 from app.task.stock_zh_a_spot_em_realtime_task import execute_create_stock_zh_a_spot_em_realtime
+from app.task.stock_zh_a_spot_em_task import execute_create_stock_zh_a_spot_em
 
 app = register_app()
 
@@ -497,6 +498,11 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
 
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=22, minute=12, second=0)
+
+    # 东方财富-个股行情
+    scheduler.add_job(execute_create_stock_zh_a_spot_em, 'cron', hour=17, minute=12, second=0)
+    scheduler.add_job(execute_create_stock_zh_a_spot_em, 'cron', hour=19, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_zh_a_spot_em, 'cron', hour=22, minute=24, second=0)
 
     # 东方财富-概念板块
     scheduler.add_job(execute_create_stock_board_concept_em, 'cron', hour=17, minute=38, second=0)
