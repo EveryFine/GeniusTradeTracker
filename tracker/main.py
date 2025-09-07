@@ -25,6 +25,7 @@ from app.common.log import log
 from app.core.conf import settings
 from app.core.db import engine
 from app.core.register import register_app
+from app.task.stock_board_concept_em_realtime_task import execute_create_stock_board_concept_em_realtime
 from app.task.stock_board_concept_em_task import execute_create_stock_board_concept_em
 from app.task.stock_board_industry_em_task import execute_create_stock_board_industry_em
 from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
@@ -90,6 +91,7 @@ from app.task.stock_rank_xstp_task import execute_create_stock_rank_xstp
 from app.task.stock_rank_xxtp_task import execute_create_stock_rank_xxtp
 from app.task.stock_rank_xzjp_task import execute_create_stock_rank_xzjp
 from app.task.stock_zh_a_spot_em_realtime_task import execute_create_stock_zh_a_spot_em_realtime
+from app.task.stock_zh_a_spot_em_task import execute_create_stock_zh_a_spot_em
 
 app = register_app()
 
@@ -376,6 +378,42 @@ def init_scheduler():
         second=10,
         day_of_week='mon,tue,wed,thu,fri'
     )
+    # 板块-行业板块-实时
+    scheduler.add_job(
+        execute_create_stock_board_industry_em,
+        'cron',
+        hour=9,
+        minute=30,
+        second=30,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
+    # 收盘执行
+    scheduler.add_job(
+        execute_create_stock_board_industry_em,
+        'cron',
+        hour=14,
+        minute=50,
+        second=10,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
+    # 板块-概念板块-实时
+    scheduler.add_job(
+        execute_create_stock_board_concept_em_realtime,
+        'cron',
+        hour=9,
+        minute=30,
+        second=30,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
+    # 收盘执行
+    scheduler.add_job(
+        execute_create_stock_board_concept_em_realtime,
+        'cron',
+        hour=14,
+        minute=50,
+        second=10,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
     # 资金流--个股--详细--即时
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=16, minute=17, second=0)
     scheduler.add_job(execute_create_stock_fund_single_detail_intraday, 'cron', hour=17, minute=17, second=0)
@@ -460,6 +498,11 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=20, minute=12, second=0)
 
     scheduler.add_job(execute_create_stock_pool_dt, 'cron', hour=22, minute=12, second=0)
+
+    # 东方财富-个股行情
+    scheduler.add_job(execute_create_stock_zh_a_spot_em, 'cron', hour=17, minute=12, second=0)
+    scheduler.add_job(execute_create_stock_zh_a_spot_em, 'cron', hour=19, minute=22, second=0)
+    scheduler.add_job(execute_create_stock_zh_a_spot_em, 'cron', hour=22, minute=24, second=0)
 
     # 东方财富-概念板块
     scheduler.add_job(execute_create_stock_board_concept_em, 'cron', hour=17, minute=38, second=0)
