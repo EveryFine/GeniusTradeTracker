@@ -25,7 +25,8 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_fund_concept_detail_intraday, stock_fund_concept_detail_rank, stock_pool_zt, stock_pool_strong, \
     stock_pool_sub_new, stock_pool_zb, stock_pool_dt, stock_check, stock_history_bao_k, stock_history_bao_k_qfq, \
     stock_history_bao_k_hfq, stock_cyq_em, stock_lhb_detail_em, stock_lhb_hyyyb_em, stock_lhb_yyb_detail_em, \
-    stock_fund_single_detail_realtime, stock_zh_a_spot_em_realtime, stock_board_concept_em, stock_board_industry_em
+    stock_fund_single_detail_realtime, stock_zh_a_spot_em_realtime, stock_board_concept_em, stock_board_industry_em, \
+    stock_board_industry_cons_em, stock_board_concept_cons_em
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -140,8 +141,14 @@ v1.include_router(stock_pool_dt.router, prefix='/pool_dt',
 v1.include_router(stock_board_concept_em.router, prefix='/board_concept',
                   tags=['东方财富-概念板块'])
 
+v1.include_router(stock_board_concept_cons_em.router, prefix='/board_concept_cons',
+                  tags=['东方财富-概念板块-成分股'])
+
 v1.include_router(stock_board_industry_em.router, prefix='/board_industry',
                   tags=['东方财富-行业板块'])
+
+v1.include_router(stock_board_industry_cons_em.router, prefix='/board_industry_cons',
+                  tags=['东方财富-行业板块-成分股'])
 
 v1.include_router(stock_lhb_detail_em.router, prefix='/lhb_detail_em',
                   tags=['龙虎榜--详细--东财'])
