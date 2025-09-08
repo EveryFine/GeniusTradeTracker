@@ -27,6 +27,7 @@ from app.core.db import engine
 from app.core.register import register_app
 from app.task.stock_board_concept_em_realtime_task import execute_create_stock_board_concept_em_realtime
 from app.task.stock_board_concept_em_task import execute_create_stock_board_concept_em
+from app.task.stock_board_industry_em_realtime_task import execute_create_stock_board_industry_em_realtime
 from app.task.stock_board_industry_em_task import execute_create_stock_board_industry_em
 from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
 from app.task.stock_comment_task import execute_create_stock_comment
@@ -380,7 +381,7 @@ def init_scheduler():
     )
     # 板块-行业板块-实时
     scheduler.add_job(
-        execute_create_stock_board_industry_em,
+        execute_create_stock_board_industry_em_realtime,
         'cron',
         hour=9,
         minute=30,
@@ -389,7 +390,7 @@ def init_scheduler():
     )
     # 收盘执行
     scheduler.add_job(
-        execute_create_stock_board_industry_em,
+        execute_create_stock_board_industry_em_realtime,
         'cron',
         hour=14,
         minute=50,
