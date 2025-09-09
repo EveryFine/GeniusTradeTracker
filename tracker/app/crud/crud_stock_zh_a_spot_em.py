@@ -28,11 +28,12 @@ def create_stock_zh_a_spot_em(*, session: Session) -> int:
     trade_date = datetime.date.today()
     collect_time = datetime.datetime.now().time()
     stock_zh_a_spot_em_ths_df = ak.stock_zh_a_spot_em()
+    # stock_zh_a_spot_em_ths_df.to_csv('stock_zh_a_spot_em_20250909.csv')
 
     # 去除NaN
-    filtered_df = stock_zh_a_spot_em_ths_df.dropna(subset=['最新价'])
+    # filtered_df = stock_zh_a_spot_em_ths_df.dropna(subset=['最新价'])
 
-    for index, row in filtered_df.iterrows():
+    for index, row in stock_zh_a_spot_em_ths_df.iterrows():
         res = create_stock_zh_a_spot_em_item(session, trade_date, collect_time, row)
         total_count += res
         if total_count > 0 and total_count % 100 == 0:
