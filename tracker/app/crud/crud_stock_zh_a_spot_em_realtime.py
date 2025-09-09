@@ -14,6 +14,7 @@
 __author__ = 'EveryFine'
 
 import datetime
+import math
 
 import akshare as ak
 from sqlmodel import Session
@@ -117,6 +118,8 @@ def get_value_with_hyphen(param):
     if param is None:
         return None
     elif str(param) == '-':
+        return None
+    elif math.isnan(param):
         return None
     else:
         return param
