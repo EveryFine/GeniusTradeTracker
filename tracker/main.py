@@ -189,6 +189,7 @@ def init_scheduler():
     # scheduler.add_job(execute_create_stock_cyq_em_3000_4000, 'cron', hour=2, minute=32, second=0)
     # scheduler.add_job(execute_create_stock_cyq_em_4000_5000, 'cron', hour=3, minute=42, second=0)
 
+
     # 盘口异动
     scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=18, minute=15, second=0)
     scheduler.add_job(execute_create_stock_change_abnormal, 'cron', hour=19, minute=10, second=0)
