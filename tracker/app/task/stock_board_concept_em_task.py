@@ -33,3 +33,7 @@ def execute_create_stock_board_concept_em():
         except Exception as e:
             error_msg = f"{datetime.now()} schedule task [create stock board concept em(东方财富-概念板块)] error: {str(e)}\n{traceback.format_exc()}"
             log.error(error_msg)
+
+
+if __name__ == '__main__':
+    execute_create_stock_board_concept_em()
