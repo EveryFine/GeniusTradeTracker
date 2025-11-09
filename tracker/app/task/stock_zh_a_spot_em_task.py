@@ -33,3 +33,7 @@ def execute_create_stock_zh_a_spot_em():
         except Exception as e:
             error_msg = f"{datetime.now()} schedule task [stock stock zh a spot em] error: {str(e)}\n{traceback.format_exc()}"
             log.error(error_msg)
+
+
+if __name__ == '__main__':
+    execute_create_stock_zh_a_spot_em()
