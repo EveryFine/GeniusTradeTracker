@@ -72,6 +72,7 @@ from app.task.stock_history_task import execute_create_stock_histories_0_1000, e
 from app.task.stock_lhb_detail_em_task import execute_create_stock_lhb_detail_em
 from app.task.stock_lhb_hyyyb_em_task import execute_create_stock_lhb_hyyyb_em
 from app.task.stock_lhb_yyb_detail_em_task import execute_create_stock_lhb_yyb_detail_em
+from app.task.stock_market_activity_realtime_task import execute_create_stock_market_activity_realtime
 from app.task.stock_news_task import execute_create_stock_news_0_1000, execute_create_stock_news_1000_2000, \
     execute_create_stock_news_2000_3000, execute_create_stock_news_3000_4000, execute_create_stock_news_4000_5000
 
@@ -530,6 +531,23 @@ def init_scheduler():
     # # # 当天数据检查
     # # scheduler.add_job(execute_stock_current_day_check, 'cron', hour=23, minute=20, second=0)
     # # scheduler.add_job(execute_stock_history_current_day_check, 'cron', hour=23, minute=30, second=0)
+    # 赚钱效应分析
+    scheduler.add_job(
+        execute_create_stock_market_activity_realtime,
+        'cron',
+        hour='9,10,11,13,14,15',
+        minute=30,
+        second=30,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
+    scheduler.add_job(
+        execute_create_stock_market_activity_realtime,
+        'cron',
+        hour=22,
+        minute=0,
+        second=30,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
 
     scheduler.start()
 

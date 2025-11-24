@@ -26,7 +26,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_pool_sub_new, stock_pool_zb, stock_pool_dt, stock_check, stock_history_bao_k, stock_history_bao_k_qfq, \
     stock_history_bao_k_hfq, stock_cyq_em, stock_lhb_detail_em, stock_lhb_hyyyb_em, stock_lhb_yyb_detail_em, \
     stock_fund_single_detail_realtime, stock_zh_a_spot_em_realtime, stock_board_concept_em, stock_board_industry_em, \
-    stock_board_industry_cons_em, stock_board_concept_cons_em, stock_zh_a_spot_em
+    stock_board_industry_cons_em, stock_board_concept_cons_em, stock_zh_a_spot_em, stock_market_activity_realtime
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -110,6 +110,8 @@ v1.include_router(stock_fund_single_detail_rank.router, prefix='/fund_single_det
                   tags=['资金流--个股--详细--排行'])
 
 v1.include_router(stock_fund_market_detail.router, prefix='/fund_market_detail', tags=['资金流--大盘'])
+
+v1.include_router(stock_market_activity_realtime.router, prefix='/market_activity_realtime', tags=['赚钱效应分析-大盘'])
 
 v1.include_router(stock_fund_industry_detail_intraday.router, prefix='/fund_industry_detail_intraday',
                   tags=['资金流--行业--详细--即时'])
