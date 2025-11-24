@@ -540,14 +540,6 @@ def init_scheduler():
         second=30,
         day_of_week='mon,tue,wed,thu,fri'
     )
-    scheduler.add_job(
-        execute_create_stock_market_activity_realtime,
-        'cron',
-        hour=22,
-        minute=0,
-        second=30,
-        day_of_week='mon,tue,wed,thu,fri'
-    )
 
     scheduler.start()
 
