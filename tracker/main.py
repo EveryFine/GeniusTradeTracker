@@ -553,15 +553,6 @@ def init_scheduler():
         day_of_week='mon,tue,wed,thu,fri'
     )
 
-    scheduler.add_job(
-        execute_create_stock_zh_a_spot_sina_realtime,
-        'cron',
-        hour=21,
-        minute=30,
-        second=30,
-        day_of_week='mon,tue,wed,thu,fri'
-    )
-
     scheduler.start()
 
 
