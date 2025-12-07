@@ -14,6 +14,8 @@
 __author__ = 'EveryFine'
 
 import datetime
+import time
+
 from sqlmodel import Session, select
 from fastapi import Query
 from app.crud.crud_stock_info import get_all_stocks, get_stock_infos
@@ -40,6 +42,7 @@ def create_part_stock_cyq_em(*, session: Session,
 def create_cyq_em_by_list(session, stock_infos):
     cyq_count = 0
     for stock_info in stock_infos:
+        time.sleep(0.5)  # 避免请求过快被封IP
         stock_cyq_em_df = ak.stock_cyq_em(symbol=stock_info.symbol, adjust="")
         for index, row in stock_cyq_em_df.iterrows():
             res = create_stock_cyq_em_item(session=session, row=row, symbol=stock_info.symbol,
