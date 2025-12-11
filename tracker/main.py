@@ -543,6 +543,15 @@ def init_scheduler():
         day_of_week='mon,tue,wed,thu,fri'
     )
 
+    scheduler.add_job(
+        execute_create_stock_market_activity_realtime,
+        'cron',
+        hour=9,
+        minute='45,55',
+        second=30,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
+
     # 实时行情数据--新浪--沪深A股
     scheduler.add_job(
         execute_create_stock_zh_a_spot_sina_realtime,
