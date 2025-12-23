@@ -556,7 +556,7 @@ def init_scheduler():
     scheduler.add_job(
         execute_create_stock_zh_a_spot_sina_realtime,
         'cron',
-        hour='9,10,11,13,14,15',
+        hour='9,10,11,13,14,16',
         minute=30,
         second=30,
         day_of_week='mon,tue,wed,thu,fri'
