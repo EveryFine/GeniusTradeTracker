@@ -24,7 +24,7 @@ class StockChangeAbnormalBase(SQLModel):
     event_time: datetime.time | None = Field(default=None, description='事件发生时间', index=True)
     name: str | None = Field(max_length=40, description='股票名称')
     event: str | None = Field(max_length=40, description='事件')
-    attach_info: str | None = Field(max_length=40, description='事件')
+    attach_info: str | None = Field(max_length=40, description='相关信息')
     created_at: datetime.datetime | None = Field(default=datetime.datetime.now(), description='创建时间', index=True)
     updated_at: datetime.datetime | None = Field(default=datetime.datetime.now(), description='更新时间', index=True)
 
