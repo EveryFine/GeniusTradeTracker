@@ -57,7 +57,7 @@ def create_histories_by_list(session, stock_infos):
                                               start_date=start_date, end_date=end_date,
                                               frequency="d", adjustflag="3")
             stock_bao_k_data = rs.get_data()
-            # log.info(f"Data fetched for {code}, rows: {len(stock_bao_k_data)} in {time.time() - start_time:.2f} seconds")
+            log.info(f"stock_bao_k: Data fetched for {code}, rows: {len(stock_bao_k_data)} in {time.time() - start_time:.2f} seconds")
             # start_time = time.time()  # 重置计时
             for index, row in stock_bao_k_data.iterrows():
                 stock_hist = create_stock_hist_bao_k(session=session, row=row, symbol=symbol, name=name)
