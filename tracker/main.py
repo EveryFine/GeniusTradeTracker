@@ -152,11 +152,11 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_history_bao_k_4000_5000, 'cron', hour=5, minute=30, second=0)
 
     # 历史行情 - BaoStock 前复权
-    # scheduler.add_job(execute_create_stock_history_bao_k_qfq_0_1000, 'cron', hour=21, minute=11, second=0)
-    # scheduler.add_job(execute_create_stock_history_bao_k_qfq_1000_2000, 'cron', hour=23, minute=11, second=0)
-    # scheduler.add_job(execute_create_stock_history_bao_k_qfq_2000_3000, 'cron', hour=1, minute=11, second=0)
-    # scheduler.add_job(execute_create_stock_history_bao_k_qfq_3000_4000, 'cron', hour=3, minute=11, second=0)
-    # scheduler.add_job(execute_create_stock_history_bao_k_qfq_4000_5000, 'cron', hour=5, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_0_1000, 'cron', hour=22, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_1000_2000, 'cron', hour=23, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_2000_3000, 'cron', hour=1, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_3000_4000, 'cron', hour=3, minute=11, second=0)
+    scheduler.add_job(execute_create_stock_history_bao_k_qfq_4000_5000, 'cron', hour=5, minute=11, second=0)
 
     # 历史行情 - BaoStock 后复权
     # scheduler.add_job(execute_create_stock_history_bao_k_hfq_0_1000, 'cron', hour=4, minute=11, second=0)
