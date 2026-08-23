@@ -529,7 +529,7 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_lhb_yyb_detail_em, 'cron', hour=19, minute=7, second=20)
 
     # instock数据转存
-    scheduler.add_job(execute_sync_cn_stock_selection_last_3_days, 'cron', hour=21, minute=7, second=20)
+    scheduler.add_job(execute_sync_cn_stock_selection_last_3_days, 'cron', hour=20, minute=7, second=20)
 
     #
     # # # 当天数据检查
