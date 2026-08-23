@@ -25,6 +25,7 @@ from app.common.log import log
 from app.core.conf import settings
 from app.core.db import engine
 from app.core.register import register_app
+from app.task.mariadb_cn_stock_selection_task import execute_sync_cn_stock_selection_last_3_days
 from app.task.stock_board_concept_em_realtime_task import execute_create_stock_board_concept_em_realtime
 from app.task.stock_board_concept_em_task import execute_create_stock_board_concept_em
 from app.task.stock_board_industry_em_realtime_task import execute_create_stock_board_industry_em_realtime
@@ -527,6 +528,8 @@ def init_scheduler():
     # 龙虎榜--营业部详情数据--东财
     scheduler.add_job(execute_create_stock_lhb_yyb_detail_em, 'cron', hour=19, minute=7, second=20)
 
+    # instock数据转存
+    scheduler.add_job(execute_sync_cn_stock_selection_last_3_days, 'cron', hour=21, minute=7, second=20)
 
     #
     # # # 当天数据检查
