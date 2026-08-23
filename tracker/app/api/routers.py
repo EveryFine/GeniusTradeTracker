@@ -28,6 +28,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_fund_single_detail_realtime, stock_zh_a_spot_em_realtime, stock_board_concept_em, stock_board_industry_em, \
     stock_board_industry_cons_em, stock_board_concept_cons_em, stock_zh_a_spot_em, stock_market_activity_realtime, \
     stock_zh_a_spot_sina_realtime
+from app.api.v1 import cn_stock_selection
 from app.core.conf import settings
 
 v1 = APIRouter(prefix=settings.API_V1_STR)
@@ -170,3 +171,4 @@ v1.include_router(stock_lhb_yyb_detail_em.router, prefix='/lhb_yyb_detail_em',
 
 v1.include_router(stock_check.router, prefix='/check',
                   tags=['当天检查'])
+v1.include_router(cn_stock_selection.router, prefix='/cn_stock_selection', tags=['cn_stock_selection'])

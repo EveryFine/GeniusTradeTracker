@@ -14,7 +14,7 @@
 __author__ = 'EveryFine'
 
 from functools import lru_cache
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import PostgresDsn, computed_field
 from pydantic_core import MultiHostUrl
@@ -32,6 +32,13 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
+
+    # Env MariaDB (source)
+    MARIADB_HOST: Optional[str] = None
+    MARIADB_PORT: int = 3306
+    MARIADB_USER: Optional[str] = None
+    MARIADB_PASSWORD: Optional[str] = None
+    MARIADB_DB: Optional[str] = None
 
     DB_ECHO: bool = True
 
