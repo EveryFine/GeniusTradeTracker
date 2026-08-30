@@ -83,5 +83,29 @@ def create_stock_board_industry_em_item(session, trade_date, collect_time, row):
 def get_stock_board_industry_em_items(session, symbol, trade_date):
     statement = (select(StockBoardIndustryEm).where(StockBoardIndustryEm.symbol == symbol).
                  where(StockBoardIndustryEm.trade_date == trade_date))
-    items = session.execute(statement).all()
+    items = session.exec(statement).all()
     return items
+
+
+def get_unique_board_symbols_last_year(session):
+    """Return list of unique industry symbols and names from the past year.
+
+    Keeps the most recent record per `symbol` within the last 365 days.
+    Returns list of dicts `[{"symbol": ..., "name": ...}, ...]`.
+    """
+    start_date = datetime.date.today() - datetime.timedelta(days=365)
+    statement = (
+        select(StockBoardIndustryEm)
+        .where(StockBoardIndustryEm.trade_date >= start_date)
+        .order_by(StockBoardIndustryEm.symbol, StockBoardIndustryEm.trade_date.desc())
+    )
+    items = session.exec(statement).all()
+    result = []
+    seen = set()
+    for it in items:
+        sym = it.symbol
+        if sym in seen:
+            continue
+        seen.add(sym)
+        result.append({"symbol": sym, "name": it.name})
+    return result

@@ -30,6 +30,7 @@ from app.task.stock_board_change_em_task import execute_create_stock_board_chang
 from app.task.stock_board_concept_cons_em_task import execute_create_stock_board_concept_cons_em
 from app.task.stock_board_concept_em_realtime_task import execute_create_stock_board_concept_em_realtime
 from app.task.stock_board_concept_em_task import execute_create_stock_board_concept_em
+from app.task.stock_board_industry_cons_em_task import execute_create_stock_board_industry_cons_em
 from app.task.stock_board_industry_em_realtime_task import execute_create_stock_board_industry_em_realtime
 from app.task.stock_board_industry_em_task import execute_create_stock_board_industry_em
 from app.task.stock_change_abnormal_task import execute_create_stock_change_abnormal
@@ -525,6 +526,11 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=17, minute=46, second=0)
     scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=19, minute=28, second=0)
     scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=21, minute=55, second=0)
+
+    # 东方财富-行业板块-成分股
+    scheduler.add_job(execute_create_stock_board_industry_cons_em, 'cron', hour=18, minute=26, second=0)
+    scheduler.add_job(execute_create_stock_board_industry_cons_em, 'cron', hour=19, minute=47, second=0)
+    scheduler.add_job(execute_create_stock_board_industry_cons_em, 'cron', hour=22, minute=32, second=0)
 
     # 东方财富-行情中心-当日板块异动详情
     scheduler.add_job(
