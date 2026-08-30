@@ -26,6 +26,7 @@ from app.core.conf import settings
 from app.core.db import engine
 from app.core.register import register_app
 from app.task.mariadb_cn_stock_selection_task import execute_sync_cn_stock_selection_last_3_days
+from app.task.stock_board_change_em_task import execute_create_stock_board_change_em
 from app.task.stock_board_concept_em_realtime_task import execute_create_stock_board_concept_em_realtime
 from app.task.stock_board_concept_em_task import execute_create_stock_board_concept_em
 from app.task.stock_board_industry_em_realtime_task import execute_create_stock_board_industry_em_realtime
@@ -518,6 +519,25 @@ def init_scheduler():
     scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=17, minute=46, second=0)
     scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=19, minute=28, second=0)
     scheduler.add_job(execute_create_stock_board_industry_em, 'cron', hour=21, minute=55, second=0)
+
+    # 东方财富-行情中心-当日板块异动详情
+    scheduler.add_job(
+        execute_create_stock_board_change_em,
+        'cron',
+        hour='9,10,11,13,14,15',
+        minute=30,
+        second=30,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
+
+    scheduler.add_job(
+        execute_create_stock_board_change_em,
+        'cron',
+        hour=9,
+        minute='26,45,55',
+        second=30,
+        day_of_week='mon,tue,wed,thu,fri'
+    )
 
     # 龙虎榜--详情--东财
     scheduler.add_job(execute_create_stock_lhb_detail_em, 'cron', hour=18, minute=23, second=0)
