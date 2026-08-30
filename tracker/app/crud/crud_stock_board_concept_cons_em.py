@@ -18,7 +18,9 @@ import time
 
 import akshare as ak
 from sqlmodel import select, Session
+
 from app.common.log import log
+from app.crud.crud_stock_board_concept_em import get_stock_board_concept_symbol
 
 from app.models.stock_board_concept_cons_em import StockBoardConceptConsEm
 
@@ -31,7 +33,7 @@ def create_stock_board_concept_cons_em(*, session: Session) -> int:
         board_name = row['板块名称']
         concept_items_saved = get_stock_board_concept_em_items(session, board_symbol)
         if concept_items_saved is None or len(concept_items_saved) == 0:
-            res = create_stock_board_concept_cons_em_item(session, row)
+            res = create_stock_board_concept_cons_em_item(session, board_symbol, board_name)
             create_count += res
             if create_count > 0 and create_count % 100 == 0:
                 session.commit()
@@ -42,10 +44,14 @@ def create_stock_board_concept_cons_em(*, session: Session) -> int:
     log.info(f'creat stock board concept em finish, created count: {create_count}')
     return create_count
 
+def create_stock_board_concept_cons_em_by_board_name(*, session: Session,board_name) -> int:
+    board_symbol = get_stock_board_concept_symbol(session, board_name)
+    res = create_stock_board_concept_cons_em_item(session, board_symbol, board_name)
+    session.commit()
+    log.info(f'creat stock board concept em(board_symbol:{board_symbol},board_name:{board_name}) finish, created count: {res}')
+    return res
 
-def create_stock_board_concept_cons_em_item(session, board_row):
-    board_name = board_row['板块名称']
-    board_symbol = board_row['板块代码']
+def create_stock_board_concept_cons_em_item(session, board_symbol,board_name):
 
     created_at = datetime.datetime.now()
     updated_at = datetime.datetime.now()
@@ -70,6 +76,8 @@ def create_stock_board_concept_cons_em_item(session, board_row):
         else:
             cons_count += 0
     return cons_count
+
+
 
 
 def get_stock_board_concept_cons_em_items(session, board_symbol, stock_symbol):

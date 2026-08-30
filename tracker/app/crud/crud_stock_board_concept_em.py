@@ -83,5 +83,13 @@ def create_stock_board_concept_em_item(session, trade_date,collect_time, row):
 def get_stock_board_concept_em_items(session, symbol, trade_date):
     statement = (select(StockBoardConceptEm).where(StockBoardConceptEm.symbol == symbol).
                  where(StockBoardConceptEm.trade_date == trade_date))
-    items = session.execute(statement).all()
+    # use session.exec to get scalar model instances instead of Row tuples
+    items = session.exec(statement).all()
     return items
+
+def get_stock_board_concept_symbol(session, board_name):
+    statement = (select(StockBoardConceptEm).where(StockBoardConceptEm.name == board_name))
+    items = session.exec(statement).all()
+    if not items:
+        return None
+    return items[0].symbol
