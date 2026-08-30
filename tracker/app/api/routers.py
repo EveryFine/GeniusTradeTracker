@@ -27,7 +27,7 @@ from app.api.v1 import artist, stock_exchange, stock_info, stock_history, stock_
     stock_history_bao_k_hfq, stock_cyq_em, stock_lhb_detail_em, stock_lhb_hyyyb_em, stock_lhb_yyb_detail_em, \
     stock_fund_single_detail_realtime, stock_zh_a_spot_em_realtime, stock_board_concept_em, stock_board_industry_em, \
     stock_board_industry_cons_em, stock_board_concept_cons_em, stock_zh_a_spot_em, stock_market_activity_realtime, \
-    stock_zh_a_spot_sina_realtime
+    stock_zh_a_spot_sina_realtime, stock_board_change_em
 from app.api.v1 import cn_stock_selection
 from app.core.conf import settings
 
@@ -159,6 +159,9 @@ v1.include_router(stock_board_industry_em.router, prefix='/board_industry',
 
 v1.include_router(stock_board_industry_cons_em.router, prefix='/board_industry_cons',
                   tags=['东方财富-行业板块-成分股'])
+
+v1.include_router(stock_board_change_em.router, prefix='/board_change',
+                  tags=['东方财富-行情中心-当日板块异动详情'])
 
 v1.include_router(stock_lhb_detail_em.router, prefix='/lhb_detail_em',
                   tags=['龙虎榜--详细--东财'])
