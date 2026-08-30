@@ -83,5 +83,37 @@ def create_stock_board_concept_em_item(session, trade_date,collect_time, row):
 def get_stock_board_concept_em_items(session, symbol, trade_date):
     statement = (select(StockBoardConceptEm).where(StockBoardConceptEm.symbol == symbol).
                  where(StockBoardConceptEm.trade_date == trade_date))
-    items = session.execute(statement).all()
+    # use session.exec to get scalar model instances instead of Row tuples
+    items = session.exec(statement).all()
     return items
+
+def get_stock_board_concept_symbol(session, board_name):
+    statement = (select(StockBoardConceptEm).where(StockBoardConceptEm.name == board_name))
+    items = session.exec(statement).all()
+    if not items:
+        return None
+    return items[0].symbol
+
+
+def get_unique_board_symbols_last_year(session):
+    """Return list of unique board symbols and names from the past year.
+
+    The result keeps the most recent record per `symbol` within the last 365 days.
+    Returns: List[dict] like `[{'symbol': 'SZ0001', 'name': '板块名'}, ...]`.
+    """
+    start_date = datetime.date.today() - datetime.timedelta(days=365)
+    statement = (
+        select(StockBoardConceptEm)
+        .where(StockBoardConceptEm.trade_date >= start_date)
+        .order_by(StockBoardConceptEm.symbol, StockBoardConceptEm.trade_date.desc())
+    )
+    items = session.exec(statement).all()
+    result = []
+    seen = set()
+    for it in items:
+        sym = it.symbol
+        if sym in seen:
+            continue
+        seen.add(sym)
+        result.append({'symbol': sym, 'name': it.name})
+    return result
