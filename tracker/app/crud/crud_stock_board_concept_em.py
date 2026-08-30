@@ -93,3 +93,27 @@ def get_stock_board_concept_symbol(session, board_name):
     if not items:
         return None
     return items[0].symbol
+
+
+def get_unique_board_symbols_last_year(session):
+    """Return list of unique board symbols and names from the past year.
+
+    The result keeps the most recent record per `symbol` within the last 365 days.
+    Returns: List[dict] like `[{'symbol': 'SZ0001', 'name': '板块名'}, ...]`.
+    """
+    start_date = datetime.date.today() - datetime.timedelta(days=365)
+    statement = (
+        select(StockBoardConceptEm)
+        .where(StockBoardConceptEm.trade_date >= start_date)
+        .order_by(StockBoardConceptEm.symbol, StockBoardConceptEm.trade_date.desc())
+    )
+    items = session.exec(statement).all()
+    result = []
+    seen = set()
+    for it in items:
+        sym = it.symbol
+        if sym in seen:
+            continue
+        seen.add(sym)
+        result.append({'symbol': sym, 'name': it.name})
+    return result

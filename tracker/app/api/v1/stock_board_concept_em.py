@@ -18,7 +18,8 @@ import traceback
 from fastapi import APIRouter, HTTPException
 
 from app.api.deps import SessionDep
-from app.crud.crud_stock_board_concept_em import create_stock_board_concept_em
+from app.common.log import log
+from app.crud.crud_stock_board_concept_em import create_stock_board_concept_em, get_unique_board_symbols_last_year
 
 router = APIRouter()
 
@@ -30,4 +31,15 @@ def create_all_stock_board_concept_em(session: SessionDep):
         return create_count
     except Exception as e:
         error_msg = f"Error creating stock_board_concept_em: {str(e)}\n{traceback.format_exc()}"
+        log.error(error_msg)
+        raise HTTPException(status_code=500, detail=error_msg)
+
+
+@router.get('/unique_symbols_last_year')
+def unique_symbols_last_year(session: SessionDep):
+    try:
+        return get_unique_board_symbols_last_year(session)
+    except Exception as e:
+        error_msg = f"Error fetching unique symbols: {str(e)}\n{traceback.format_exc()}"
+        log.error(error_msg)
         raise HTTPException(status_code=500, detail=error_msg)

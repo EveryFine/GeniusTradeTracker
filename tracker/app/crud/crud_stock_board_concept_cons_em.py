@@ -18,40 +18,54 @@ import time
 
 import akshare as ak
 from sqlmodel import select, Session
+import random
 
 from app.common.log import log
-from app.crud.crud_stock_board_concept_em import get_stock_board_concept_symbol
+from app.crud.crud_stock_board_concept_em import get_stock_board_concept_symbol, get_unique_board_symbols_last_year
+from app.crud.crud_stock_trade_date import get_last_trade_date
 
 from app.models.stock_board_concept_cons_em import StockBoardConceptConsEm
 
 
 def create_stock_board_concept_cons_em(*, session: Session) -> int:
     create_count = 0
-    stock_board_concept_em_df = ak.stock_board_concept_name_em()
-    for index, row in stock_board_concept_em_df.iterrows():
-        board_symbol = row['板块代码']
-        board_name = row['板块名称']
-        concept_items_saved = get_stock_board_concept_em_items(session, board_symbol)
-        if concept_items_saved is None or len(concept_items_saved) == 0:
-            res = create_stock_board_concept_cons_em_item(session, board_symbol, board_name)
-            create_count += res
-            if create_count > 0 and create_count % 100 == 0:
-                session.commit()
-        else:
-            log.info(f'creat stock board concept stock(board_symbol:{board_symbol},board_name:{board_name}) exist, skip')
-        time.sleep(1)
+    # stock_board_concept_em_df = ak.stock_board_concept_name_em()
+    board_items =  get_unique_board_symbols_last_year(session) or []
+    board_items = list(board_items)
+    random.shuffle(board_items)
+    trade_date = get_last_trade_date(session=session, final_datetime=datetime.datetime.now())
+    collect_time = datetime.datetime.now()
+    # for index, row in stock_board_concept_em_df.iterrows():
+    for board_item in board_items:
+        board_symbol = board_item['symbol']
+        board_name = board_item['name']
+        # concept_items_saved = get_stock_board_concept_em_items(session, board_symbol)
+        res = create_stock_board_concept_cons_em_item(session, board_symbol, board_name,trade_date,collect_time)
+        create_count += res
+
+        session.commit()
+        # if concept_items_saved is None or len(concept_items_saved) == 0:
+        #     res = create_stock_board_concept_cons_em_item(session, board_symbol, board_name)
+        #     create_count += res
+        #     if create_count > 0 and create_count % 100 == 0:
+        #         session.commit()
+        # else:
+        #     log.info(f'creat stock board concept stock(board_symbol:{board_symbol},board_name:{board_name}) exist, skip')
+        # time.sleep(1)
     session.commit()
     log.info(f'creat stock board concept em finish, created count: {create_count}')
     return create_count
 
 def create_stock_board_concept_cons_em_by_board_name(*, session: Session,board_name) -> int:
     board_symbol = get_stock_board_concept_symbol(session, board_name)
-    res = create_stock_board_concept_cons_em_item(session, board_symbol, board_name)
+    trade_date = get_last_trade_date(session=session, final_datetime=datetime.datetime.now())
+    collect_time = datetime.datetime.now()
+    res = create_stock_board_concept_cons_em_item(session, board_symbol, board_name,trade_date,collect_time)
     session.commit()
     log.info(f'creat stock board concept em(board_symbol:{board_symbol},board_name:{board_name}) finish, created count: {res}')
     return res
 
-def create_stock_board_concept_cons_em_item(session, board_symbol,board_name):
+def create_stock_board_concept_cons_em_item(session, board_symbol,board_name,trade_date,collect_time):
 
     created_at = datetime.datetime.now()
     updated_at = datetime.datetime.now()
@@ -60,13 +74,40 @@ def create_stock_board_concept_cons_em_item(session, board_symbol,board_name):
     for index, stock_row in stock_board_concept_cons_em_df.iterrows():
         stock_name = stock_row['名称']
         stock_symbol = stock_row['代码']
-        items_saved = get_stock_board_concept_cons_em_items(session, board_symbol, stock_symbol)
+        stock_index = stock_row['序号']
+        latest_price = stock_row['最新价']
+        change_rate = stock_row['涨跌幅']
+        change_amount = stock_row['涨跌额']
+        volume = stock_row['成交量']
+        turnover = stock_row['成交额']
+        range = stock_row['振幅']
+        high = stock_row['最高']
+        low = stock_row['最低']
+        open = stock_row['今开']
+        pre_close = stock_row['昨收']
+        turnover_rate = stock_row['换手率']
+        forward_pe_ratio = stock_row['市盈率-动态']
+        pb_mrq = stock_row['市净率']
+        items_saved = get_stock_board_concept_cons_em_items(session, board_symbol, stock_symbol,collect_time)
         if items_saved is None or len(items_saved) == 0:
-            stock_board_concept_cons_em_create = StockBoardConceptConsEm(
+            stock_board_concept_cons_em_create = StockBoardConceptConsEm(trade_date=trade_date,
+                                                            collect_time=collect_time,
                 board_name=board_name,
                 board_symbol=board_symbol,
                 stock_name=stock_name,
                 stock_symbol=stock_symbol,
+                                                                         stock_index=stock_index,latest_price=latest_price,change_rate=change_rate,
+                                                                         change_amount=change_amount,
+                                                                         volume=volume,
+                                                                         turnover=turnover,
+                                                                         range=range,
+                                                                         high=high,
+                                                                         low=low,
+                                                                         open=open,
+                                                                         pre_close=pre_close,
+                                                                         turnover_rate=turnover_rate,
+                                                                         forward_pe_ratio=forward_pe_ratio,
+                                                                         pb_mrq=pb_mrq,
                 created_at=created_at,
                 updated_at=updated_at)
             db_stock_board_concept_cons_em = StockBoardConceptConsEm.model_validate(
@@ -80,9 +121,9 @@ def create_stock_board_concept_cons_em_item(session, board_symbol,board_name):
 
 
 
-def get_stock_board_concept_cons_em_items(session, board_symbol, stock_symbol):
+def get_stock_board_concept_cons_em_items(session, board_symbol, stock_symbol,collect_time):
     statement = (select(StockBoardConceptConsEm).where(StockBoardConceptConsEm.board_symbol == board_symbol).
-                 where(StockBoardConceptConsEm.stock_symbol == stock_symbol))
+                 where(StockBoardConceptConsEm.stock_symbol == stock_symbol).where(StockBoardConceptConsEm.collect_time == collect_time))
     items = session.execute(statement).all()
     return items
 
